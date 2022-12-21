@@ -8,10 +8,10 @@ class Photo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    title = db.Column(db.String(40), nullalbe=False)
+    title = db.Column(db.String(40), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     file_path = db.Column(db.String(255), nullable=False)
-    date_uploaded = db.Column(db.Datetime, server_default=db.func.now())
+    date_uploaded = db.Column(db.DateTime, server_default=db.func.now())
     tags = db.Column(db.String(40))
 
     users = db.relationship("User", back_populates="photos")
