@@ -14,14 +14,15 @@ class Photo(db.Model):
     date_uploaded = db.Column(db.Datetime, server_default=db.func.now())
     tags = db.Column(db.String(40))
 
+    users = db.relationship("User", back_populates="photos")
 
     def to_dict(self):
         return {
         "id": self.id,
         "user_id": self.user_id,
         "title": self.title,
-        "tags": self.tags,
-        "file_path": self.file_path,
         "description": self.description,
-        "date_uploaded": self.date_uploaded
+        "file_path": self.file_path,
+        "date_uploaded": self.date_uploaded,
+        "tags": self.tags
     }
