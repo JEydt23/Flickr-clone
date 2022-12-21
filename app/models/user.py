@@ -18,6 +18,8 @@ class User(db.Model, UserMixin):
     profile_picture = db.Column(db.String(255))
     bio = db.Column(db.String(1000))
 
+    photos = db.relationship("Photo", back_populates="users", cascade="all, delete")
+
     @property
     def password(self):
         return self.hashed_password
