@@ -13,16 +13,16 @@ function AllPhotos() {
     }, [dispatch]);
 
     if (!storiesState.length) return null;
-    console.log("storiesState ==== ", storiesState)
+    // console.log("storiesState ==== ", storiesState)
     return (
       <div>
         {storiesState.map(photo => (
 
           <div key={photo.User.id}>
-           { console.log("photo key ===== ", photo) }
+           {/* { console.log("photo key ===== ", photo) } */}
             <h2>{photo.title}</h2>
-            <p>{photo.description}</p>
             <img src={photo.file_path} alt={photo.title} />
+            <p>{photo.description}</p>
             <p>Uploaded by {photo.User.username} on {photo.date_uploaded}</p>
             {/* <p>Tags: {photo.tags.join(', ')}</p> */}
           </div>

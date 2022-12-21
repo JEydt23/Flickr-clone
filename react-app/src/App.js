@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import AllPhotos from './components/AllPhotos';
+import PhotoDetail from './components/PhotoDetails';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,6 +47,9 @@ function App() {
         </Route>
         <Route path='/photos' exact={true} >
           <AllPhotos />
+        </Route>
+        <Route path='/photos/:photoId' exact={true} >
+          <PhotoDetail />
         </Route>
       </Switch>
     </BrowserRouter>
