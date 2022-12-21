@@ -10,3 +10,17 @@ def seed_photos():
     photo3 = Photo(
         id='3', user_id="3", title="Man's Best Friend", description="Dogs are truly man's best friend. Loyal until the end.", file_path = "https://image.petmd.com/files/styles/863x625/public/CANS_dogsmiling_379727605.jpg", date_uploaded="2022-01-01", tags="Animals"
     )
+
+    db.session.add(photo1)
+    db.session.add(photo2)
+    db.session.add(photo3)
+
+    db.session.commit()
+
+def undo_photos():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.photos RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute("DELETE FROM photos")
+
+    db.session.commit()

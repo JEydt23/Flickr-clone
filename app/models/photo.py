@@ -12,7 +12,7 @@ class Photo(db.Model):
     description = db.Column(db.String(255), nullable=False)
     file_path = db.Column(db.String(255), nullable=False)
     date_uploaded = db.Column(db.Datetime, server_default=db.func.now())
-    tag = db.Column(db.String(40))
+    tags = db.Column(db.String(40))
 
     users = db.relationship("User", back_populates="photos")
 
