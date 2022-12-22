@@ -1,5 +1,6 @@
 const LOAD_ALL_PHOTOS = '/photos/LOAD_ALL_PHOTOS'
 const LOAD_ONE_PHOTO = '/photos/LOAD_ONE_PHOTO'
+const ADD_PHOTO = '/photos/ADD_PHOTO'
 
 // ACTION CREATORS
 
@@ -17,6 +18,13 @@ const onePhoto = photo => {
     }
 }
 
+const addPhoto = photo => {
+    return {
+        type: ADD_PHOTO,
+        photo
+    }
+}
+
 // THUNKS
 
 // GET ALL PHOTOS THUNK
@@ -25,7 +33,7 @@ export const getAllPhotos = () => async dispatch => {
     const response = await fetch(`/api/photos`)
     if (response.ok) {
         const photos = await response.json()
-        console.log("photos === ", photos)
+        // console.log("photos === ", photos)
         dispatch(allPhotos(photos))
         return photos
     }
@@ -34,12 +42,28 @@ export const getAllPhotos = () => async dispatch => {
 // GET ONE PHOTO THUNK
 
 export const getOnePhoto = (photoId) => async dispatch => {
-    console.log("photoId ===== ", photoId)
+    // console.log("photoId ===== ", photoId)
     const response = await fetch(`/api/photos/${photoId}`)
     if (response.ok) {
         const photo = await response.json()
         console.log("ONE PHOTO THUNK RES.OK ==== ", photo)
         dispatch(onePhoto(photo))
+        return photo
+    }
+}
+
+// CREATE A PHOTO THUNK
+
+export const createPhoto = (photo) => async dispatch => {
+    console.log("***** PHOTO ==== ", photo)
+    const response = await fetch(`/api/photos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(photo)
+    })
+    if (response.ok) {
+        const photo = await response.json()
+        dispatch(addPhoto(photo))
         return photo
     }
 }
@@ -59,8 +83,14 @@ export default function reducer(state = { viewOnePhoto: {}, viewAllPhotos: {} },
 
         case LOAD_ONE_PHOTO: {
             const newState = { viewOnePhoto: {}, viewAllPhotos: {} }
-            console.log("action.photo ==== ", action.photo)
+            // console.log("action.photo ==== ", action.photo)
             newState.viewOnePhoto = action.photo
+            return newState
+        }
+
+        case ADD_PHOTO: {
+            const newState = { ...state, viewOnePhoto: { ...state.photo }, viewAllPhotos: { ...state.viewAllPhotos } }
+            newState.photo = action.photo
             return newState
         }
 

@@ -46,16 +46,16 @@ def get_photo(photoId):
     userInfo = User.query.get(photo["user_id"])
 
     photo['userInfo'] = userInfo.to_dict()
-    print("***************************************************************Photo in backend ==== ", photo)
+    # print("***************************************************************Photo in backend ==== ", photo)
 
     return photo
 
 # CREATE A NEW PHOTO UPLOAD
 
 @photo_route.route('/', methods=['POST'])
-@login_required
-def create_story():
-    form= PhotoForm()
+# @login_required
+def create_photo():
+    form = PhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         new_photo = Photo(

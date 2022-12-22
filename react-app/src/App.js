@@ -10,6 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import AllPhotos from './components/AllPhotos';
 import PhotoDetail from './components/PhotoDetails';
+import CreatePhoto from './components/CreatePhoto';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -43,13 +44,16 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <h1>Picture This</h1>
         </Route>
         <Route path='/photos' exact={true} >
           <AllPhotos />
         </Route>
         <Route path='/photos/:photoId' exact={true} >
           <PhotoDetail />
+        </Route>
+        <Route path='/photos/new' exact={true} >
+          <CreatePhoto />
         </Route>
       </Switch>
     </BrowserRouter>
