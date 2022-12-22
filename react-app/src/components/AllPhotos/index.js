@@ -17,11 +17,14 @@ function AllPhotos() {
   // console.log("storiesState ==== ", storiesState)
   return (
     <div>
-      <button className='createPhotoButton'>
-        <NavLink to={`/photos/new`} className='create-a-photo' >
-          Upload a Photo
-        </NavLink>
-      </button>
+      <div>
+
+        <button className='createPhotoButton'>
+          <NavLink to={`/photos/new`} className='create-a-photo' >
+            Upload a Photo
+          </NavLink>
+        </button>
+      </div>
       <div>
         {storiesState.map(photo => (
           <div key={photo.User.id}>

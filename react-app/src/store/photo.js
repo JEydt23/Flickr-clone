@@ -1,3 +1,4 @@
+// import { csrfFetch } from './csrf'
 const LOAD_ALL_PHOTOS = '/photos/LOAD_ALL_PHOTOS'
 const LOAD_ONE_PHOTO = '/photos/LOAD_ONE_PHOTO'
 const ADD_PHOTO = '/photos/ADD_PHOTO'
@@ -57,7 +58,7 @@ export const getOnePhoto = (photoId) => async dispatch => {
 export const createPhoto = (photo) => async dispatch => {
     console.log("***** PHOTO ==== ", photo)
     const response = await fetch(`/api/photos`, {
-        method: "POST",
+        method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(photo)
     })
@@ -89,8 +90,9 @@ export default function reducer(state = { viewOnePhoto: {}, viewAllPhotos: {} },
         }
 
         case ADD_PHOTO: {
-            const newState = { ...state, viewOnePhoto: { ...state.photo }, viewAllPhotos: { ...state.viewAllPhotos } }
-            newState.photo = action.photo
+            const newState = { ...state, viewOnePhoto: { ...state.viewOnePhoto }, viewAllPhotos: { ...state.viewAllPhotos } }
+            newState.viewOnePhoto = action.photo
+            console.log("newState", newState)
             return newState
         }
 

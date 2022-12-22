@@ -64,10 +64,48 @@ def create_photo():
             file_path = form.data["file_path"],
             tags = form.data["tags"]
         )
-    if form.erros:
+    if form.errors:
         print(form.errors)
         return "Invalid data entered"
 
     db.session.add(new_photo)
     db.session.commit()
     return new_photo.to_dict()
+
+
+# UPDATE AN UPLOADED PHOTO
+
+@photo_route.route('/<int:photoId>', methods=['PUT'])
+# @login_required
+def update_photo(photoId):
+    photo = Photo.query.filter_by(id = photoId).first()
+    form = PhotoForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        setattr(photo, "title", form.data['title'])
+        setattr(photo, "description", form.data["description"])
+        setattr(photo, "file_path", form.data["file_path"])
+
+    if form.errrors:
+        print(form.errors)
+        return "Invalid data entered."
+
+    db.session.commit()
+    return photo.to_dict()
+
+
+# DELETE A PHOTO
+
+@photo_route.route('/<int:photoId>', methods=['DELETE'])
+# @login_required
+def delete_photo(photoId):
+    photo = Photo.query.filter_by(id = photoId).first()
+    if not photo:
+        return ("No Photo Found.")
+    else:
+        db.session.delete(photo)
+        db.session.commit()
+        return {
+            "message": "Successfully Deleted!",
+            "statusCode":200
+            }
