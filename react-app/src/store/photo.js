@@ -59,7 +59,7 @@ export const getAllPhotos = () => async dispatch => {
 // GET ONE PHOTO THUNK
 
 export const getOnePhoto = (photoId) => async dispatch => {
-    // console.log("photoId ===== ", photoId)
+    console.log("photoId ===== ", photoId)
     const response = await fetch(`/api/photos/${photoId}`)
     if (response.ok) {
         const photo = await response.json()
@@ -72,7 +72,7 @@ export const getOnePhoto = (photoId) => async dispatch => {
 // CREATE A PHOTO THUNK
 
 export const createPhoto = (photo) => async dispatch => {
-    // console.log("***** PHOTO ==== ", photo)
+    console.log("***** PHOTO ==== ", photo)
     const response = await fetch(`/api/photos`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
