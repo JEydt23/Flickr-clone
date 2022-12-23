@@ -1,32 +1,36 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getAllPhotos } from '../../store/photo';
+import { getAllPhotos, createPhoto } from '../../store/photo';
+
 
 
 
 function AllPhotos() {
-  const storiesState = useSelector(state => Object.values(state.photo.viewAllPhotos))
+  const photoState = useSelector(state => Object.values(state.photo.viewAllPhotos))
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllPhotos())
 
   }, [dispatch]);
 
-  if (!storiesState.length) return null;
-  // console.log("storiesState ==== ", storiesState)
+  function createAPhoto(){
+    dispatch(createPhoto())
+  }
+  if (!photoState.length) return null;
+  // console.log("photoState ==== ", photoState)
   return (
     <div>
       <div>
 
         <button className='createPhotoButton'>
-          <NavLink to={`/photos/new`} className='create-a-photo' >
+          <NavLink to={`/photos/new`} className='create-a-photo' onClick={createAPhoto}>
             Upload a Photo
           </NavLink>
         </button>
       </div>
       <div>
-        {storiesState.map(photo => (
+        {photoState.map(photo => (
           <div key={photo.User.id}>
             {/* { console.log("photo key ===== ", photo) } */}
             <h2>{photo.title}</h2>

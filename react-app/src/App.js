@@ -49,11 +49,11 @@ function App() {
         <Route path='/photos' exact={true} >
           <AllPhotos />
         </Route>
-        <Route path='/photos/:photoId' exact={true} >
-          <PhotoDetail />
-        </Route>
         <Route path='/photos/new' exact={true} >
           <CreatePhoto />
+        </Route>
+        <Route path='/photos/:photoId'  >
+          <PhotoDetail />
         </Route>
       </Switch>
     </BrowserRouter>

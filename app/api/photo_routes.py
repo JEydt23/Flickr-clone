@@ -52,13 +52,14 @@ def get_photo(photoId):
 
 # CREATE A NEW PHOTO UPLOAD
 
-@photo_route.route('/', methods=['POST'])
+@photo_route.route('/', methods=['POST'], strict_slashes=False)
 # @login_required
 def create_photo():
     form = PhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         new_photo = Photo(
+            user_id = current_user.id,
             title = form.data["title"],
             description = form.data["description"],
             file_path = form.data["file_path"],
@@ -70,6 +71,7 @@ def create_photo():
 
     db.session.add(new_photo)
     db.session.commit()
+    print("PINK MAGGIT new_photo ======= ", new_photo)
     return new_photo.to_dict()
 
 
