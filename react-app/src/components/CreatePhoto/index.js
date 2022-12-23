@@ -28,14 +28,14 @@ function CreatePhoto() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formValues = {
-            title, description, file_path
+            title, description, file_path, tags
         }
         const newPhoto = await dispatch(createPhoto(formValues))
         console.log("NEWPHOTO ====== ", newPhoto)
-        // if (newPhoto){
-        //     history.push(`/photos/${newPhoto.id}`)
+        if (newPhoto){
+            history.push(`/photos`)
 
-        // }
+        }
     }
 
     return (

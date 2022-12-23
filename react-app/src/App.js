@@ -11,13 +11,14 @@ import { authenticate } from './store/session';
 import AllPhotos from './components/AllPhotos';
 import PhotoDetail from './components/PhotoDetails';
 import CreatePhoto from './components/CreatePhoto';
+import EditPhoto from './components/EditPhoto';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -38,22 +39,25 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
-        <Route path='/' exact={true} >
-          <h1>Picture This</h1>
+        <Route path='/photos/new' exact={true} >
+          <CreatePhoto />
         </Route>
         <Route path='/photos' exact={true} >
           <AllPhotos />
         </Route>
-        <Route path='/photos/new' exact={true} >
-          <CreatePhoto />
+        <Route path='/photos/:photoId/edit' exact={true}>
+          <EditPhoto />
         </Route>
-        <Route path='/photos/:photoId'  >
+        <Route path='/photos/:photoId' exact={true} >
           <PhotoDetail />
+        </Route>
+        <Route path='/' exact={true} >
+          <h1>Picture This</h1>
         </Route>
       </Switch>
     </BrowserRouter>

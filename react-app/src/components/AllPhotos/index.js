@@ -31,12 +31,14 @@ function AllPhotos() {
       </div>
       <div>
         {photoState.map(photo => (
-          <div key={photo.User.id}>
+          <div key={photo.id}>
             {/* { console.log("photo key ===== ", photo) } */}
+            <NavLink to={`/photos/${photo.id}`}>
             <h2>{photo.title}</h2>
             <img src={photo.file_path} alt={photo.title} />
             <p>{photo.description}</p>
-            <p>Uploaded by {photo.User.username} on {photo.date_uploaded}</p>
+            <p>Uploaded by {photo.username} on {photo.date_uploaded}</p>
+            </NavLink>
             {/* <p>Tags: {photo.tags.join(', ')}</p> */}
           </div>
         ))}

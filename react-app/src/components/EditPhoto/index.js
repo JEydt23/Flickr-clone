@@ -16,8 +16,8 @@ function EditPhoto() {
 
     useEffect(() => {
         const validationErrors = [];
-        if (title.length < 2 || title.length > 40) validationErrors.push("The title must be greater than 2 characters and less than 40.")
-        if (description.length > 255) validationErrors.push("The description must be shorter than 255 characters.")
+        if (title?.length > 100) validationErrors.push("The title must be greater than 2 characters and less than 40.")
+        if (description?.length > 255) validationErrors.push("The description must be shorter than 255 characters.")
         if (!file_path?.match(/\.(gif|png|jpeg|jpg)$/)) validationErrors.push("The photo's URL must end in .gif, .png, .jpeg, or .jpg");
         setErrors(validationErrors)
     }, [title, description, file_path])
@@ -30,6 +30,7 @@ function EditPhoto() {
         setTitle(updatedThisPhoto.title)
         setDescription(updatedThisPhoto.description)
         setFile_Path(updatedThisPhoto.file_path)
+        setTags(updatedThisPhoto.tags)
     }, [updatedThisPhoto])
 
     const handleSubmit = async (e) => {
@@ -71,7 +72,7 @@ function EditPhoto() {
                         type="text"
                         className='file_pathInput'
                         value={file_path}
-                        placeholder="Image URL for your story"
+                        placeholder="Image URL for your photo"
                         onChange={(e) => setFile_Path(e.target.value)} />
                 </label>
                 <label>
@@ -80,7 +81,7 @@ function EditPhoto() {
                         type="text"
                         className='tagInput'
                         value={tags}
-                        placeholder="Image URL for your story"
+                        placeholder="Tags"
                         onChange={(e) => setTags(e.target.value)} />
                 </label>
                 <button type='submit'

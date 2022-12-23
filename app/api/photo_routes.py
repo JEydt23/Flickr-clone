@@ -18,6 +18,7 @@ def get_all_photos():
         photoUser = User.query.filter_by(id=photo.user_id).first()
 
         res.append({
+            "id": photo.id,
             "user_id": photo.user_id,
             "title": photo.title,
             "description": photo.description,
@@ -46,7 +47,7 @@ def get_photo(photoId):
     userInfo = User.query.get(photo["user_id"])
 
     photo['userInfo'] = userInfo.to_dict()
-    # print("***************************************************************Photo in backend ==== ", photo)
+
 
     return photo
 
@@ -71,7 +72,7 @@ def create_photo():
 
     db.session.add(new_photo)
     db.session.commit()
-    print("PINK MAGGIT new_photo ======= ", new_photo)
+
     return new_photo.to_dict()
 
 
@@ -88,9 +89,9 @@ def update_photo(photoId):
         setattr(photo, "description", form.data["description"])
         setattr(photo, "file_path", form.data["file_path"])
 
-    if form.errrors:
-        print(form.errors)
-        return "Invalid data entered."
+    # if form.errrors:
+    #     print(form.errors)
+    #     return "Invalid data entered."
 
     db.session.commit()
     return photo.to_dict()
