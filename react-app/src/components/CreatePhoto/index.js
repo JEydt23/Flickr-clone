@@ -12,7 +12,7 @@ function CreatePhoto() {
     const [tags, setTags] = useState("")
     const [errors, setErrors] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const validationErrors = [];
         // if (!title) validationErrors.push("You must give this photograph a title.")
         if (title.length < 2 || title.length > 40) validationErrors.push("The title must be greater than 2 characters and less than 40.")
@@ -32,7 +32,7 @@ function CreatePhoto() {
         }
         const newPhoto = await dispatch(createPhoto(formValues))
         console.log("NEWPHOTO ====== ", newPhoto)
-        if (newPhoto){
+        if (newPhoto) {
             history.push(`/photos`)
 
         }
