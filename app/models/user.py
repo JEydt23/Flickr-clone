@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.String(1000))
 
     photos = db.relationship("Photo", back_populates="users", cascade="all, delete")
+    comments = db.relationship("Comment", back_populates="users", cascade="all, delete")
 
     @property
     def password(self):
