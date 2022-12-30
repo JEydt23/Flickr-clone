@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { getOnePhoto, deletingPhoto } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
+import { GetCommentsByPhoto } from '../Comments/Comments';
 
 
 function PhotoDetail() {
@@ -39,6 +40,9 @@ function PhotoDetail() {
                 <img src={singlePhotoState.file_path} alt={singlePhotoState.title} />
                 <p>{singlePhotoState.description}</p>
                 <p>Uploaded by {singlePhotoState.username} on {singlePhotoState.date_uploaded}</p>
+            </div>
+            <div>
+                <GetCommentsByPhoto key={singlePhotoState.id} />
             </div>
         </div>
     )

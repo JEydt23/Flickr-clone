@@ -9,7 +9,7 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(1000), nullable=False)
-    user_Id = db.Column(db.Integer, db.ForeignKey(
+    user_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("users.id")), nullable=False)
     photo_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("photos.id")), nullable=False)
