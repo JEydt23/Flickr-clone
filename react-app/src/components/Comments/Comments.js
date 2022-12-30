@@ -4,12 +4,13 @@ import { getComments } from '../../store/comment';
 
 export const GetCommentsByPhoto = ({ photo }) => {
     const dispatch = useDispatch();
-    const photoComment = useSelector(state => Object.values(state.comment.allComments))
-
+    const photoComment = useSelector(state => state.allComments)
+    console.log("photoComment ~~~~~~~~~~~~~> ", photoComment)
     useEffect(() => {
         dispatch(getComments(photo?.id))
     }, [dispatch, photo?.id])
 
+    if (!photoComment) return null;
     return photoComment && (
         <div>
             {photoComment.map((ele) => (
