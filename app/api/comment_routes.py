@@ -7,7 +7,7 @@ comment_route = Blueprint("comments", __name__)
 
 # GET ALL COMMENTS FOR PHOTO ID
 
-@comment_route.route('/<int:photoId>')
+@comment_route.route('/<int:photo_id>')
 def get_comment(photo_id):
     print("\n \n \n XXXXXXXXXXXXXX~~~~~~~~~~~~~~~~~~~PHOTO ID ======", photo_id, "\n\n\n\n\n\n")
     result = []
@@ -15,8 +15,8 @@ def get_comment(photo_id):
 
     for comment in comments:
         res = comment.to_dict()
-        # users = User.query.filter_by(id=res['user_id']).first()
-        # res['user'] = users.to_dict()
+        users = User.query.filter_by(id=res['user_id']).first()
+        res['user'] = users.to_dict()
 
         result.append(res)
 
@@ -28,21 +28,27 @@ def get_comment(photo_id):
 
 # CREATE NEW COMMENT FOR PHOTO
 
-@comment_route.route('/<int:photoId>/comments', methods=["POST"])
-def create_comment(photoId):
+@comment_route.route('/<int:photo_id>/comments', methods=["POST"])
+@login_required
+def create_comment(photo_id):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    # users = User.query.filter_by(id = current_user.id).first()
 
     if form.validate_on_submit():
         new_comment = Comment(
           body = form.data['body'],
           user_id = current_user.id,
-          photo_id = photoId
+          photo_id = photo_id
         )
     if form.errors:
         return "Invalid data"
     db.session.add(new_comment)
     db.session.commit()
-    res = new_comment.to_dict()
+    print("xxxxxxxxxxxxxxNEW COMMENTxxxxxxxxxxxxxxxx = ", type(new_comment))
+    res = new_comment
+    # res['userTest'] = users.to_dict()
+    print("RES IN COMMENT_ROUTES ===== ", res)
+    print(" RES 232233 ==== ", res)
 
     return res

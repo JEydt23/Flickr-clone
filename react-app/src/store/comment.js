@@ -20,15 +20,17 @@ const addComment = comment => {
 // THUNKS
 
 export const getComments = photoId => async dispatch => {
+    console.log("GET COMMENTS THUNK PHOTOID ====== ", photoId)
     const res = await fetch(`/api/comments/${photoId}`)
     if (res.ok) {
         const comments = await res.json()
+        console.log("COMMENTS in THUNK ==== ", comments)
         dispatch(loadComments(comments))
         return comments
     }
 }
 
-export const createComment = commentObj => async dispatch => {
+export const createComment = (commentObj) => async dispatch => {
     console.log('THIS IS THE COMMENT IN THE CREATE COMMENT THUNK ====== ', commentObj)
     const { comment, photoId } = commentObj
     const res = await fetch(`/api/comments/${photoId}/comments`, {
@@ -39,6 +41,7 @@ export const createComment = commentObj => async dispatch => {
             "photoId": photoId
         })
     })
+    console.log("THIS IS THE RES IN CREATE THUNK ===== ", res)
     if (res.ok) {
         const makeComment = await res.json()
         console.log("DID WE HIT HERE? ===== ", makeComment)
@@ -52,6 +55,7 @@ export default function reducer(state = { oneComment: {}, allComments: {} }, act
     switch (action.type) {
         case LOAD_COMMENTS: {
             const newState = { oneComment: {}, allComments: {} }
+            console.log("DID THIS HIT THE REDUCER?")
             action.comments.forEach(e => {
                 newState.allComments[e.id] = e
             })
