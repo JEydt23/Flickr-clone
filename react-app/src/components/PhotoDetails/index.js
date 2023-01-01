@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { getOnePhoto, deletingPhoto } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
 import { GetCommentsByPhoto } from '../Comments/Comments';
+import CreateComment from '../CreateComment';
 
 
 function PhotoDetail() {
@@ -43,6 +44,9 @@ function PhotoDetail() {
             </div>
             <div>
                 <GetCommentsByPhoto key={singlePhotoState.id} />
+            </div>
+            <div>
+                <CreateComment key={singlePhotoState.id}/>
             </div>
         </div>
     )

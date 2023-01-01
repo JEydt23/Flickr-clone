@@ -5,19 +5,24 @@ from ..forms import CommentForm
 from flask_login import login_required, current_user
 comment_route = Blueprint("comments", __name__)
 
-# GET ALL COMMENTS ROUTE
+# GET ALL COMMENTS FOR PHOTO ID
 
 @comment_route.route('/<int:photoId>')
-def get_comment(photoId):
+def get_comment(photo_id):
+    print("\n \n \n XXXXXXXXXXXXXX~~~~~~~~~~~~~~~~~~~PHOTO ID ======", photo_id, "\n\n\n\n\n\n")
     result = []
-    comments = Comment.query.filter_by(photo_id = photoId).all()
+    comments = Comment.query.filter_by(photo_id = photo_id).all()
 
     for comment in comments:
         res = comment.to_dict()
-        users = User.query.filter_by(id=res['user_id']).first()
-        res['user'] = users.to_dict()
+        # users = User.query.filter_by(id=res['user_id']).first()
+        # res['user'] = users.to_dict()
 
         result.append(res)
+
+    if len(comments) == 0:
+        return "No comments for this photo"
+
     return jsonify(result)
 
 
@@ -31,8 +36,8 @@ def create_comment(photoId):
     if form.validate_on_submit():
         new_comment = Comment(
           body = form.data['body'],
-          userId = current_user.id,
-          photoId = photoId
+          user_id = current_user.id,
+          photo_id = photoId
         )
     if form.errors:
         return "Invalid data"

@@ -6,8 +6,8 @@ import { createComment } from "../../store/comment";
 function CreateComment() {
     const currentPhoto = useSelector(state => state.photo.viewOnePhoto)
     console.log("THIS IS CURRENT PHOTO STATE ======= ", currentPhoto)
-    const photoComments = useSelector(state => Object.values(state.comments.allComments))
-    console.log("THIS IS PHOTOComments STATE ======== ", photoComments)
+    // const photoComments = useSelector(state => state.comments.allComments)
+    // console.log("THIS IS PHOTOComments STATE ======== ", photoComments)
     const { photoId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();

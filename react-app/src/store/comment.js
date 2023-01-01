@@ -28,19 +28,20 @@ export const getComments = photoId => async dispatch => {
     }
 }
 
-export const createComment = comment => async dispatch => {
-    console.log('THIS IS THE COMMENT IN THE CREATE COMMENT THUNK ====== ', comment)
-    const { body, photoId } = comment
+export const createComment = commentObj => async dispatch => {
+    console.log('THIS IS THE COMMENT IN THE CREATE COMMENT THUNK ====== ', commentObj)
+    const { comment, photoId } = commentObj
     const res = await fetch(`/api/comments/${photoId}/comments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            "body": body,
+            "body": comment,
             "photoId": photoId
         })
     })
     if (res.ok) {
         const makeComment = await res.json()
+        console.log("DID WE HIT HERE? ===== ", makeComment)
         dispatch(addComment(makeComment))
         return makeComment
     }

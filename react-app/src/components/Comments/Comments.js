@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getComments } from '../../store/comment';
-import CreateComment from '../CreateComment';
+// import CreateComment from '../CreateComment';
 
 export const GetCommentsByPhoto = ({ photo }) => {
     const dispatch = useDispatch();
@@ -24,9 +24,7 @@ export const GetCommentsByPhoto = ({ photo }) => {
                     </li>
                 ))}
             </ul>
-            <div>
-                <CreateComment key={photo.id} photo={photo} />
-            </div>
+
         </div>
     )
 }
