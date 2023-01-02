@@ -73,6 +73,8 @@ def create_photo():
     db.session.add(new_photo)
     db.session.commit()
 
+    print("\n \n xxxxxxxxxxxxxx NEW PHOTO xxxxxxxxxxxxxxxx = ", type(new_photo), "\n \n")
+    print("new_photo IN COMMENT_ROUTES ===== ", new_photo, "\n")
     return new_photo.to_dict()
 
 

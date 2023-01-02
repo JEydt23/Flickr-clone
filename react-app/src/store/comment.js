@@ -1,5 +1,6 @@
 const LOAD_COMMENTS = 'comment/LOAD_COMMENTS'
 const ADD_COMMENT = 'comment/ADD_COMMENT'
+const DELETE_COMMENT = 'comment/DELETE_COMMENT'
 
 // ACTION CREATORS
 
@@ -17,6 +18,12 @@ const addComment = comment => {
     }
 }
 
+const deleteComment = comment => {
+    return {
+        type: DELETE_COMMENT,
+        comment
+    }
+}
 // THUNKS
 
 export const getComments = photoId => async dispatch => {
@@ -49,6 +56,15 @@ export const createComment = (commentObj) => async dispatch => {
         return makeComment
     }
 }
+
+export const deleteCommentThunk = commentId => async dispatch => {
+    const res = await fetch(`/api/comments/${commentId}`, {
+        method: "DELETE"
+    })
+    if (res.ok) {
+        dispatch(deleteComment(commentId))
+    }
+}
 // REDUCERS
 
 export default function reducer(state = { oneComment: {}, allComments: {} }, action) {
@@ -64,6 +80,11 @@ export default function reducer(state = { oneComment: {}, allComments: {} }, act
         case ADD_COMMENT: {
             const newState = { ...state, oneComment: { ...state.oneComment }, allComments: { ...state.allComments } }
             newState.allComments[action.comment.id] = action.comment
+            return newState
+        }
+        case DELETE_COMMENT: {
+            const newState = { ...state, oneComment: { ...state.oneComment }, allComments: { ...state.allComments } }
+            delete newState.allComments[action.comment]
             return newState
         }
 

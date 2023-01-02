@@ -3,6 +3,8 @@ from sqlalchemy.sql import func, select
 from ..models import db, Photo, User, Comment
 from ..forms import CommentForm
 from flask_login import login_required, current_user
+import json
+
 comment_route = Blueprint("comments", __name__)
 
 # GET ALL COMMENTS FOR PHOTO ID
@@ -42,13 +44,29 @@ def create_comment(photo_id):
           photo_id = photo_id
         )
     if form.errors:
+        print(form.errors)
         return "Invalid data"
+
     db.session.add(new_comment)
     db.session.commit()
-    print("xxxxxxxxxxxxxxNEW COMMENTxxxxxxxxxxxxxxxx = ", type(new_comment))
-    res = new_comment
-    # res['userTest'] = users.to_dict()
-    print("RES IN COMMENT_ROUTES ===== ", res)
-    print(" RES 232233 ==== ", res)
+    # print("xxxxxxxxxxxxxxNEW COMMENTxxxxxxxxxxxxxxxx = ", type(new_comment))
+    # # res = new_comment
+    # # # res['userTest'] = users.to_dict()
+    # print("new_comment IN COMMENT_ROUTES ===== ", repr(new_comment))
+    # print(" RES 232233 ==== ", res)
 
-    return res
+    return new_comment.to_dict()
+
+
+@comment_route.route('<int:comment_id>', methods=['DELETE'])
+def delete_comment(comment_id):
+    comment = Comment.query.filter_by(id = comment_id).first()
+    if not comment:
+        return ('No comment found!')
+    else:
+        db.session.delete(comment)
+        db.session.commit()
+        return {
+            'message': 'Successfully Deleted!',
+            "statusCode": 200
+            }
