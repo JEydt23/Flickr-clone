@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, Blueprint, redirect, request
 from sqlalchemy.sql import func, select
-from ..models import db, Photo, User
+from ..models import db, Photo, User, Comment
 from ..forms import PhotoForm
 from flask_login import login_required, current_user
 photo_route = Blueprint("photos", __name__)
@@ -73,6 +73,8 @@ def create_photo():
     db.session.add(new_photo)
     db.session.commit()
 
+    # print("\n \n xxxxxxxxxxxxxx NEW PHOTO xxxxxxxxxxxxxxxx = ", type(new_photo), "\n \n")
+    # print("new_photo IN COMMENT_ROUTES ===== ", new_photo, "\n")
     return new_photo.to_dict()
 
 
@@ -112,3 +114,24 @@ def delete_photo(photoId):
             "message": "Successfully Deleted!",
             "statusCode":200
             }
+
+
+# GET ALL COMMENTS FOR PHOTO ID
+
+@photo_route.route('/<int:photo_id>/comments')
+def get_comment():
+    comments = Comment.query.all()
+    return { "comments" : [comment.to_dict() for comment in comments] }
+
+
+    # for comment in comments:
+    # print("\n \n \n XXXXXXXXXXXXXX~~~~~~~~~~~~~~~~~~~PHOTO ID ======", photo_id, "\n\n\n\n\n\n")
+    # result = []
+    #     res = comment.to_dict()
+    #     users = User.query.filter_by(id=res['user_id']).first()
+    #     res['user'] = users.to_dict()
+
+    #     result.append(res)
+
+    # if len(comments) == 0:
+    #     return "No comments for this photo"

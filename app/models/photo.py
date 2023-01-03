@@ -16,6 +16,8 @@ class Photo(db.Model):
     date_uploaded = db.Column(db.DateTime, server_default=db.func.now())
     tags = db.Column(db.String(100))
 
+    comments = db.relationship(
+        "Comment", back_populates="photos", cascade="all, delete")
     users = db.relationship("User", back_populates="photos")
 
     def to_dict(self):
@@ -26,5 +28,6 @@ class Photo(db.Model):
             "description": self.description,
             "file_path": self.file_path,
             "date_uploaded": self.date_uploaded,
-            "tags": self.tags
+            "tags": self.tags,
+            "comments": [comment.to_dict() for comment in self.comments]
         }

@@ -44,7 +44,7 @@ function EditPhoto() {
 
     return (
         <div>
-            <h1>Hi</h1>
+
             <form className='photo-form' onSubmit={handleSubmit}>
                 <label>
                     {/* Title */}
@@ -87,7 +87,7 @@ function EditPhoto() {
                 <button type='submit'
                     className='submitButton'
                     disabled={errors.length > 0}>
-                    Publish Editted Photo
+                    Publish Edited Photo
                 </button>
                 <ul className='errors'>
                     {errors.map(error => (

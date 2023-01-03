@@ -3,23 +3,22 @@ import { useEffect } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { getOnePhoto, deletingPhoto } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
+import { GetCommentsByPhoto } from '../Comments/Comments';
+import CreateComment from '../CreateComment';
+import { getOneComment } from '../../store/comment';
 
 
 function PhotoDetail() {
     const singlePhotoState = useSelector(state => state.photo.viewOnePhoto)
+    const commentState = useSelector(state => state.comment.allComments)
     const history = useHistory()
-    // const allPhotoState = useSelector(state => Object.values(state.photo.viewAllPhotos))
     const dispatch = useDispatch();
     const { photoId } = useParams();
-
-    // console.log("View ALL PHOTOS STATE ===== ", allPhotoState)
-    // console.log("SINGLE PHOTO STATE ===== ", singlePhotoState)
-
 
     useEffect(() => {
         dispatch(getOnePhoto(photoId))
 
-    }, [dispatch, photoId])
+    }, [dispatch, photoId, singlePhotoState.id, commentState])
 
     return (
         <div>
@@ -40,6 +39,13 @@ function PhotoDetail() {
                 <p>{singlePhotoState.description}</p>
                 <p>Uploaded by {singlePhotoState.username} on {singlePhotoState.date_uploaded}</p>
             </div>
+            <div>
+                <CreateComment key={singlePhotoState.id}/>
+            </div>
+            <div>
+                <GetCommentsByPhoto key={singlePhotoState.id} />
+            </div>
+
         </div>
     )
 }
