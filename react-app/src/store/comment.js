@@ -1,6 +1,8 @@
 const LOAD_COMMENTS = 'comment/LOAD_COMMENTS'
 const ADD_COMMENT = 'comment/ADD_COMMENT'
+const EDIT_COMMENT = 'comment/EDIT_COMMENT'
 const DELETE_COMMENT = 'comment/DELETE_COMMENT'
+const LOAD_ONE_COMMENT = 'comments/LOAD_ONE_COMMENT'
 
 // ACTION CREATORS
 
@@ -18,20 +20,33 @@ const addComment = comment => {
     }
 }
 
+const editComment = comment => {
+    return {
+        type: EDIT_COMMENT,
+        comment
+    }
+}
+
 const deleteComment = comment => {
     return {
         type: DELETE_COMMENT,
         comment
     }
 }
+
+const loadOneComment = comment => {
+    return {
+        type: LOAD_ONE_COMMENT,
+        comment
+    }
+}
+
 // THUNKS
 
-export const getComments = photoId => async dispatch => {
-    console.log("GET COMMENTS THUNK PHOTOID ====== ", photoId)
-    const res = await fetch(`/api/comments/${photoId}`)
+export const getComments = photo_id => async dispatch => {
+    const res = await fetch(`/api/photos/${photo_id}/comments`)
     if (res.ok) {
         const comments = await res.json()
-        console.log("COMMENTS in THUNK ==== ", comments)
         dispatch(loadComments(comments))
         return comments
     }
@@ -57,6 +72,20 @@ export const createComment = (commentObj) => async dispatch => {
     }
 }
 
+export const editCommentThunk = comment => async (dispatch) => {
+    const { comment_id } = comment;
+    const commentFetch = await fetch(`/api/comments/${comment_id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(comment)
+    })
+    if (commentFetch.ok) {
+        const editedComment = await commentFetch.json();
+        dispatch(editComment(editedComment))
+        return editedComment
+    }
+}
+
 export const deleteCommentThunk = commentId => async dispatch => {
     const res = await fetch(`/api/comments/${commentId}`, {
         method: "DELETE"
@@ -65,6 +94,16 @@ export const deleteCommentThunk = commentId => async dispatch => {
         dispatch(deleteComment(commentId))
     }
 }
+
+export const getOneComment = (photo_id, comment_id) => async dispatch => {
+    const res = await fetch(`/api/photos/${photo_id}/${comment_id}`)
+    if (res.ok) {
+        const response = await res.json()
+        dispatch(loadOneComment(response))
+        return response
+    }
+}
+
 // REDUCERS
 
 export default function reducer(state = { oneComment: {}, allComments: {} }, action) {
@@ -77,11 +116,26 @@ export default function reducer(state = { oneComment: {}, allComments: {} }, act
             })
             return newState
         }
+
+        case LOAD_ONE_COMMENT: {
+            const newState = { ...state, oneComment: {}, allComments: { ...state.allComments} }
+            newState.oneComment = action.comment
+            return newState
+        }
+
         case ADD_COMMENT: {
             const newState = { ...state, oneComment: { ...state.oneComment }, allComments: { ...state.allComments } }
             newState.allComments[action.comment.id] = action.comment
             return newState
         }
+
+        case EDIT_COMMENT: {
+            const newState = { ...state, oneComment: { ...state.oneComment }, allComments: { ...state.allComments } }
+            newState.allComments[action.comment.id] = action.comment
+            newState.oneComment = action.response
+            return newState
+        }
+
         case DELETE_COMMENT: {
             const newState = { ...state, oneComment: { ...state.oneComment }, allComments: { ...state.allComments } }
             delete newState.allComments[action.comment]

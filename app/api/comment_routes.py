@@ -7,26 +7,6 @@ import json
 
 comment_route = Blueprint("comments", __name__)
 
-# GET ALL COMMENTS FOR PHOTO ID
-
-@comment_route.route('/<int:photo_id>')
-def get_comment(photo_id):
-    print("\n \n \n XXXXXXXXXXXXXX~~~~~~~~~~~~~~~~~~~PHOTO ID ======", photo_id, "\n\n\n\n\n\n")
-    result = []
-    comments = Comment.query.filter_by(photo_id = photo_id).all()
-
-    for comment in comments:
-        res = comment.to_dict()
-        users = User.query.filter_by(id=res['user_id']).first()
-        res['user'] = users.to_dict()
-
-        result.append(res)
-
-    if len(comments) == 0:
-        return "No comments for this photo"
-
-    return jsonify(result)
-
 
 # CREATE NEW COMMENT FOR PHOTO
 
@@ -35,7 +15,7 @@ def get_comment(photo_id):
 def create_comment(photo_id):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # users = User.query.filter_by(id = current_user.id).first()
+    users = User.query.filter_by(id = current_user.id).first()
 
     if form.validate_on_submit():
         new_comment = Comment(
@@ -50,13 +30,28 @@ def create_comment(photo_id):
     db.session.add(new_comment)
     db.session.commit()
     # print("xxxxxxxxxxxxxxNEW COMMENTxxxxxxxxxxxxxxxx = ", type(new_comment))
-    # # res = new_comment
-    # # # res['userTest'] = users.to_dict()
+    res = new_comment.to_dict()
+    res['user'] = users.to_dict()
     # print("new_comment IN COMMENT_ROUTES ===== ", repr(new_comment))
     # print(" RES 232233 ==== ", res)
 
-    return new_comment.to_dict()
+    return res
 
+@comment_route.route('/<int:comment_id>', methods=["PUT"])
+def update_comment(comment_id):
+    comment = Comment.query.filter_by(id = comment_id).first()
+    users = User.query.filter_by(id = current_user.id).first()
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        setattr(comment, 'body', form.data['body'])
+
+    if form.errors:
+        print(form.errors)
+        return 'Invalid Data'
+
+    db.session.commit()
+    return comment.to_dict()
 
 @comment_route.route('<int:comment_id>', methods=['DELETE'])
 def delete_comment(comment_id):

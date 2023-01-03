@@ -5,10 +5,13 @@ import { getOnePhoto, deletingPhoto } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
 import { GetCommentsByPhoto } from '../Comments/Comments';
 import CreateComment from '../CreateComment';
+import { getOneComment } from '../../store/comment';
 
 
 function PhotoDetail() {
     const singlePhotoState = useSelector(state => state.photo.viewOnePhoto)
+    // const commentState = useSelector(state => state.comment.allComments)
+    console.log("singlePhotoState ====== ", singlePhotoState)
     const history = useHistory()
     // const allPhotoState = useSelector(state => Object.values(state.photo.viewAllPhotos))
     const dispatch = useDispatch();
@@ -20,8 +23,9 @@ function PhotoDetail() {
 
     useEffect(() => {
         dispatch(getOnePhoto(photoId))
+        // dispatch(getOneComment(photoId))
 
-    }, [dispatch, photoId])
+    }, [dispatch, photoId, singlePhotoState.id])
 
     return (
         <div>
@@ -43,11 +47,12 @@ function PhotoDetail() {
                 <p>Uploaded by {singlePhotoState.username} on {singlePhotoState.date_uploaded}</p>
             </div>
             <div>
-                <GetCommentsByPhoto key={singlePhotoState.id} />
-            </div>
-            <div>
                 <CreateComment key={singlePhotoState.id}/>
             </div>
+            <div>
+                <GetCommentsByPhoto key={singlePhotoState.id} />
+            </div>
+
         </div>
     )
 }

@@ -28,5 +28,6 @@ class Photo(db.Model):
             "description": self.description,
             "file_path": self.file_path,
             "date_uploaded": self.date_uploaded,
-            "tags": self.tags
+            "tags": self.tags,
+            "comments": [comment.to_dict() for comment in self.comments]
         }
