@@ -6,7 +6,7 @@ import { getOnePhoto } from '../../store/photo';
 import EditComment from '../EditComment';
 // import CreateComment from '../CreateComment';
 
-export const GetCommentsByPhoto = ({photoDetails, comment}) => {
+export const GetCommentsByPhoto = () => {
     const dispatch = useDispatch();
     const {photo_id} = useParams();
     // const photoComment = useSelector(state => Object.values(state.comment.allComments))
@@ -25,11 +25,11 @@ export const GetCommentsByPhoto = ({photoDetails, comment}) => {
             <ul>
                 {Object.values(singlePhotoState.comments).map((ele) => (
                     <li>
-                        {/* {console.log("ele here ======= ", ele)} */}
+                        {console.log("ele here ======= ", ele)}
                         {/* {ele.user.first_name} {ele.user.last_name} */}
                         <li >
                             {ele.body}
-                            <EditComment key={photoDetails} photoDetails={photoDetails} comment_id={comment}/>
+                            <EditComment key={ele.id} photoDetails={ele.photo_id} comment_id={ele.id}/>
                         </li>
                     </li>
                 ))}

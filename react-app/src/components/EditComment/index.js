@@ -3,13 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { editCommentThunk, deleteCommentThunk, getOneComment } from "../../store/comment";
 
-function EditComment( {photoDetails, comment_id }) {
+function EditComment({ photoDetails, comment_id }) {
+
     const dispatch = useDispatch();
     const history = useHistory();
     const [comment, setComment] = useState("")
     const [errors, setErrors] = useState([])
+    const updateThisComment = useSelector(state => state.comment.allComments)
+    console.log("updateThisComment ============", updateThisComment)
+    console.log(photoDetails,"00000000000000000000000 photoDETAILS")
+    console.log(comment_id, "99999999999999999999 commentID")
 
-    useEffect(()=> {
+    useEffect(() => {
         const validationErrors = [];
         if (comment.length > 500) validationErrors.push("Comment must be shorter than 255 characters.")
         setErrors(validationErrors)
@@ -19,11 +24,13 @@ function EditComment( {photoDetails, comment_id }) {
         e.preventDefault();
         if (!errors.length) {
             const formValues = {
-                comment
+                "body": comment, comment_id
             }
-            await dispatch(editCommentThunk(formValues)).then(()=>{
-                dispatch(getOneComment(photoDetails.id, comment_id))
-            })
+            await dispatch(editCommentThunk(formValues))
+            // .then(()=>{
+            //     dispatch(getOneComment(photoDetails, comment_id))
+            // })
+
             setComment("")
         }
     }

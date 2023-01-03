@@ -29,18 +29,17 @@ def create_comment(photo_id):
 
     db.session.add(new_comment)
     db.session.commit()
-    # print("xxxxxxxxxxxxxxNEW COMMENTxxxxxxxxxxxxxxxx = ", type(new_comment))
     res = new_comment.to_dict()
     res['user'] = users.to_dict()
-    # print("new_comment IN COMMENT_ROUTES ===== ", repr(new_comment))
-    # print(" RES 232233 ==== ", res)
 
     return res
+
+# UPDATE COMMENT ROUTE
 
 @comment_route.route('/<int:comment_id>', methods=["PUT"])
 def update_comment(comment_id):
     comment = Comment.query.filter_by(id = comment_id).first()
-    users = User.query.filter_by(id = current_user.id).first()
+    # users = User.query.filter_by(id = current_user.id).first()
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

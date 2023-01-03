@@ -73,8 +73,8 @@ def create_photo():
     db.session.add(new_photo)
     db.session.commit()
 
-    print("\n \n xxxxxxxxxxxxxx NEW PHOTO xxxxxxxxxxxxxxxx = ", type(new_photo), "\n \n")
-    print("new_photo IN COMMENT_ROUTES ===== ", new_photo, "\n")
+    # print("\n \n xxxxxxxxxxxxxx NEW PHOTO xxxxxxxxxxxxxxxx = ", type(new_photo), "\n \n")
+    # print("new_photo IN COMMENT_ROUTES ===== ", new_photo, "\n")
     return new_photo.to_dict()
 
 
@@ -120,12 +120,13 @@ def delete_photo(photoId):
 
 @photo_route.route('/<int:photo_id>/comments')
 def get_comment():
-    # print("\n \n \n XXXXXXXXXXXXXX~~~~~~~~~~~~~~~~~~~PHOTO ID ======", photo_id, "\n\n\n\n\n\n")
-    # result = []
     comments = Comment.query.all()
+    return { "comments" : [comment.to_dict() for comment in comments] }
 
 
     # for comment in comments:
+    # print("\n \n \n XXXXXXXXXXXXXX~~~~~~~~~~~~~~~~~~~PHOTO ID ======", photo_id, "\n\n\n\n\n\n")
+    # result = []
     #     res = comment.to_dict()
     #     users = User.query.filter_by(id=res['user_id']).first()
     #     res['user'] = users.to_dict()
@@ -134,5 +135,3 @@ def get_comment():
 
     # if len(comments) == 0:
     #     return "No comments for this photo"
-
-    return { "comments" : [comment.to_dict() for comment in comments] }

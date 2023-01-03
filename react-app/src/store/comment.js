@@ -74,6 +74,8 @@ export const createComment = (commentObj) => async dispatch => {
 
 export const editCommentThunk = comment => async (dispatch) => {
     const { comment_id } = comment;
+    console.log("comment ======== ", comment)
+
     const commentFetch = await fetch(`/api/comments/${comment_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -81,6 +83,7 @@ export const editCommentThunk = comment => async (dispatch) => {
     })
     if (commentFetch.ok) {
         const editedComment = await commentFetch.json();
+        console.log("EDITED COMMENT ======== ", editedComment)
         dispatch(editComment(editedComment))
         return editedComment
     }

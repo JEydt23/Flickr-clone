@@ -31,7 +31,7 @@ function CreatePhoto() {
             title, description, file_path, tags
         }
         const newPhoto = await dispatch(createPhoto(formValues))
-        console.log("NEWPHOTO ====== ", newPhoto)
+        // console.log("NEWPHOTO ====== ", newPhoto)
         if (newPhoto){
             history.push(`/photos`)
 

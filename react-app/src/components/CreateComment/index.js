@@ -16,9 +16,9 @@ function CreateComment() {
 
     useEffect(()=> {
         const validationErrors = [];
-        if (comment.length > 500) validationErrors.push("Comment must be shorter than 255 characters.")
+        if (comment.length > 500) validationErrors.push("Comment must be shorter than 500 characters.")
         setErrors(validationErrors)
-    }, [currentPhoto, photoId, comment])
+    }, [comment])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
