@@ -10,22 +10,15 @@ import { getOneComment } from '../../store/comment';
 
 function PhotoDetail() {
     const singlePhotoState = useSelector(state => state.photo.viewOnePhoto)
-    // const commentState = useSelector(state => state.comment.allComments)
-    console.log("singlePhotoState ====== ", singlePhotoState)
+    const commentState = useSelector(state => state.comment.allComments)
     const history = useHistory()
-    // const allPhotoState = useSelector(state => Object.values(state.photo.viewAllPhotos))
     const dispatch = useDispatch();
     const { photoId } = useParams();
 
-    // console.log("View ALL PHOTOS STATE ===== ", allPhotoState)
-    // console.log("SINGLE PHOTO STATE ===== ", singlePhotoState)
-
-
     useEffect(() => {
         dispatch(getOnePhoto(photoId))
-        // dispatch(getOneComment(photoId))
 
-    }, [dispatch, photoId, singlePhotoState.id])
+    }, [dispatch, photoId, singlePhotoState.id, commentState])
 
     return (
         <div>
