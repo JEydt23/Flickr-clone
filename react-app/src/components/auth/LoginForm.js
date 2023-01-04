@@ -37,48 +37,52 @@ const LoginForm = () => {
   }
 
   return (
-    <form className="login-form" onSubmit={onLogin}>
-      <h3 className='login-head'>Log in to Picture This </h3>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor='email'>
-          {/* Email */}
-          </label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email address'
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor='password'>
-          {/* Password */}
-          </label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
+    <div className='main'>
+      <div className='background-img'>
+        <form className="login-form" onSubmit={onLogin}>
+          <h3 className='login-head'>Log in to Picture This </h3>
+          <div>
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+          <div>
+            <label htmlFor='email'>
+              {/* Email */}
+            </label>
+            <input
+              name='email'
+              type='text'
+              placeholder='Email address'
+              value={email}
+              onChange={updateEmail}
+            />
+          </div>
+          <div>
+            <label htmlFor='password'>
+              {/* Password */}
+            </label>
+            <input
+              name='password'
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={updatePassword}
+            />
 
+          </div>
+          <div>
+            <button className='login-buttons' type='submit'>Login</button>
+          </div>
+          <div>
+            <button className='login-buttons' onClick={demoUser}>DemoUser Login</button>
+          </div>
+          <div className='not-member'>
+            Not a Picture This member? <NavLink to='/sign-up'>Sign up here</NavLink>
+          </div>
+        </form>
       </div>
-      <div>
-        <button className='login-buttons' type='submit'>Login</button>
-      </div>
-      <div>
-        <button className='login-buttons' onClick={demoUser}>DemoUser Login</button>
-      </div>
-      <div className='not-member'>
-        Not a Flickr member? <NavLink to='/sign-up'>Sign up here</NavLink>
-      </div>
-    </form>
+    </div>
   );
 };
 

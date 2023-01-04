@@ -54,91 +54,95 @@ const SignUpForm = () => {
   }
 
   return (
-    <form className='signup-form' onSubmit={onSignUp}>
-      <h3 className='signup-head'>Sign up for Picture This</h3>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <div className='main'>
+      <div className='background-img'>
+        <form className='signup-form' onSubmit={onSignUp}>
+          <h3 className='signup-head'>Sign up for Picture This</h3>
+          <div>
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+          <div>
+            <label>
+              {/* First name */}
+            </label>
+            <input
+              type='text'
+              name='first_name'
+              placeholder='First name'
+              onChange={updateFirstName}
+              value={first_name}
+            ></input>
+          </div>
+          <div>
+            <label>
+              {/* Last name */}
+            </label>
+            <input
+              type='text'
+              name='last_name'
+              placeholder='Last name'
+              onChange={updateLastName}
+              value={last_name}
+            ></input>
+          </div>
+          <div>
+            <label>
+              {/* User Name */}
+            </label>
+            <input
+              type='text'
+              name='username'
+              placeholder='Username'
+              onChange={updateUsername}
+              value={username}
+            ></input>
+          </div>
+          <div>
+            <label>
+              {/* Email */}
+            </label>
+            <input
+              type='text'
+              name='email'
+              placeholder='Email address'
+              onChange={updateEmail}
+              value={email}
+            ></input>
+          </div>
+          <div>
+            <label>
+              {/* Password */}
+            </label>
+            <input
+              type='password'
+              name='password'
+              placeholder='Password'
+              onChange={updatePassword}
+              value={password}
+            ></input>
+          </div>
+          <div>
+            <label>
+              {/* Repeat Password */}
+            </label>
+            <input
+              type='password'
+              name='repeat_password'
+              placeholder='Confirm password'
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required={true}
+            ></input>
+          </div>
+          <button className='signup-buttons' type='submit'>Sign Up</button>
+          <div className='not-member'>
+            Already a member? <NavLink to='/login'>Log in here</NavLink>
+          </div>
+        </form>
       </div>
-      <div>
-        <label>
-          {/* First name */}
-        </label>
-        <input
-          type='text'
-          name='first_name'
-          placeholder='First name'
-          onChange={updateFirstName}
-          value={first_name}
-        ></input>
-      </div>
-      <div>
-        <label>
-          {/* Last name */}
-        </label>
-        <input
-          type='text'
-          name='last_name'
-          placeholder='Last name'
-          onChange={updateLastName}
-          value={last_name}
-        ></input>
-      </div>
-      <div>
-        <label>
-          {/* User Name */}
-        </label>
-        <input
-          type='text'
-          name='username'
-          placeholder='Username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>
-          {/* Email */}
-        </label>
-        <input
-          type='text'
-          name='email'
-          placeholder='Email address'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>
-          {/* Password */}
-        </label>
-        <input
-          type='password'
-          name='password'
-          placeholder='Password'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>
-          {/* Repeat Password */}
-        </label>
-        <input
-          type='password'
-          name='repeat_password'
-          placeholder='Confirm password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button className='signup-buttons' type='submit'>Sign Up</button>
-      <div className='not-member'>
-        Already a member? <NavLink to='/login'>Log in here</NavLink>
-      </div>
-    </form>
+    </div>
   );
 };
 
