@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import './LoginForm.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -18,6 +19,11 @@ const LoginForm = () => {
     }
   };
 
+  const demoUser = (event) => {
+    setEmail('demo@aa.io');
+    setPassword('password')
+  }
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -31,24 +37,29 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
+    <form className="login-form" onSubmit={onLogin}>
+      <h3 className='login-head'>Log in to Picture This </h3>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
       <div>
-        <label htmlFor='email'>Email</label>
+        <label htmlFor='email'>
+          {/* Email */}
+          </label>
         <input
           name='email'
           type='text'
-          placeholder='Email'
+          placeholder='Email address'
           value={email}
           onChange={updateEmail}
         />
       </div>
       <div>
-        <label htmlFor='password'>Password</label>
+        <label htmlFor='password'>
+          {/* Password */}
+          </label>
         <input
           name='password'
           type='password'
@@ -56,7 +67,16 @@ const LoginForm = () => {
           value={password}
           onChange={updatePassword}
         />
-        <button type='submit'>Login</button>
+
+      </div>
+      <div>
+        <button className='login-buttons' type='submit'>Login</button>
+      </div>
+      <div>
+        <button className='login-buttons' onClick={demoUser}>DemoUser Login</button>
+      </div>
+      <div className='not-member'>
+        Not a Flickr member? <NavLink to='/sign-up'>Sign up here</NavLink>
       </div>
     </form>
   );
