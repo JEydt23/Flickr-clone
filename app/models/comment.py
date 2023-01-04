@@ -17,8 +17,8 @@ class Comment(db.Model):
     updated_at = db.Column(
         db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
-    photos = db.relationship("Photo", back_populates="comments")
     users = db.relationship("User", back_populates="comments")
+    photos = db.relationship("Photo", back_populates="comments")
 
     def to_dict(self):
         return {
