@@ -26,6 +26,6 @@ class Comment(db.Model):
             'body': self.body,
             'user_id': self.user_id,
             'photo_id': self.photo_id,
-            # 'userInfo': [user.to_dict() for user in self.userInfo]
+            'userInfo': self.users.to_dict()
 
         }

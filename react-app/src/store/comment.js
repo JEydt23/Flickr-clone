@@ -44,6 +44,7 @@ const loadOneComment = comment => {
 // THUNKS
 
 export const getComments = photo_id => async dispatch => {
+    console.log("photo_id ====== ", photo_id)
     const res = await fetch(`/api/photos/${photo_id}/comments`)
     if (res.ok) {
         const comments = await res.json()
@@ -113,15 +114,15 @@ export default function reducer(state = { oneComment: {}, allComments: {} }, act
     switch (action.type) {
         case LOAD_COMMENTS: {
             const newState = { oneComment: {}, allComments: {} }
-            console.log("DID THIS HIT THE REDUCER?")
-            action.comments.forEach(e => {
+            // console.log("action.comments======== ", action.comments)
+            action.comments.comments.forEach(e => {
                 newState.allComments[e.id] = e
             })
             return newState
         }
 
         case LOAD_ONE_COMMENT: {
-            const newState = { ...state, oneComment: {}, allComments: { ...state.allComments} }
+            const newState = { ...state, oneComment: {}, allComments: { ...state.allComments } }
             newState.oneComment = action.comment
             return newState
         }

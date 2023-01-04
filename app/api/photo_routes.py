@@ -119,8 +119,9 @@ def delete_photo(photoId):
 # GET ALL COMMENTS FOR PHOTO ID
 
 @photo_route.route('/<int:photo_id>/comments')
-def get_comment():
-    comments = Comment.query.all()
+def get_comment(photo_id):
+    comments = Comment.query.filter_by(photo_id = photo_id).all()
+
     return { "comments" : [comment.to_dict() for comment in comments] }
 
 

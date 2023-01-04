@@ -14,6 +14,8 @@ function PhotoDetail() {
     const history = useHistory()
     const dispatch = useDispatch();
     const { photoId } = useParams();
+    const currentUser = useSelector(state => state.session.user)
+    console.log('single photo state =========== ', singlePhotoState)
 
     useEffect(() => {
         dispatch(getOnePhoto(photoId))
@@ -25,22 +27,24 @@ function PhotoDetail() {
             <div key={singlePhotoState}>
                 <h2>{singlePhotoState.title}</h2>
                 <div>
-                    <EditPhoto key={singlePhotoState.id} />
+                    {currentUser?.id === singlePhotoState.user_id &&
+                        <EditPhoto key={singlePhotoState.id} />
+                    }
                 </div>
                 <div>
-
+                {currentUser?.id === singlePhotoState.user_id &&
                     <button onClick={async (e) => {
                         e.preventDefault()
                         await dispatch(deletingPhoto(singlePhotoState.id))
                         await history.push('/photos')
-                    }}>Delete Photo</button>
+                    }}>Delete Photo</button>}
                 </div>
                 <img src={singlePhotoState.file_path} alt={singlePhotoState.title} />
                 <p>{singlePhotoState.description}</p>
-                <p>Uploaded by {singlePhotoState.username} on {singlePhotoState.date_uploaded}</p>
+                <p>Uploaded by {singlePhotoState.userInfo?.username} on {singlePhotoState.date_uploaded}</p>
             </div>
             <div>
-                <CreateComment key={singlePhotoState.id}/>
+                <CreateComment key={singlePhotoState.id} />
             </div>
             <div>
                 <GetCommentsByPhoto key={singlePhotoState.id} />

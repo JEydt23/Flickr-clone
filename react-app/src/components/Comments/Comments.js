@@ -1,22 +1,19 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom';
 import { getComments } from '../../store/comment';
-import { getOnePhoto } from '../../store/photo';
 import EditComment from '../EditComment';
-// import CreateComment from '../CreateComment';
+
 
 export const GetCommentsByPhoto = () => {
     const dispatch = useDispatch();
-    const {photo_id} = useParams();
-    // const photoComment = useSelector(state => Object.values(state.comment.allComments))
-    // console.log("photoComment ~~~~~~~~~~~~~> ", photoComment)
+    const currentUser = useSelector(state => state.session.user)
     const singlePhotoState = useSelector(state => state.photo.viewOnePhoto)
-    console.log("singlePhotoState ======= ", singlePhotoState)
 
     useEffect(() => {
-        dispatch(getComments(photo_id))
-    }, [dispatch, photo_id, singlePhotoState])
+        dispatch(getComments(singlePhotoState.id))
+        
+
+    }, [dispatch, singlePhotoState.id])
 
 
     if (!singlePhotoState.comments) return null;
@@ -25,11 +22,13 @@ export const GetCommentsByPhoto = () => {
             <ul>
                 {Object.values(singlePhotoState.comments).map((ele) => (
                     <li>
-                        {console.log("ele here ======= ", ele)}
-                        {/* {ele.user.first_name} {ele.user.last_name} */}
+                        {/* {console.log("ele here ======= ", ele)} */}
+                        {ele.userInfo.first_name} {ele.userInfo.last_name}
                         <li >
                             {ele.body}
-                            <EditComment key={ele.id} photoDetails={ele.photo_id} comment_id={ele.id}/>
+                            {currentUser?.id === ele.user_id &&
+                                <EditComment key={ele.id} photoDetails={ele.photo_id} comment_id={ele.id} />
+                            }
                         </li>
                     </li>
                 ))}
