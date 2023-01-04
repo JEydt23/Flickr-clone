@@ -24,7 +24,7 @@ def seed():
         undo_users()
     seed_users()
     # Add other seed functions here
-    # seed_photos()
+    seed_photos()
     # seed_comments()
 
 # Creates the `flask seed undo` command
