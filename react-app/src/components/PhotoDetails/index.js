@@ -5,7 +5,7 @@ import { getOnePhoto, deletingPhoto } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
 import { GetCommentsByPhoto } from '../Comments/Comments';
 import CreateComment from '../CreateComment';
-import { getOneComment } from '../../store/comment';
+
 
 
 function PhotoDetail() {
@@ -32,14 +32,19 @@ function PhotoDetail() {
                     }
                 </div>
                 <div>
-                {currentUser?.id === singlePhotoState.user_id &&
-                    <button onClick={async (e) => {
-                        e.preventDefault()
-                        await dispatch(deletingPhoto(singlePhotoState.id))
-                        await history.push('/photos')
-                    }}>Delete Photo</button>}
+                    {currentUser?.id === singlePhotoState.user_id &&
+                        <button onClick={async (e) => {
+                            e.preventDefault()
+                            await dispatch(deletingPhoto(singlePhotoState.id))
+                            await history.push('/photos')
+                        }}>Delete Photo</button>}
                 </div>
-                <img src={singlePhotoState.file_path} alt={singlePhotoState.title} />
+                {/* <img src={singlePhotoState.file_path ? singlePhotoState.file_path : photoPlaceHolder} alt={singlePhotoState.title} /> */}
+                <img
+                    src={singlePhotoState.file_path}
+                    alt="Photo"
+                    onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }}
+                />
                 <p>{singlePhotoState.description}</p>
                 <p>Uploaded by {singlePhotoState.userInfo?.username} on {singlePhotoState.date_uploaded}</p>
             </div>

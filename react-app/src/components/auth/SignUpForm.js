@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
@@ -14,6 +14,15 @@ const SignUpForm = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+
+  useEffect(()=> {
+    const validation = []
+    if (!email.includes('@') || !email.includes('.')) validation.push('Must provide a valid email address.')
+    if (password !== repeatPassword) validation.push('Passwords must match.')
+    if (password.length < 6) validation.push('Password must be at least 6 characters.')
+    if (repeatPassword.length < 6) validation.push('Confirm Password must be at least 6 characters.')
+    setErrors(validation)
+  }, [email, password, repeatPassword])
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -73,6 +82,7 @@ const SignUpForm = () => {
               placeholder='First name'
               onChange={updateFirstName}
               value={first_name}
+              required
             ></input>
           </div>
           <div>
@@ -85,6 +95,7 @@ const SignUpForm = () => {
               placeholder='Last name'
               onChange={updateLastName}
               value={last_name}
+              required
             ></input>
           </div>
           <div>
@@ -97,6 +108,7 @@ const SignUpForm = () => {
               placeholder='Username'
               onChange={updateUsername}
               value={username}
+              required
             ></input>
           </div>
           <div>
@@ -109,6 +121,7 @@ const SignUpForm = () => {
               placeholder='Email address'
               onChange={updateEmail}
               value={email}
+              required
             ></input>
           </div>
           <div>
@@ -121,6 +134,7 @@ const SignUpForm = () => {
               placeholder='Password'
               onChange={updatePassword}
               value={password}
+              required
             ></input>
           </div>
           <div>
@@ -134,11 +148,12 @@ const SignUpForm = () => {
               onChange={updateRepeatPassword}
               value={repeatPassword}
               required={true}
+
             ></input>
           </div>
           <button className='signup-buttons' type='submit'>Sign Up</button>
           <div className='not-member'>
-            Already a member? <NavLink to='/login'>Log in here</NavLink>
+            Already a member? &nbsp; <NavLink to='/login'>Log in here</NavLink>
           </div>
         </form>
       </div>

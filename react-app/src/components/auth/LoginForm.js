@@ -78,7 +78,7 @@ const LoginForm = () => {
             <button className='login-buttons' onClick={demoUser}>DemoUser Login</button>
           </div>
           <div className='not-member'>
-            Not a Picture This member? <NavLink to='/sign-up'>Sign up here</NavLink>
+            Not a Picture This member? &nbsp;<NavLink to='/sign-up'> Sign up here</NavLink>
           </div>
         </form>
       </div>

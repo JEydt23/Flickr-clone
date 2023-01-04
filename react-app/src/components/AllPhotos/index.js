@@ -35,11 +35,15 @@ function AllPhotos() {
             { console.log("photo key ===== ", photo) }
             <NavLink to={`/photos/${photo.id}`}>
             <h2>{photo.title}</h2>
-            <img src={photo.file_path} alt={photo.title} />
+            {/* <img src={photo.file_path} alt={photo.title} /> */}
+            <img
+                    src={photo.file_path}
+                    alt={photo.title}
+                    onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" } } />
             <p>{photo.description}</p>
             <p>Uploaded by {photo.User.username} on {photo.date_uploaded}</p>
             </NavLink>
-            {/* <p>Tags: {photo.tags.join(', ')}</p> */}
+            
           </div>
         ))}
       </div>
