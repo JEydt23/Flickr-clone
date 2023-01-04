@@ -33,7 +33,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/photos' />;
   }
 
   return (
