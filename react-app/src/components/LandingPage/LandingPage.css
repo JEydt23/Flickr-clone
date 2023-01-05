@@ -25,20 +25,6 @@
     font-size: 1.2rem;
 }
 
-.main-landing {
-    background-image: url('https://wallpapercave.com/wp/wp7451611.jpg');
-    height: 100vh;
-    min-width: 1903px;
-    padding: 0px;
-    /* left: 0;
-    position: absolute;
-    z-index: -2; */
-    justify-content: center;
-    align-items: center;
-    display: flex;
-
-}
-
 .start-button {
     border: none;
     border-radius: 3px;
@@ -55,4 +41,81 @@
     text-decoration: none;
     transition: all .15s ease-in-out;
     vertical-align: top;
+}
+.main-landing {
+    /* background-image: url('https://wallpapercave.com/wp/wp7451611.jpg');
+    height: 100vh;
+    min-width: 1903px;
+    padding: 0px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    /* top: 80px; */
+    border: none;
+    background-image: url(https://wallpaperaccess.com/full/112722.jpg);
+    background-size: cover;
+    animation: change 25s infinite ease-in-out;
+    font-family: 'Big Shoulders Display', cursive;
+    font-family: 'Fraunces', serif;
+    font-family: 'Lexend Deca', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+
+@keyframes change {
+
+    0% {
+        background: url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        -webkit-backface-visibility: hidden;
+    }
+
+    25% {
+        background: url(https://images.hdqwalls.com/download/forest-landscape-mountain-nature-river-scenic-4k-lq-1920x1080.jpg);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        -webkit-backface-visibility: hidden;
+    }
+
+    50% {
+        background: url(https://images.hdqwalls.com/download/lighthouse-spring-od-1920x1080.jpg);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        -webkit-backface-visibility: hidden;
+    }
+
+    75% {
+        background: url(https://wallpaperaccess.com/full/255959.jpg);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        -webkit-backface-visibility: hidden;
+    }
+
+    100% {
+        background: url(https://wallpaperaccess.com/full/112722.jpg);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        -webkit-backface-visibility: hidden;
+    }
+
 }
