@@ -33,3 +33,25 @@
     flex-direction: row; */
 
 }
+
+/* .delete-photo-button {
+    display: flex;
+
+
+} */
+
+.comments {
+    /* display: flex; */
+    position: relative;
+    left: 550px;
+    bottom: 25vh;
+    width: 500px;
+}
+
+form.photo-form {
+    width: 500px;
+}
+
+.photo-form {
+    width: 500px;
+}

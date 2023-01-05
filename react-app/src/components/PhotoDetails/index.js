@@ -39,12 +39,12 @@ function PhotoDetail() {
                         <p>{singlePhotoState.description}</p>
                         <p>Uploaded by {singlePhotoState.userInfo?.username} on {singlePhotoState.date_uploaded}</p>
                     </div>
-                    <div>
+                    <div className='edit-box-div'>
                         {currentUser?.id === singlePhotoState.user_id &&
                             <EditPhoto key={singlePhotoState.id} />
                         }
                     </div>
-                    <div>
+                    <div className='delete-photo-button'>
                         {currentUser?.id === singlePhotoState.user_id &&
                             <button onClick={async (e) => {
                                 e.preventDefault()
@@ -55,7 +55,7 @@ function PhotoDetail() {
                     <div>
                         <CreateComment key={singlePhotoState.id} />
                     </div>
-                    <div>
+                    <div className='comments'>
                         <GetCommentsByPhoto key={singlePhotoState.id} />
                     </div>
                 </div>

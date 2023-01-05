@@ -43,7 +43,7 @@ function EditPhoto() {
     }
 
     return (
-        <div>
+        <div className='photo-form'>
 
             <form className='photo-form' onSubmit={handleSubmit}>
                 <label>

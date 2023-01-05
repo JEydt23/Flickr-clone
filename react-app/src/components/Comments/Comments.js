@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getComments } from '../../store/comment';
 import EditComment from '../EditComment';
+import './Comments.css'
 
 
 export const GetCommentsByPhoto = () => {
@@ -11,20 +12,20 @@ export const GetCommentsByPhoto = () => {
 
     useEffect(() => {
         dispatch(getComments(singlePhotoState.id))
-        
+
 
     }, [dispatch, singlePhotoState.id])
 
 
     if (!singlePhotoState.comments) return null;
     return singlePhotoState && (
-        <div>
+        <div className='comments-div'>
             <ul>
                 {Object.values(singlePhotoState.comments).map((ele) => (
-                    <li>
+                    <li className='comment-name'>
                         {/* {console.log("ele here ======= ", ele)} */}
                         {ele.userInfo.first_name} {ele.userInfo.last_name}
-                        <li >
+                        <li className='comment-body'>
                             {ele.body}
                             {currentUser?.id === ele.user_id &&
                                 <EditComment key={ele.id} photoDetails={ele.photo_id} comment_id={ele.id} />

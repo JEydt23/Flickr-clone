@@ -1,0 +1,27 @@
+.comments-div {
+    display: flex;
+    font-size: 12px;
+    width: 500px;
+    position: relative;
+    /* bottom: 20vh; */
+}
+
+li.comment-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+li.comment-body {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+.edit-box-div {
+    width: 500px;
+}
+
+div.comments {
+    width: 500px;
+}
