@@ -33,30 +33,32 @@ function PhotoDetail() {
                         onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }}
                     />
                 </div>
+                    <div className='edit-delete-main' >
+                        <div className='edit-box-div'>
+                            {currentUser?.id === singlePhotoState.user_id &&
+                                <EditPhoto key={singlePhotoState.id} />
+                            }
+                        <div >
+                            {currentUser?.id === singlePhotoState.user_id &&
+                                <button className='delete-photo-button' onClick={async (e) => {
+                                    e.preventDefault()
+                                    await dispatch(deletingPhoto(singlePhotoState.id))
+                                    await history.push('/photos')
+                                }}>Delete Photo</button>}
+                        </div>
+                        </div>
+                    </div>
                 <div className='single-photo-main-box'>
                     <div className='photo-info-box'>
                         <h2>{singlePhotoState.title}</h2>
                         <p>{singlePhotoState.description}</p>
                         <p>Uploaded by {singlePhotoState.userInfo?.username} on {singlePhotoState.date_uploaded}</p>
                     </div>
-                    <div className='edit-box-div'>
-                        {currentUser?.id === singlePhotoState.user_id &&
-                            <EditPhoto key={singlePhotoState.id} />
-                        }
-                    </div>
-                    <div className='delete-photo-button'>
-                        {currentUser?.id === singlePhotoState.user_id &&
-                            <button onClick={async (e) => {
-                                e.preventDefault()
-                                await dispatch(deletingPhoto(singlePhotoState.id))
-                                await history.push('/photos')
-                            }}>Delete Photo</button>}
+                    <div className='comments'>
+                        <GetCommentsByPhoto key={singlePhotoState.id} />
                     </div>
                     <div>
                         <CreateComment key={singlePhotoState.id} />
-                    </div>
-                    <div className='comments'>
-                        <GetCommentsByPhoto key={singlePhotoState.id} />
                     </div>
                 </div>
             </div>

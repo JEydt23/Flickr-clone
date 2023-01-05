@@ -39,7 +39,7 @@ function EditPhoto() {
             title, description, file_path
         }
         const edittedPhoto = await dispatch(edittingPhoto(formValues, updatedThisPhoto.id))
-        if (edittedPhoto) history.push('/photos')
+        if (edittedPhoto) history.push('/photos/')
     }
 
     return (
@@ -51,7 +51,7 @@ function EditPhoto() {
                     <input
                         type="text"
                         placeholder='Title'
-                        className='titleInput'
+                        className='editInput'
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required />
@@ -60,7 +60,7 @@ function EditPhoto() {
                     {/* Description */}
                     <textarea
                         type="text"
-                        className='descriptionInput'
+                        className='editInput'
                         value={description}
                         placeholder="Describe this photo..."
                         onChange={(e) => setDescription(e.target.value)}
@@ -70,7 +70,7 @@ function EditPhoto() {
                     {/* File_path */}
                     <input
                         type="text"
-                        className='file_pathInput'
+                        className='editInput'
                         value={file_path}
                         placeholder="Image URL for your photo"
                         onChange={(e) => setFile_Path(e.target.value)} />
@@ -79,7 +79,7 @@ function EditPhoto() {
                     {/* Tags */}
                     <input
                         type="text"
-                        className='tagInput'
+                        className='editInput'
                         value={tags}
                         placeholder="Tags"
                         onChange={(e) => setTags(e.target.value)} />
@@ -89,6 +89,7 @@ function EditPhoto() {
                     disabled={errors.length > 0}>
                     Publish Edited Photo
                 </button>
+                
                 <ul className='errors'>
                     {errors.map(error => (
                         <li key={error}>{error}</li>

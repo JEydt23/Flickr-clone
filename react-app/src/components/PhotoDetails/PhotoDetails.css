@@ -7,13 +7,18 @@
     display: flex;
     padding-top: 75px;
     padding-bottom: 25px;
+    /* z-index: 2; */
+    justify-content: center;
+    align-items: center;
 }
+
 /* 33, 33, 36 */
 
 .photo-background {
     background-color: rgb(33, 33, 36);
     width: 100%;
-
+    display: flex;
+    flex-direction: row;
     position: relative;
 
 }
@@ -34,11 +39,25 @@
 
 }
 
-/* .delete-photo-button {
-    display: flex;
+.delete-photo-button {
+    width: 200px;
+    border-radius: 5px;
+    border: 0px;
+    padding: 10px;
+    background-color: rgb(18, 143, 220);
+    color: white;
+    margin-top: 5px;
+}
 
-
-} */
+.submitButton {
+    width: 200px;
+    border-radius: 5px;
+    border: 0px;
+    padding: 10px;
+    background-color: rgb(18, 143, 220);
+    color: white;
+    margin-top: 5px;
+}
 
 .comments {
     /* display: flex; */
@@ -48,10 +67,32 @@
     width: 500px;
 }
 
-form.photo-form {
-    width: 500px;
+
+
+.edit-delete-main {
+    display: flex;
+    /* flex-direction: row-reverse; */
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    /* position: relative; */
+
+
 }
 
-.photo-form {
-    width: 500px;
+.editInput {
+    width: 100%;
+    overflow: visible;
+    height: 100%;
+
+}
+
+.edit-box-div {
+    display: flex;
+
+}
+
+textarea.editInput {
+    height: 125px;
+    overflow-y: hidden;
 }

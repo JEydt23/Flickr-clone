@@ -25,7 +25,7 @@ const NavBar = () => {
         <div className='nav-right'>
           {user &&
         <button className='createPhotoButton'>
-          <NavLink to={`/photos/new`} className='create-a-photo' onClick={createAPhoto}>
+          <NavLink to={`/photos/new`} className='create-a-photo'>
             Upload a Photo
           </NavLink>
         </button>}
