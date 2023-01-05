@@ -4,6 +4,7 @@ import LogoutButton from '../auth/LogoutButton';
 import logo from './flickr logo black.png'
 import session from '../../store/session'
 import { useSelector } from 'react-redux';
+import createAPhoto from '../CreatePhoto'
 
 
 
@@ -18,10 +19,16 @@ const NavBar = () => {
       <div className='nav'>
         <div className='Home'>
           <NavLink to='/photos' exact={true} activeClassName='active'>
-            <img src={logo} alt='home' id='logo'></img><label>Picture This</label>
+            <img src={logo} alt='home' id='logo'></img><label class='picture-this'>Picture This</label>
           </NavLink>
         </div>
         <div className='nav-right'>
+          {user &&
+        <button className='createPhotoButton'>
+          <NavLink to={`/photos/new`} className='create-a-photo' onClick={createAPhoto}>
+            Upload a Photo
+          </NavLink>
+        </button>}
           <div >
             <NavLink to='/login' exact={true} activeClassName='active' className='login'>
               Login

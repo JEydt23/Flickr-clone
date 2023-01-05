@@ -23,13 +23,13 @@ label {
     justify-content: center;
     align-items: center;
     height: 38px;
-    padding-top: 10px;
+    padding-top: 5px;
     padding-right: 25px;
 
 }
 
 .Home {
-    /* padding-top: 10px; */
+    padding-top: 10px;
     padding-left: 25px;
 }
 
@@ -62,4 +62,8 @@ label {
     text-decoration: none;
     transition: all .15s ease-in-out;
     vertical-align: top;
+}
+
+.picture-this {
+    cursor: pointer;
 }

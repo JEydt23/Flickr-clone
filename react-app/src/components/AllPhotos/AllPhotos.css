@@ -1,0 +1,100 @@
+.all-photos-photo {
+    width: 430px;
+    height: 286px;
+    /* border: 1px red solid; */
+    flex-grow: 1;
+    flex: 2 0 100%;
+    object-fit: cover;
+
+}
+
+.photo-gallery {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    justify-content: center;
+    justify-items: center;
+    max-width: 1080px;
+    margin-right: auto;
+    margin-left: auto;
+    /* border: 1px black solid; */
+
+}
+
+.photos-div {
+    /* border: 1px green solid; */
+    width: 430px;
+    height: 400px;
+    background-color: white;
+
+}
+
+.main-all-photo {
+    background-color: rgb(243, 245, 246);
+}
+
+.username-all-photo {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 600;
+    /* line-height: 1.2; */
+    align-content: center;
+    /* justify-content: center; */
+    display: flex;
+}
+
+.date-added-all-photo {
+    color: rgb(179, 179, 179);
+    font-size: 14px;
+}
+
+.pro-img {
+    position: relative;
+    top: -2px;
+}
+.user-date {
+    padding: 10px;
+}
+
+.createPhotoButton {
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .15s ease-in-out;
+    vertical-align: top;
+    text-decoration: none;
+    margin-right: 25px;
+
+}
+
+
+.logout {
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .15s ease-in-out;
+    vertical-align: top;
+    text-decoration: none;
+    margin-left: 15px;
+}
