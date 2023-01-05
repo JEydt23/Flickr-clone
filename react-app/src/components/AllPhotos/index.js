@@ -41,9 +41,9 @@ function AllPhotos() {
                     alt={photo.title}
                     onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" } } />
             <p>{photo.description}</p>
-            <p>Uploaded by {photo.User.username} on {photo.date_uploaded}</p>
+            <p>Uploaded by {photo.User?.username} on {photo.date_uploaded}</p>
             </NavLink>
-            
+
           </div>
         ))}
       </div>
