@@ -12,6 +12,7 @@ import AllPhotos from './components/AllPhotos';
 import PhotoDetail from './components/PhotoDetails';
 import CreatePhoto from './components/CreatePhoto';
 import EditPhoto from './components/EditPhoto';
+import LandingPage from './components/LandingPage'
 
 
 function App() {
@@ -58,7 +59,7 @@ function App() {
           <PhotoDetail />
         </Route>
         <Route path='/' exact={true} >
-          <h1>Picture This</h1>
+          <LandingPage />
         </Route>
       </Switch>
     </BrowserRouter>
