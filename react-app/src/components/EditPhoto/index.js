@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
-import { edittingPhoto, getOnePhoto } from '../../store/photo'
+import { edittingPhoto, getOnePhoto, deletingPhoto } from '../../store/photo'
 
 function EditPhoto() {
     const updatedThisPhoto = useSelector(state => state.photo.viewOnePhoto)
+    const currentUser = useSelector(state => state.session.user)
     const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -89,7 +90,14 @@ function EditPhoto() {
                     disabled={errors.length > 0}>
                     Publish Edited Photo
                 </button>
-                
+                <div >
+                    {currentUser?.id === updatedThisPhoto.user_id &&
+                        <button className='delete-photo-button' onClick={async (e) => {
+                            e.preventDefault()
+                            await dispatch(deletingPhoto(updatedThisPhoto.id))
+                            await history.push('/photos')
+                        }}>Delete Photo</button>}
+                </div>
                 <ul className='errors'>
                     {errors.map(error => (
                         <li key={error}>{error}</li>

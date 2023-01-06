@@ -16,7 +16,7 @@ function PhotoDetail() {
     const dispatch = useDispatch();
     const { photoId } = useParams();
     const currentUser = useSelector(state => state.session.user)
-    console.log('single photo state =========== ', singlePhotoState)
+    // console.log('single photo state =========== ', singlePhotoState)
 
     useEffect(() => {
         dispatch(getOnePhoto(photoId))
@@ -38,14 +38,7 @@ function PhotoDetail() {
                             {currentUser?.id === singlePhotoState.user_id &&
                                 <EditPhoto key={singlePhotoState.id} />
                             }
-                        <div >
-                            {currentUser?.id === singlePhotoState.user_id &&
-                                <button className='delete-photo-button' onClick={async (e) => {
-                                    e.preventDefault()
-                                    await dispatch(deletingPhoto(singlePhotoState.id))
-                                    await history.push('/photos')
-                                }}>Delete Photo</button>}
-                        </div>
+                    
                         </div>
                     </div>
                 <div className='single-photo-main-box'>

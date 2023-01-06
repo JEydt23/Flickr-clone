@@ -24,8 +24,6 @@ function AllPhotos() {
   return (
     <div className='main-all-photo'>
       <div>
-
-
       </div>
       <div className='photo-gallery'>
         {photoState.map(photo => (
