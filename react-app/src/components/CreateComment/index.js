@@ -13,10 +13,12 @@ function CreateComment() {
     const history = useHistory();
     const [comment, setComment] = useState("")
     const [errors, setErrors] = useState([])
+    const [showErrors, setShowErrors] = useState(false)
 
     useEffect(()=> {
         const validationErrors = [];
         if (comment.length > 500) validationErrors.push("Comment must be shorter than 500 characters.")
+        if (comment.trim() == '') validationErrors.push("Letters or numbers are required in the comment.")
         setErrors(validationErrors)
     }, [comment])
 

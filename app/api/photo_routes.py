@@ -3,6 +3,8 @@ from sqlalchemy.sql import func, select
 from ..models import db, Photo, User, Comment
 from ..forms import PhotoForm
 from flask_login import login_required, current_user
+from .auth_routes import validation_errors_to_error_messages
+
 photo_route = Blueprint("photos", __name__)
 
 
@@ -53,8 +55,8 @@ def get_photo(photoId):
 
 # CREATE A NEW PHOTO UPLOAD
 
-@photo_route.route('/', methods=['POST'], strict_slashes=False)
-# @login_required
+@photo_route.route('/', methods=['POST'])
+@login_required
 def create_photo():
     form = PhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -66,16 +68,16 @@ def create_photo():
             file_path = form.data["file_path"],
             tags = form.data["tags"]
         )
+        db.session.add(new_photo)
+        db.session.commit()
+        return new_photo.to_dict()
+
     if form.errors:
-        print(form.errors)
-        return "Invalid data entered"
+        print("***********", form.errors)
+        return {"error" : validation_errors_to_error_messages(form.errors)}, 401
 
-    db.session.add(new_photo)
-    db.session.commit()
+    return {"error" : "Field required."}
 
-    # print("\n \n xxxxxxxxxxxxxx NEW PHOTO xxxxxxxxxxxxxxxx = ", type(new_photo), "\n \n")
-    # print("new_photo IN COMMENT_ROUTES ===== ", new_photo, "\n")
-    return new_photo.to_dict()
 
 
 # UPDATE AN UPLOADED PHOTO

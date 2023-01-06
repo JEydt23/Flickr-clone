@@ -18,7 +18,9 @@ function EditPhoto() {
     useEffect(() => {
         const validationErrors = [];
         if (title?.length > 100) validationErrors.push("The title must be greater than 2 characters and less than 40.")
+        if (title.trim() == '') validationErrors.push("Letters or numbers are required in the title.")
         if (description?.length > 255) validationErrors.push("The description must be shorter than 255 characters.")
+        if (description.trim() == '') validationErrors.push("Letters or numbers are required in the description.")
         if (!file_path?.match(/\.(gif|png|jpeg|jpg)$/)) validationErrors.push("The photo's URL must end in .gif, .png, .jpeg, or .jpg");
         setErrors(validationErrors)
     }, [title, description, file_path])

@@ -10,15 +10,20 @@ function EditComment({ photoDetails, comment_id }) {
     const [comment, setComment] = useState("")
     const [errors, setErrors] = useState([])
     const updateThisComment = useSelector(state => state.comment.allComments)
-    console.log("updateThisComment ============", updateThisComment)
-    console.log(photoDetails,"00000000000000000000000 photoDETAILS")
-    console.log(comment_id, "99999999999999999999 commentID")
+    // console.log("updateThisComment ============", updateThisComment)
+    // console.log(photoDetails,"00000000000000000000000 photoDETAILS")
+    // console.log(comment_id, "99999999999999999999 commentID")
+        // const [showErrors, setShowErrors] = useState(false)
+
 
     useEffect(() => {
         const validationErrors = [];
-        if (comment.length > 500) validationErrors.push("Comment must be shorter than 255 characters.")
+        if (comment.length > 500) validationErrors.push("Comment must be shorter than 500 characters.")
+        if (comment.trim() == '') validationErrors.push("Letters or numbers are required in the comment.")
         setErrors(validationErrors)
+
     }, [comment])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -52,12 +57,13 @@ function EditComment({ photoDetails, comment_id }) {
                         />
                     </label>
                     <button type="submit">Edit Comment</button>
-                    <button onClick={async (e) => {
-                        e.preventDefault()
-                        await dispatch(deleteCommentThunk(comment_id))
-                    }}>
-                        Delete Comment
-                    </button>
+
+                        <button onClick={async (e) => {
+                            e.preventDefault()
+                            await dispatch(deleteCommentThunk(comment_id))
+                        }}>
+                            Delete Comment
+                        </button>
                 </div>
             </form>
         </div>

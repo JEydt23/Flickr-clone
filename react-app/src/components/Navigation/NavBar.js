@@ -2,9 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import logo from './flickr logo black.png'
-import session from '../../store/session'
+// import session from '../../store/session'
 import { useSelector } from 'react-redux';
-import createAPhoto from '../CreatePhoto'
+// import createAPhoto from '../CreatePhoto'
 
 
 
@@ -25,7 +25,7 @@ const NavBar = () => {
         <div className='nav-right'>
           {user &&
         <button className='createPhotoButton'>
-          <NavLink to={`/photos/new`} className='create-a-photo'>
+          <NavLink to='/photos/new' exact={true} activeClassName='active' className='create-a-photo'>
             Upload a Photo
           </NavLink>
         </button>}
