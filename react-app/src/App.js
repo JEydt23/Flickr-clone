@@ -13,6 +13,7 @@ import PhotoDetail from './components/PhotoDetails';
 import CreatePhoto from './components/CreatePhoto';
 import EditPhoto from './components/EditPhoto';
 import LandingPage from './components/LandingPage'
+import PageNotFound from './components/404Page/404page';
 
 
 function App() {
@@ -60,6 +61,9 @@ function App() {
         </Route>
         <Route path='/' exact={true} >
           <LandingPage />
+        </Route>
+        <Route path='/' >
+          <PageNotFound />
         </Route>
       </Switch>
     </BrowserRouter>
