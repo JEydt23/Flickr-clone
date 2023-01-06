@@ -60,7 +60,7 @@
     position: relative;
     /* top: 80px; */
     border: none;
-    background-image: url(https://wallpaperaccess.com/full/112722.jpg);
+    background-image: url(https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg);
     background-size: cover;
     animation: change 25s infinite ease-in-out;
     font-family: 'Big Shoulders Display', cursive;
@@ -74,7 +74,7 @@
 @keyframes change {
 
     0% {
-        background: url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80);
+        background: url(https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg);
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -110,7 +110,7 @@
     }
 
     100% {
-        background: url(https://wallpaperaccess.com/full/112722.jpg);
+        background: url(https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg);
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
