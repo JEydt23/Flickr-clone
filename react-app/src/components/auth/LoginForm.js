@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
-  
+
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -44,7 +44,9 @@ const LoginForm = () => {
           <h3 className='login-head'>Log in to Picture This </h3>
           <div>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div key={ind}>{error}
+              {console.log("LOGIN ERROR HERE ========", error)}
+              </div>
             ))}
           </div>
           <div>

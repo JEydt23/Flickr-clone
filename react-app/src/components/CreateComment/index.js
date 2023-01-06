@@ -15,7 +15,7 @@ function CreateComment() {
     const [errors, setErrors] = useState([])
     const [showErrors, setShowErrors] = useState(false)
 
-    useEffect(()=> {
+    useEffect(() => {
         const validationErrors = [];
         if (comment.length > 500) validationErrors.push("Comment must be shorter than 500 characters.")
         if (comment.trim() == '') validationErrors.push("Letters or numbers are required in the comment.")
@@ -23,6 +23,7 @@ function CreateComment() {
     }, [comment])
 
     const handleSubmit = async (e) => {
+        setShowErrors(true)
         e.preventDefault();
         if (!errors.length) {
             const formValues = {
@@ -41,7 +42,10 @@ function CreateComment() {
             <form onSubmit={handleSubmit} >
                 <div>Leave a comment on this photograph</div>
                 <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {
+                        showErrors ?
+                            errors.map((error, idx) => <li key={idx}>{error}</li>)
+                            : null}
                 </ul>
                 <div>
                     <label>
@@ -53,6 +57,9 @@ function CreateComment() {
                             required
                         />
                     </label>
+                    <div>
+                        {comment.length}/500 characters
+                    </div>
                     <button type="submit">Post Comment</button>
                 </div>
             </form>

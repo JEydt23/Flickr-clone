@@ -10,10 +10,10 @@ function EditComment({ photoDetails, comment_id }) {
     const [comment, setComment] = useState("")
     const [errors, setErrors] = useState([])
     const updateThisComment = useSelector(state => state.comment.allComments)
+    const [showErrors, setShowErrors] = useState(false)
     // console.log("updateThisComment ============", updateThisComment)
     // console.log(photoDetails,"00000000000000000000000 photoDETAILS")
     // console.log(comment_id, "99999999999999999999 commentID")
-        // const [showErrors, setShowErrors] = useState(false)
 
 
     useEffect(() => {
@@ -26,6 +26,7 @@ function EditComment({ photoDetails, comment_id }) {
 
 
     const handleSubmit = async (e) => {
+        setShowErrors(true)
         e.preventDefault();
         if (!errors.length) {
             const formValues = {
@@ -44,7 +45,10 @@ function EditComment({ photoDetails, comment_id }) {
             <form onSubmit={handleSubmit} >
 
                 <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {
+                        showErrors ?
+                            errors.map((error, idx) => <li key={idx}>{error}</li>)
+                            : null}
                 </ul>
                 <div>
                     <label>
@@ -56,14 +60,17 @@ function EditComment({ photoDetails, comment_id }) {
                             required
                         />
                     </label>
+                    <div>
+                        {comment.length}/500 characters
+                    </div>
                     <button type="submit">Edit Comment</button>
 
-                        <button onClick={async (e) => {
-                            e.preventDefault()
-                            await dispatch(deleteCommentThunk(comment_id))
-                        }}>
-                            Delete Comment
-                        </button>
+                    <button onClick={async (e) => {
+                        e.preventDefault()
+                        await dispatch(deleteCommentThunk(comment_id))
+                    }}>
+                        Delete Comment
+                    </button>
                 </div>
             </form>
         </div>
