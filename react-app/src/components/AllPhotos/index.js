@@ -28,7 +28,7 @@ function AllPhotos() {
       <div className='photo-gallery'>
         {photoState.map(photo => (
           <div key={photo.id} className='photos-div'>
-            {console.log("photo key ===== ", photo)}
+            {/* {console.log("photo key ===== ", photo)} */}
             <NavLink to={`/photos/${photo.id}`}>
               {/* <h2>{photo.title}</h2> */}
               <div className='user-date'>

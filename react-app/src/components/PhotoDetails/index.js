@@ -5,6 +5,7 @@ import { getOnePhoto, deletingPhoto } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
 import { GetCommentsByPhoto } from '../Comments/Comments';
 import CreateComment from '../CreateComment';
+import profPic from './defaultprofpic.png'
 import './PhotoDetails.css'
 
 
@@ -33,19 +34,24 @@ function PhotoDetail() {
                         onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }}
                     />
                 </div>
-                    <div className='edit-delete-main' >
-                        <div className='edit-box-div'>
-                            {currentUser?.id === singlePhotoState.user_id &&
-                                <EditPhoto key={singlePhotoState.id} />
-                            }
-                    
-                        </div>
+                <div className='edit-delete-main' >
+                    <div className='edit-box-div'>
+                        {currentUser?.id === singlePhotoState.user_id &&
+                            <EditPhoto key={singlePhotoState.id} />
+                        }
+
                     </div>
+                </div>
                 <div className='single-photo-main-box'>
                     <div className='photo-info-box'>
-                        <h2>{singlePhotoState.title}</h2>
+                        <div className='user-name-prof'>
+
+                                <h2><i class="fa-solid fa-user"/> &nbsp; {singlePhotoState.userInfo?.username}</h2>
+
+                        </div>
+                        <h4>{singlePhotoState.title}</h4>
                         <p>{singlePhotoState.description}</p>
-                        <p>Uploaded by {singlePhotoState.userInfo?.username} on {singlePhotoState.date_uploaded}</p>
+                        <p> Taken on {singlePhotoState.date_uploaded}</p>
                     </div>
                     <div className='comments'>
                         <GetCommentsByPhoto key={singlePhotoState.id} />

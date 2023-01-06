@@ -1,10 +1,10 @@
-.comments-div {
+/* .comments-div {
     display: flex;
     font-size: 12px;
     width: 500px;
     position: relative;
-    /* bottom: 20vh; */
-}
+
+} */
 
 li.comment-name {
     font-size: 14px;
