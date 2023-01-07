@@ -7,7 +7,7 @@ function CreateComment() {
     const currentPhoto = useSelector(state => state.photo.viewOnePhoto)
 
     // console.log("THIS IS CURRENT PHOTO STATE ======= ", currentPhoto)
-
+    const currentUser = useSelector(state => state.session.user)
     const { photoId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -17,10 +17,11 @@ function CreateComment() {
 
     useEffect(() => {
         const validationErrors = [];
+        if(!currentUser) validationErrors.push('You must be logged in to post a comment.')
         if (comment.length > 500) validationErrors.push("Comment must be shorter than 500 characters.")
         if (comment.trim() == '') validationErrors.push("Letters or numbers are required to post a comment.")
         setErrors(validationErrors)
-    }, [comment])
+    }, [currentUser, comment])
 
     const handleSubmit = async (e) => {
         setShowErrors(true)

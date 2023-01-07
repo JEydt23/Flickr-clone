@@ -37,6 +37,7 @@ def create_comment(photo_id):
 # UPDATE COMMENT ROUTE
 
 @comment_route.route('/<int:comment_id>', methods=["PUT"])
+@login_required
 def update_comment(comment_id):
     comment = Comment.query.filter_by(id = comment_id).first()
     # users = User.query.filter_by(id = current_user.id).first()
@@ -53,6 +54,7 @@ def update_comment(comment_id):
     return comment.to_dict()
 
 @comment_route.route('<int:comment_id>', methods=['DELETE'])
+@login_required
 def delete_comment(comment_id):
     comment = Comment.query.filter_by(id = comment_id).first()
     if not comment:

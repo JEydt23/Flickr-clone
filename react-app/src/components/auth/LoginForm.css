@@ -80,8 +80,8 @@ input {
 .background-img {
     background-image: url('./208106.jpg');
     height: 100vh;
-    min-width: 1903px;
-    padding: 0px;
+    width: 100vw;
+    /* padding: 0px; */
     /* left: 0;
     position: absolute;
     z-index: -2; */

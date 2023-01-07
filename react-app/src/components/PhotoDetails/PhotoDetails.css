@@ -88,8 +88,8 @@
 
 }
 
-.editInput {
-    width: 100%;
+input.editInput {
+    width: 125px;
     overflow: visible;
     height: 100%;
 
@@ -101,8 +101,9 @@
 }
 
 textarea.editInput {
-    height: 125px;
+    width: 145px;
     overflow-y: hidden;
+    /* padding: 5px; */
 }
 
 .char-counter-post {
