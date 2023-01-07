@@ -18,7 +18,7 @@ function CreateComment() {
     useEffect(() => {
         const validationErrors = [];
         if (comment.length > 500) validationErrors.push("Comment must be shorter than 500 characters.")
-        if (comment.trim() == '') validationErrors.push("Letters or numbers are required in the comment.")
+        if (comment.trim() == '') validationErrors.push("Letters or numbers are required to post a comment.")
         setErrors(validationErrors)
     }, [comment])
 
@@ -38,15 +38,17 @@ function CreateComment() {
         }
     }
     return (
-        <div>
+        <div className="create-comment-div">
             <form onSubmit={handleSubmit} >
-                <div>Leave a comment on this photograph</div>
-                <ul>
+                <div>
+                    {/* Leave a comment on this photograph */}
+                </div>
+                <div className="error-list">
                     {
                         showErrors ?
-                            errors.map((error, idx) => <li key={idx}>{error}</li>)
+                            errors.map((error, idx) => <li className='create-comment-errors' key={idx}>{error}</li>)
                             : null}
-                </ul>
+                </div>
                 <div>
                     <label>
                         <input
@@ -57,10 +59,10 @@ function CreateComment() {
                             required
                         />
                     </label>
-                    <div>
+                    <div className="char-counter-post">
                         {comment.length}/500 characters
                     </div>
-                    <button type="submit">Post Comment</button>
+                    <button type="submit" className="post-comment-button">Comment</button>
                 </div>
             </form>
         </div>

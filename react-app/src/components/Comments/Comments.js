@@ -20,7 +20,7 @@ export const GetCommentsByPhoto = () => {
     if (!singlePhotoState.comments) return null;
     return singlePhotoState && (
         <div className='comments-div'>
-            <ul>
+                {/* <h4>Comments</h4> */}
                 {Object.values(singlePhotoState.comments).map((ele) => (
                     <li className='comment-name'>
                         {/* {console.log("ele here ======= ", ele)} */}
@@ -33,7 +33,7 @@ export const GetCommentsByPhoto = () => {
                         </li>
                     </li>
                 ))}
-            </ul>
+
 
         </div>
     )

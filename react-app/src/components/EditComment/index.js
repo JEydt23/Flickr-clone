@@ -60,17 +60,18 @@ function EditComment({ photoDetails, comment_id }) {
                             required
                         />
                     </label>
-                    <div>
+                    <div className="char-counter">
                         {comment.length}/500 characters
                     </div>
-                    <button type="submit">Edit Comment</button>
-
-                    <button onClick={async (e) => {
+                    <button className="edit-comment-button" type="submit">Edit Comment </button>
+                    &nbsp;
+                    <i class="fa fa-trash" aria-hidden="true" onClick={async (e) => {
                         e.preventDefault()
                         await dispatch(deleteCommentThunk(comment_id))
                     }}>
-                        Delete Comment
-                    </button>
+                        {/* Delete Comment */}
+                        </i>
+                    {/* </button> */}
                 </div>
             </form>
         </div>

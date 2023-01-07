@@ -24,8 +24,14 @@ function PhotoDetail() {
 
     }, [dispatch, photoId, singlePhotoState.id, commentState])
 
+    const dateConverter = (date) => {
+        const newDate = new Date(date)
+        return `${newDate.toLocaleString('en-US', { month: 'long' })} ${newDate.getDate()}, ${newDate.getFullYear()}`
+    }
+
+
     return (
-        <div>
+        <div className='whole-page-main-div'>
             <div key={singlePhotoState}>
                 <div className='photo-background'>
                     <img className='single-photo'
@@ -43,21 +49,41 @@ function PhotoDetail() {
                     </div>
                 </div>
                 <div className='single-photo-main-box'>
-                    <div className='photo-info-box'>
-                        <div className='user-name-prof'>
+                    <div className='left-side'>
+                        <div className='photo-info-box'>
+                            <div className='user-name-prof'>
 
-                                <h2><i class="fa-solid fa-user"/> &nbsp; {singlePhotoState.userInfo?.username}</h2>
+                                <h2><i class="fa-solid fa-user" /> &nbsp; {singlePhotoState.userInfo?.username}</h2>
 
+                            </div>
+                            <h4>{singlePhotoState.title}</h4>
+                            <p>{singlePhotoState.description}</p>
+                            {/* <p> Taken on {singlePhotoState.date_uploaded}</p> */}
                         </div>
-                        <h4>{singlePhotoState.title}</h4>
-                        <p>{singlePhotoState.description}</p>
-                        <p> Taken on {singlePhotoState.date_uploaded}</p>
+                        <div className='comments'>
+                            <GetCommentsByPhoto key={singlePhotoState.id} />
+                        </div>
+                        <div>
+                            <CreateComment key={singlePhotoState.id} />
+                        </div>
                     </div>
-                    <div className='comments'>
-                        <GetCommentsByPhoto key={singlePhotoState.id} />
-                    </div>
-                    <div>
-                        <CreateComment key={singlePhotoState.id} />
+                    <div className='center-div'></div>
+                    <div className='right-side'>
+                        <div className='misc-info-box'>
+                            <div className='tippity-top'>
+                                <div className='date-uploaded'>
+                                    <div className='number-comments'>
+                                        {singlePhotoState.comments?.length}
+                                    </div>
+                                    <div className='comments-count-text'>
+                                        Comments
+                                    </div>
+                                    <div className='taken-on'>
+                                        Taken on {dateConverter(singlePhotoState.date_uploaded)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
