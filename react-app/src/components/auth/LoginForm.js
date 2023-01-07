@@ -42,7 +42,7 @@ const LoginForm = () => {
       <div className='background-img'>
         <form className="login-form" onSubmit={onLogin}>
           <h3 className='login-head'>Log in to Picture This </h3>
-          <div>
+          <div className='login-errors'>
             {errors.map((error, ind) => (
               <div key={ind}>{error}
               {console.log("LOGIN ERROR HERE ========", error)}

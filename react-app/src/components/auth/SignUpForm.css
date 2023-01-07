@@ -6,6 +6,7 @@
     width: 25%;
     margin: auto;
     min-height: 42vh;
+    height: auto;
     opacity: 0.9;
     min-width: 500px;
     font-family: Arial;
@@ -69,4 +70,12 @@ input {
     justify-content: center;
     align-items: center;
     display: flex;
+}
+
+.sign-up-errors {
+    color: red;
+    font-size: 12px;
+    padding-bottom: 10px;
+    text-align: center;
+    justify-content: center;
 }

@@ -15,7 +15,7 @@
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     position: absolute; */
-    height: 30vh;
+    height: auto;
     opacity: 0.9;
     background-color: white;
     min-width: 500px;
@@ -88,4 +88,12 @@ input {
     justify-content: center;
     align-items: center;
     display: flex;
+}
+
+.login-errors {
+    color: red;
+    font-size: 12px;
+    padding-bottom: 10px;
+    text-align: center;
+    justify-content: center;
 }
