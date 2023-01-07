@@ -19,7 +19,7 @@ function EditPhoto() {
         const validationErrors = [];
         if (title?.length > 100) validationErrors.push("The title must be greater than 2 characters and less than 40.")
         if (title?.trim() == '') validationErrors.push("Letters or numbers are required in the title.")
-        if (description?.length > 255) validationErrors.push("The description must be shorter than 255 characters.")
+        if (description?.length > 255) validationErrors.push("Description must be shorter than 255 characters.")
         if (description?.trim() == '') validationErrors.push("Letters or numbers are required in the description.")
         if (!file_path?.match(/\.(gif|png|jpeg|jpg)$/)) validationErrors.push("The photo's URL must end in .gif, .png, .jpeg, or .jpg");
         setErrors(validationErrors)
@@ -61,11 +61,14 @@ function EditPhoto() {
                 </label>
                 <label>
                     {/* Description */}
+
+
                     <textarea
                         type="text"
                         className='editInput'
                         value={description}
                         placeholder="Describe this photo..."
+                        oninput="this.style.height = ''; this.style.height = this.scrollHeight +'px'"
                         onChange={(e) => setDescription(e.target.value)}
                         required />
                 </label>
@@ -87,6 +90,11 @@ function EditPhoto() {
                         placeholder="Tags"
                         onChange={(e) => setTags(e.target.value)} />
                 </label>
+                <div className='errors'>
+                    {errors.map(error => (
+                        <li className='edit-photo-error' key={error}>{error}</li>
+                    ))}
+                </div>
                 <button type='submit'
                     className='submitButton'
                     disabled={errors.length > 0}>
@@ -100,11 +108,6 @@ function EditPhoto() {
                             await history.push('/photos')
                         }}>Delete Photo</button>}
                 </div>
-                <ul className='errors'>
-                    {errors.map(error => (
-                        <li key={error}>{error}</li>
-                    ))}
-                </ul>
             </form>
         </div>
     )

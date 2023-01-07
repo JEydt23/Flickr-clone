@@ -39,7 +39,6 @@ function PhotoDetail() {
                         alt="Photo"
                         onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }}
                     />
-                </div>
                 <div className='edit-delete-main' >
                     <div className='edit-box-div'>
                         {currentUser?.id === singlePhotoState.user_id &&
@@ -47,6 +46,7 @@ function PhotoDetail() {
                         }
 
                     </div>
+                </div>
                 </div>
                 <div className='single-photo-main-box'>
                     <div className='left-side'>
