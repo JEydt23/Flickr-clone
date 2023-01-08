@@ -170,3 +170,8 @@ textarea.editInput {
 .edit-button-div {
     display: flex;
 }
+
+.preview-image {
+    width: 100px;
+    height: 75px;
+}

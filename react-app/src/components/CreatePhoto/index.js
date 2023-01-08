@@ -14,6 +14,8 @@ function CreatePhoto() {
     const [tags, setTags] = useState("")
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false)
+    const [previewImage, setPreviewImage] = useState(null)
+
 
     useEffect(() => {
         console.log(errors.length, "ERRORS ON LOAD")
@@ -23,13 +25,17 @@ function CreatePhoto() {
         if (title.trim() == '') validationErrors.push("Letters or numbers are required in the title.")
         if (description.trim() == '') validationErrors.push("Letters or numbers are required in the description.")
         if (description.length > 255) validationErrors.push("The description must be shorter than 255 characters.")
-        if (!file_path?.match(/\.(gif|png|jpeg|jpg)$/)) validationErrors.push("The photo's URL must end in .gif, .png, .jpeg, or .jpg");
+        // if (!file_path?.match(/\.(gif|png|jpeg|jpg)$/)) validationErrors.push("The photo's URL must end in .gif, .png, .jpeg, or .jpg");
         setErrors(validationErrors)
     }, [title, description, file_path])
 
-    // useEffect(()=>{
-    //     dispatch(createPhoto())
-    // }, [dispatch])
+    const imageUpdate = (e) => {
+        const image = e.target.files[0];
+        setFile_Path(image)
+        setPreviewImage(URL.createObjectURL(image))
+    }
+
+
 
     const handleSubmit = async (e) => {
         setShowErrors(true)
@@ -76,14 +82,18 @@ function CreatePhoto() {
                 <div className='char-counter'>
                     {description.length}/255 characters
                 </div>
+                <img src={previewImage} className='preview-image'></img>
                 <label>
                     {/* File_path */}
                     <input
-                        type="text"
+                        type="file"
+                        accept='.jpg, .gif, .jpeg, .png'
                         className='file_pathInput'
-                        value={file_path}
-                        placeholder="Image URL for your photo (required)"
-                        onChange={(e) => setFile_Path(e.target.value)}
+                        // value={file_path}
+
+                        // placeholder="Image URL for your photo (required)"
+                        onChange={imageUpdate}
+                        // {(e) => setFile_Path(e.target.value)}
                         required />
                 </label>
                 <label>

@@ -112,8 +112,9 @@ textarea.create-photo-input {
     min-width: 400px;
     min-height: 200px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
     padding: 10px;
+    resize: none;
     /* margin-top: 10px; */
 
 }
