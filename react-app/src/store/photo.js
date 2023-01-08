@@ -73,7 +73,7 @@ export const getOnePhoto = (photoId) => async dispatch => {
 
 export const createPhoto = (photo) => async dispatch => {
     console.log("***** PHOTO ==== ", photo)
-    const response = await fetch(`/api/photos`, {
+    const response = await fetch(`/api/photos/`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(photo)
