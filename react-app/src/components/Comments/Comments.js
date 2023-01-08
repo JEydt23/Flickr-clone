@@ -24,7 +24,8 @@ export const GetCommentsByPhoto = () => {
                 {Object.values(singlePhotoState.comments).map((ele) => (
                     <li className='comment-name'>
                         {/* {console.log("ele here ======= ", ele)} */}
-                        {ele.userInfo.first_name} {ele.userInfo.last_name}
+                        <i class="fa-solid fa-user" /> &nbsp; {ele.userInfo?.username}
+                        {/* {ele.userInfo.first_name} {ele.userInfo.last_name} */}
                         <li className='comment-body'>
                             {ele.body}
                             {currentUser?.id === ele.user_id &&

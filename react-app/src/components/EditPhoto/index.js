@@ -17,7 +17,7 @@ function EditPhoto() {
 
     useEffect(() => {
         const validationErrors = [];
-        if (title?.length > 100) validationErrors.push("The title must be greater than 2 characters and less than 40.")
+        if (title?.length > 100) validationErrors.push("The title must be greater than 2 characters and less than 100.")
         if (title?.trim() == '') validationErrors.push("Letters or numbers are required in the title.")
         if (description?.length > 255) validationErrors.push("Description must be shorter than 255 characters.")
         if (description?.trim() == '') validationErrors.push("Letters or numbers are required in the description.")
@@ -46,9 +46,9 @@ function EditPhoto() {
     }
 
     return (
-        <div className='edit-photo-form'>
+        <div className='edit-form-main'>
 
-            <form className='photo-form' onSubmit={handleSubmit}>
+            <form className='edit-photo-form' onSubmit={handleSubmit}>
                 <label>
                     {/* Title */}
                     <input
@@ -68,7 +68,7 @@ function EditPhoto() {
                         className='editInput'
                         value={description}
                         placeholder="Describe this photo..."
-                        oninput="this.style.height = ''; this.style.height = this.scrollHeight +'px'"
+                        // oninput="this.style.height = ''; this.style.height = this.scrollHeight +'px'"
                         onChange={(e) => setDescription(e.target.value)}
                         required />
                 </label>
@@ -95,18 +95,20 @@ function EditPhoto() {
                         <li className='edit-photo-error' key={error}>{error}</li>
                     ))}
                 </div>
-                <button type='submit'
-                    className='submitButton'
-                    disabled={errors.length > 0}>
-                    Publish Edited Photo
-                </button>
-                <div >
-                    {currentUser?.id === updatedThisPhoto.user_id &&
-                        <button className='delete-photo-button' onClick={async (e) => {
-                            e.preventDefault()
-                            await dispatch(deletingPhoto(updatedThisPhoto.id))
-                            await history.push('/photos')
-                        }}>Delete Photo</button>}
+                <div className='edit-button-div'>
+                    <button type='submit'
+                        className='submitButton'
+                        disabled={errors.length > 0}>
+                        Publish Edited Photo
+                    </button>
+                    <div >
+                        {currentUser?.id === updatedThisPhoto.user_id &&
+                            <button className='delete-photo-button' onClick={async (e) => {
+                                e.preventDefault()
+                                await dispatch(deletingPhoto(updatedThisPhoto.id))
+                                await history.push('/photos')
+                            }}>Delete Photo</button>}
+                    </div>
                 </div>
             </form>
         </div>

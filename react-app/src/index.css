@@ -23,3 +23,9 @@ body {
 *{
    font-family: 'Montserrat', sans-serif;
 }
+
+label {
+   text-decoration: none;
+}
+
+

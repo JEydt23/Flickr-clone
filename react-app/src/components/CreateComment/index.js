@@ -17,7 +17,7 @@ function CreateComment() {
 
     useEffect(() => {
         const validationErrors = [];
-        if(!currentUser) validationErrors.push('You must be logged in to post a comment.')
+        if (!currentUser) validationErrors.push('You must be logged in to post a comment.')
         if (comment.length > 500) validationErrors.push("Comment must be shorter than 500 characters.")
         if (comment.trim() == '') validationErrors.push("Letters or numbers are required to post a comment.")
         setErrors(validationErrors)
@@ -52,10 +52,11 @@ function CreateComment() {
                 </div>
                 <div>
                     <label>
-                        <input
+                        <textarea className="create-comment-input"
                             type="text"
                             placeholder="Write a comment here..."
                             value={comment}
+                            oninput="this.style.height = ''; this.style.height = this.scrollHeight +'px'"
                             onChange={(e) => setComment(e.target.value)}
                             required
                         />

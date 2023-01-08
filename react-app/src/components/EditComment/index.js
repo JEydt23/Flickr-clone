@@ -52,7 +52,7 @@ function EditComment({ photoDetails, comment_id }) {
                 </ul>
                 <div>
                     <label>
-                        <input
+                        <textarea className="create-comment-input"
                             type="text"
                             placeholder="Edit your comment here!"
                             value={comment}

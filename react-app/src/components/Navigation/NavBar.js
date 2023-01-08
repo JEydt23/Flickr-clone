@@ -18,20 +18,20 @@ const NavBar = () => {
     <nav>
       <div className='nav'>
         <div className='Home'>
-          <NavLink to='/photos' exact={true} activeClassName='active'>
-            <img src={logo} alt='home' id='logo'></img><label class='picture-this'>Picture This</label>
+          <NavLink to='/photos' exact={true} activeClassName='active' style={{textDecoration: "none"}}>
+            <img src={logo} alt='home' id='logo'></img><label className='picture-this'>Picture This</label>
           </NavLink>
         </div>
         <div className='nav-right'>
           {user &&
         <button className='createPhotoButton'>
-          <NavLink to='/photos/new' exact={true} activeClassName='active' className='create-a-photo'>
+          <NavLink to='/photos/new' exact={true} activeClassName='active' className='create-a-photo' style={{textDecoration: "none"}}>
             Upload a Photo
           </NavLink>
         </button>}
           <div >
             {!user &&
-            <NavLink to='/login' exact={true} activeClassName='active' className='login'>
+            <NavLink to='/login' exact={true} activeClassName='active' className='login' >
               Login
             </NavLink>}
           </div>

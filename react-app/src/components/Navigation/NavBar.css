@@ -66,4 +66,11 @@ label {
 
 .picture-this {
     cursor: pointer;
+    text-decoration: none;
+
+}
+.picture-this:visited {
+    cursor: pointer;
+    text-decoration: none;
+
 }

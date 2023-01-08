@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { createPhoto } from '../../store/photo';
+import './CreatePhoto.css'
 
 function CreatePhoto() {
 
@@ -47,9 +48,10 @@ function CreatePhoto() {
     }
 
     return (
-        <div>
-            <h1>Create a new photo</h1>
-            <form className='photo-form' onSubmit={handleSubmit}>
+        <div className='main'>
+            <div className='background-img'>
+            <form className='login-form' onSubmit={handleSubmit}>
+                <h2 className='login-head'>Upload a new photo</h2>
                 <label>
                     <input
                         type="text"
@@ -59,19 +61,19 @@ function CreatePhoto() {
                         onChange={(e) => setTitle(e.target.value)}
                         required />
                 </label>
-                <div>
+                <div className='char-counter'>
                     {title.length}/40 characters
                 </div>
                 <label>
                     <textarea
                         type="text"
-                        className='descriptionInput'
+                        className='create-photo-input'
                         value={description}
                         placeholder="Describe this photo... (required)"
                         onChange={(e) => setDescription(e.target.value)}
                         required />
                 </label>
-                <div>
+                <div className='char-counter'>
                     {description.length}/255 characters
                 </div>
                 <label>
@@ -97,7 +99,7 @@ function CreatePhoto() {
                     className='submitButton'>
                     Publish Photo
                 </button>
-                <ul className='errors'>
+                <ul className='login-errors'>
                     {
                         showErrors ?
                             errors.map(error => (
@@ -107,6 +109,7 @@ function CreatePhoto() {
                     }
                 </ul>
             </form>
+            </div>
         </div>
     )
 }
