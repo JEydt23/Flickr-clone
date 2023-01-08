@@ -30,9 +30,10 @@ function CreatePhoto() {
     }, [title, description, file_path])
 
     const imageUpdate = (e) => {
-        const image = e.target.files[0];
+        const image = e.target.value;
+        console.log("E DOT TARGET ====== ", e.target.value)
         setFile_Path(image)
-        setPreviewImage(URL.createObjectURL(image))
+        setPreviewImage(image)
     }
 
 
@@ -86,8 +87,8 @@ function CreatePhoto() {
                 <label>
                     {/* File_path */}
                     <input
-                        type="file"
-                        accept='.jpg, .gif, .jpeg, .png'
+                        type="url"
+                        // accept='.jpg, .gif, .jpeg, .png'
                         className='file_pathInput'
                         // value={file_path}
 
