@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { getOnePhoto, deletingPhoto } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
@@ -30,14 +30,43 @@ function PhotoDetail() {
         return `${newDate.toLocaleString('en-US', { month: 'long' })} ${newDate.getDate()}, ${newDate.getFullYear()}`
     }
 
+    // const zoomPhoto = (e) => {
 
+    //     const zoomElement = document.querySelector(".single-photo");
+    //     let zoom = 1;
+    //     const ZOOM_SPEED = 0.1;
+
+    //     document.addEventListener("wheel", function (e) {
+    //         if (e.deltaY > 0) {
+    //             zoomElement.style.transform = `scale(${(zoom += ZOOM_SPEED)})`;
+    //         } else {
+    //             zoomElement.style.transform = `scale(${(zoom -= ZOOM_SPEED)})`;
+    //         }
+    //     });
+    // }
+
+    const [focused, setFocused] = useState(false)
+    const test1 = e => {
+        e.preventDefault()
+        if (focused === false) {
+            setFocused(true)
+            document.getElementsByTagName('img')[0].setAttribute("tabindex", 0)
+        } else {
+            document.getElementsByTagName('img')[0].removeAttribute("tabindex")
+            setFocused(false)
+        }
+
+
+    }
     return (
         <div className='whole-page-main-div'>
             <div key={singlePhotoState}>
                 <div className='photo-background'>
                     <img className='single-photo'
                         src={singlePhotoState.file_path}
+
                         alt="Photo"
+                        onClick={test1}
                         onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }}
                     />
                 </div>
