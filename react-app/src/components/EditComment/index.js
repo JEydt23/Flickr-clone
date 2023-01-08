@@ -18,7 +18,7 @@ function EditComment({ photoDetails, comment_id }) {
 
     useEffect(() => {
         const validationErrors = [];
-        if (comment.length > 500) validationErrors.push("Comment must be shorter than 500 characters.")
+        if (comment.length > 1000) validationErrors.push("Comment must be shorter than 1,000 characters.")
         if (comment.trim() == '') validationErrors.push("Letters or numbers are required in the comment.")
         setErrors(validationErrors)
 
@@ -38,13 +38,14 @@ function EditComment({ photoDetails, comment_id }) {
             // })
 
             setComment("")
+            setShowErrors(false)
         }
     }
     return (
         <div>
             <form onSubmit={handleSubmit} >
 
-                <ul>
+                <ul className="edit-photo-error">
                     {
                         showErrors ?
                             errors.map((error, idx) => <li key={idx}>{error}</li>)
@@ -61,7 +62,7 @@ function EditComment({ photoDetails, comment_id }) {
                         />
                     </label>
                     <div className="char-counter">
-                        {comment.length}/500 characters
+                        {comment.length}/1000 characters
                     </div>
                     <button className="edit-comment-button" type="submit">Edit Comment </button>
                     &nbsp;

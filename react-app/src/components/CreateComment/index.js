@@ -18,7 +18,7 @@ function CreateComment() {
     useEffect(() => {
         const validationErrors = [];
         if (!currentUser) validationErrors.push('You must be logged in to post a comment.')
-        if (comment.length > 500) validationErrors.push("Comment must be shorter than 500 characters.")
+        if (comment.length > 1000) validationErrors.push("Comment must be shorter than 1,000 characters.")
         if (comment.trim() == '') validationErrors.push("Letters or numbers are required to post a comment.")
         setErrors(validationErrors)
     }, [currentUser, comment])
@@ -36,6 +36,7 @@ function CreateComment() {
                 history.push(`/photos/${photoId}`)
             }
             setComment("")
+            setShowErrors(false)
         }
     }
     return (
@@ -62,7 +63,7 @@ function CreateComment() {
                         />
                     </label>
                     <div className="char-counter-post">
-                        {comment.length}/500 characters
+                        {comment.length}/1000 characters
                     </div>
                     <button type="submit" className="post-comment-button">Comment</button>
                 </div>

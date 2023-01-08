@@ -47,7 +47,7 @@ function EditPhoto() {
 
     return (
         <div className='edit-form-main'>
-
+            <h4>Edit your photo</h4>
             <form className='edit-photo-form' onSubmit={handleSubmit}>
                 <label>
                     {/* Title */}

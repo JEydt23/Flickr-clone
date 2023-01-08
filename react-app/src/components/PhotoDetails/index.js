@@ -5,7 +5,8 @@ import { getOnePhoto, deletingPhoto } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
 import { GetCommentsByPhoto } from '../Comments/Comments';
 import CreateComment from '../CreateComment';
-import profPic from './defaultprofpic.png'
+import camera from './camera_specs_bw.png'
+// import profPic from './defaultprofpic.png'
 import './PhotoDetails.css'
 
 
@@ -39,14 +40,6 @@ function PhotoDetail() {
                         alt="Photo"
                         onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }}
                     />
-                <div className='edit-delete-main' >
-                    <div className='edit-box-div'>
-                        {currentUser?.id === singlePhotoState.user_id &&
-                            <EditPhoto key={singlePhotoState.id} />
-                        }
-
-                    </div>
-                </div>
                 </div>
                 <div className='single-photo-main-box'>
                     <div className='left-side'>
@@ -69,18 +62,33 @@ function PhotoDetail() {
                     </div>
                     <div className='center-div'></div>
                     <div className='right-side'>
-                        <div className='misc-info-box'>
-                            <div className='tippity-top'>
-                                <div className='date-uploaded'>
-                                    <div className='number-comments'>
-                                        {singlePhotoState.comments?.length}
+                        <div className='right-side-div'>
+                            <div className='edit-delete-main' >
+                                <div className='edit-box-div'>
+                                    {currentUser?.id === singlePhotoState.user_id &&
+                                        <EditPhoto key={singlePhotoState.id} />
+                                    }
+
+                                </div>
+                            </div>
+                            <div className='misc-info-box'>
+                                <div className='tippity-top'>
+                                    <div className='number-comments-date'>
+                                        <div className='number-comments'>
+                                            {singlePhotoState.comments?.length}
+                                        </div>
+                                        <div className='comments-count-text'>
+                                            comment(s)
+                                        </div>
                                     </div>
-                                    <div className='comments-count-text'>
-                                        Comments
+                                    <div className='date-uploaded'>
+                                        <div className='taken-on'>
+                                            Taken on {dateConverter(singlePhotoState.date_uploaded)}
+                                        </div>
                                     </div>
-                                    <div className='taken-on'>
-                                        Taken on {dateConverter(singlePhotoState.date_uploaded)}
-                                    </div>
+                                </div>
+                                <div className='camera-specs'>
+                                    <img src={camera}></img>
                                 </div>
                             </div>
                         </div>
