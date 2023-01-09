@@ -19,12 +19,13 @@ function CreatePhoto() {
         console.log(errors.length, "ERRORS ON LOAD")
         const validationErrors = [];
         // if (!title) validationErrors.push("You must give this photograph a title.")
-        if (title.length < 2 || title.length > 40) validationErrors.push("The title must be greater than 2 characters and less than 40.")
+        if (title.length < 2 ) validationErrors.push("The title must be greater than 2 characters.")
+        if (title.length > 40) validationErrors.push("The title must be less than 40 characters.")
         if (title.trim() == '') validationErrors.push("Letters or numbers are required in the title.")
         if (description.trim() == '') validationErrors.push("Letters or numbers are required in the description.")
         if (description.length > 255) validationErrors.push("The description must be shorter than 255 characters.")
         if (tags.length > 25) validationErrors.push("The tag can't be longer than 25 characters.")
-        if (tags.trim() == '') validationErrors.push("Can't start tag with whitespace.")
+        // if (tags.trim() == '') validationErrors.push("Can't start tag with whitespace.")
         if (!file_path?.match(/\.(gif|png|jpeg|jpg)$/)) validationErrors.push("The photo's URL must end in .gif, .png, .jpeg, or .jpg");
         setErrors(validationErrors)
     }, [title, description, file_path, tags])
@@ -81,7 +82,7 @@ function CreatePhoto() {
                 <label>
                     {/* File_path */}
                     <input
-                        type="text"
+                        type="url"
                         className='file_pathInput'
                         value={file_path}
                         placeholder="Image URL for your photo (required)"
@@ -101,7 +102,7 @@ function CreatePhoto() {
                     className='submitButton'>
                     Publish Photo
                 </button>
-                <ul className='login-errors'>
+                <div className='login-errors'>
                     {
                         showErrors ?
                             errors.map(error => (
@@ -109,7 +110,7 @@ function CreatePhoto() {
                             ))
                             : null
                     }
-                </ul>
+                </div>
             </form>
             </div>
         </div>

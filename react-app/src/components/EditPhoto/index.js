@@ -17,11 +17,12 @@ function EditPhoto() {
 
     useEffect(() => {
         const validationErrors = [];
-        if (title?.length < 2 || title?.length > 40) validationErrors.push("The title must be greater than 2 characters and less than 40.")
+        if (title?.length < 2 ) validationErrors.push("The title must be greater than 2 characters.")
+        if (title?.length > 40) validationErrors.push("The title must be less than 40 characters.")
         if (title?.trim() == '') validationErrors.push("Letters or numbers are required in the title.")
         if (description?.length > 255) validationErrors.push("Description must be shorter than 255 characters.")
         if (description?.trim() == '') validationErrors.push("Letters or numbers are required in the description.")
-        if (tags?.trim() == '') validationErrors.push("Can't start tag with whitespace.")
+        // if (tags?.trim() == '') validationErrors.push("Can't start tag with whitespace.")
         if (tags?.length > 25) validationErrors.push("The tag can't be longer than 25 characters.")
         if (!file_path?.match(/\.(gif|png|jpeg|jpg)$/)) validationErrors.push("The photo's URL must end in .gif, .png, .jpeg, or .jpg");
         setErrors(validationErrors)
@@ -80,7 +81,7 @@ function EditPhoto() {
                 <label>
                     {/* File_path */}
                     <input
-                        type="text"
+                        type="url"
                         className='editInput'
                         value={file_path}
                         placeholder="Image URL for your photo"
