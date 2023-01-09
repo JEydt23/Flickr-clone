@@ -50,8 +50,12 @@ label {
     color: white;
     text-decoration: none;
     /* padding-top: 10px; */
-    padding-right: 15px;
+    padding-right: 25px;
+    padding-left: 25px;
+}
 
+a.login:hover {
+    color: rgb(233, 223, 223);
 }
 
 .sign-up {
@@ -113,11 +117,12 @@ a.create-a-photo {
     align-items: center;
     height: 38px;
     /* padding-top: 5px; */
-    padding-right: 10px;
+    padding-right: 25px;
     /* padding-left: auto; */
     color: white;
     text-decoration: none;
 }
+
 a.aboutMe {
     color: white;
     text-decoration: none;
