@@ -18,12 +18,17 @@ const NavBar = () => {
     <nav>
       <div className='nav'>
         <div className='Home' title="Picture This logo. If you click it, you'll see all photos">
-          <NavLink to='/photos' exact={true} activeClassName='active' style={{ textDecoration: "none" }}>
+          <NavLink to='/photos' exact={true} activeClassName='active' style={{ textDecoration: "none" }} >
             <img src={logo} alt='home' id='logo' className='logo-props'></img>&nbsp;<label className='picture-this'>Picture This</label>
           </NavLink>
 
         </div>
         <div className='nav-right'>
+          <div className='about-me-nav'>
+            <NavLink to='/about' exact={true} activeClassName='active' className='aboutMe'>
+              About Me
+            </NavLink>
+          </div>
           {user &&
             <button className='createPhotoButton'>
               <NavLink to='/photos/new' exact={true} activeClassName='active' className='create-a-photo' style={{ textDecoration: "none" }}>

@@ -14,6 +14,7 @@ import CreatePhoto from './components/CreatePhoto';
 import EditPhoto from './components/EditPhoto';
 import LandingPage from './components/LandingPage'
 import PageNotFound from './components/404Page/404page';
+import AboutMe from './components/AboutMe/AboutMe'
 
 
 function App() {
@@ -49,6 +50,9 @@ function App() {
         </ProtectedRoute>
         <Route path='/photos/new' exact={true} >
           <CreatePhoto />
+        </Route>
+        <Route path='/about' exact={true}>
+          <AboutMe />
         </Route>
         <Route path='/photos' exact={true} >
           <AllPhotos />

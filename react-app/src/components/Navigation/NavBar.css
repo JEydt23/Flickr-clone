@@ -83,12 +83,51 @@ label {
     align-content: center;
     position: relative;
     top: -4px;
-
-
-
 }
+
 .picture-this:visited {
     cursor: pointer;
     text-decoration: none;
 
+}
+
+a.create-a-photo {
+    color: black;
+}
+
+.createPhotoButton:hover {
+    background-color: grey;
+}
+
+
+
+.about-me-nav {
+    /* position: absolute;
+    top: 0;
+    right: 50%;
+    left: 50%;
+    width: 100px; */
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: center;
+    align-items: center;
+    height: 38px;
+    /* padding-top: 5px; */
+    padding-right: 10px;
+    /* padding-left: auto; */
+    color: white;
+    text-decoration: none;
+}
+a.aboutMe {
+    color: white;
+    text-decoration: none;
+}
+
+a.aboutMe:hover {
+    color: rgb(233, 223, 223);
+    text-decoration: none;
+}
+
+.logout:hover {
+    background-color: grey;
 }

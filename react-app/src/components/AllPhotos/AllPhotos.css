@@ -40,10 +40,12 @@
     font-family: Arial;
     font-size: 14px;
     font-weight: 600;
+    text-decoration: none;
     /* line-height: 1.2; */
     align-content: center;
     /* justify-content: center; */
     display: flex;
+    color: black;
 }
 
 .date-added-all-photo {
