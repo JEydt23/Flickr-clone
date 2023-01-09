@@ -17,37 +17,41 @@ const NavBar = () => {
   return (
     <nav>
       <div className='nav'>
-        <div className='Home'>
-          <NavLink to='/photos' exact={true} activeClassName='active' style={{textDecoration: "none"}}>
-            <img src={logo} alt='home' id='logo'></img><label className='picture-this'>Picture This</label>
+        <div className='Home' title="Picture This logo. If you click it, you'll see all photos">
+          <NavLink to='/photos' exact={true} activeClassName='active' style={{ textDecoration: "none" }}>
+            <img src={logo} alt='home' id='logo' className='logo-props'></img><label className='picture-this'>Picture This</label>
           </NavLink>
+
         </div>
         <div className='nav-right'>
           {user &&
-        <button className='createPhotoButton'>
-          <NavLink to='/photos/new' exact={true} activeClassName='active' className='create-a-photo' style={{textDecoration: "none"}}>
-            Upload a Photo
-          </NavLink>
-        </button>}
+            <button className='createPhotoButton'>
+              <NavLink to='/photos/new' exact={true} activeClassName='active' className='create-a-photo' style={{ textDecoration: "none" }}>
+                Upload a Photo
+              </NavLink>
+            </button>}
           <div >
             {!user &&
-            <NavLink to='/login' exact={true} activeClassName='active' className='login' >
-              Login
-            </NavLink>}
+              <NavLink to='/login' exact={true} activeClassName='active' className='login' >
+                Login
+              </NavLink>}
           </div>
           <div >
             {!user &&
-            <button className='sign-button'>
-              <NavLink to='/sign-up' exact={true} activeClassName='active' className='sign-up'>
-                Sign Up
-              </NavLink>
-            </button>}
+              <button className='sign-button'>
+                <NavLink to='/sign-up' exact={true} activeClassName='active' className='sign-up'>
+                  Sign Up
+                </NavLink>
+              </button>}
           </div>
           {/* <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
         </div> */}
+            <div className='username-display'>
+              {user?.username}
+            </div>
           <div>
             {user &&
               <LogoutButton />

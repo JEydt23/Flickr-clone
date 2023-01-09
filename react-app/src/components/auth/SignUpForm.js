@@ -20,6 +20,7 @@ const SignUpForm = () => {
   useEffect(() => {
     const validation = []
     if (username.length < 2) validation.push('Username must be at least 2 characters.')
+    if (username.length > 20) validation.push('Username must be shorter than 20 characters.')
     if (username?.trim() === "") validation.push("Username can't be blank.")
     if (!email.includes('@') || !email.includes('.')) validation.push('Must provide a valid email address.')
     if (password !== repeatPassword) validation.push('Passwords must match.')

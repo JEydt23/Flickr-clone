@@ -8,6 +8,12 @@
     z-index: 1;
 }
 
+.username-display {
+    vertical-align: middle;
+    color: white;
+}
+
+
 label {
     color: white;
     font-size: 24px;
@@ -60,13 +66,14 @@ label {
     padding-right: 10px;
     text-align: center;
     text-decoration: none;
-    transition: all .15s ease-in-out;
+    transition: all .25s ease-in-out;
     vertical-align: top;
 }
 
 .picture-this {
     cursor: pointer;
     text-decoration: none;
+
 
 }
 .picture-this:visited {
