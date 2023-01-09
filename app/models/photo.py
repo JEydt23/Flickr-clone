@@ -12,7 +12,7 @@ class Photo(db.Model):
         add_prefix_for_prod("users.id")), nullable=False)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    file_path = db.Column(db.String(255), nullable=False)
+    file_path = db.Column(db.String(), nullable=False)
     date_uploaded = db.Column(db.DateTime, server_default=db.func.now())
     tags = db.Column(db.String(100))
 

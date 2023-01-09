@@ -21,9 +21,11 @@ function EditPhoto() {
         if (title?.trim() == '') validationErrors.push("Letters or numbers are required in the title.")
         if (description?.length > 255) validationErrors.push("Description must be shorter than 255 characters.")
         if (description?.trim() == '') validationErrors.push("Letters or numbers are required in the description.")
+        if (tags?.trim() == '') validationErrors.push("Can't start tag with whitespace.")
+        if (tags?.length > 25) validationErrors.push("The tag can't be longer than 25 characters.")
         if (!file_path?.match(/\.(gif|png|jpeg|jpg)$/)) validationErrors.push("The photo's URL must end in .gif, .png, .jpeg, or .jpg");
         setErrors(validationErrors)
-    }, [title, description, file_path])
+    }, [title, description, file_path, tags])
 
     useEffect(() => {
         dispatch(getOnePhoto(id))
