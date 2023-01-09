@@ -8,6 +8,11 @@
     z-index: 1;
 }
 
+.logo-props {
+    height: 25px;
+    width: 50px;
+}
+
 .username-display {
     vertical-align: middle;
     color: white;
@@ -37,6 +42,8 @@ label {
 .Home {
     padding-top: 10px;
     padding-left: 25px;
+    display: flex;
+    align-content: center;
 }
 
 .login {
@@ -73,6 +80,10 @@ label {
 .picture-this {
     cursor: pointer;
     text-decoration: none;
+    align-content: center;
+    position: relative;
+    top: -4px;
+
 
 
 }

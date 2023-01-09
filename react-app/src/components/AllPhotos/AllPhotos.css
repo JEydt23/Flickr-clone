@@ -33,7 +33,7 @@
 
 .main-all-photo {
     background-color: rgb(243, 245, 246);
-    height: 100vh;
+    height: auto;
 }
 
 .username-all-photo {

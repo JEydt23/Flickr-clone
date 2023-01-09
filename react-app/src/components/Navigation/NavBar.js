@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
-import logo from './flickr logo black.png'
+import logo from './logotransparentback.png'
 // import session from '../../store/session'
 import { useSelector } from 'react-redux';
 // import createAPhoto from '../CreatePhoto'
@@ -19,7 +19,7 @@ const NavBar = () => {
       <div className='nav'>
         <div className='Home' title="Picture This logo. If you click it, you'll see all photos">
           <NavLink to='/photos' exact={true} activeClassName='active' style={{ textDecoration: "none" }}>
-            <img src={logo} alt='home' id='logo' className='logo-props'></img><label className='picture-this'>Picture This</label>
+            <img src={logo} alt='home' id='logo' className='logo-props'></img>&nbsp;<label className='picture-this'>Picture This</label>
           </NavLink>
 
         </div>
@@ -49,9 +49,10 @@ const NavBar = () => {
             Users
           </NavLink>
         </div> */}
+          {user &&
             <div className='username-display'>
-              {user?.username}
-            </div>
+              Welcome, {user?.username}!
+            </div>}
           <div>
             {user &&
               <LogoutButton />
