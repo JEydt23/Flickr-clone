@@ -19,7 +19,7 @@ function CreatePhoto() {
         console.log(errors.length, "ERRORS ON LOAD")
         const validationErrors = [];
         // if (!title) validationErrors.push("You must give this photograph a title.")
-        if (title.length < 2 ) validationErrors.push("The title must be greater than 2 characters.")
+        // if (title.length < 2 ) validationErrors.push("The title must be greater than 2 characters.")
         if (title.length > 40) validationErrors.push("The title must be less than 40 characters.")
         if (title.trim() == '') validationErrors.push("Letters or numbers are required in the title.")
         if (description.trim() == '') validationErrors.push("Letters or numbers are required in the description.")

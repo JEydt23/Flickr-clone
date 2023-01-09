@@ -17,7 +17,7 @@ function EditPhoto() {
 
     useEffect(() => {
         const validationErrors = [];
-        if (title?.length < 2 ) validationErrors.push("The title must be greater than 2 characters.")
+        // if (title?.length < 2 ) validationErrors.push("The title must be greater than 2 characters.")
         if (title?.length > 40) validationErrors.push("The title must be less than 40 characters.")
         if (title?.trim() == '') validationErrors.push("Letters or numbers are required in the title.")
         if (description?.length > 255) validationErrors.push("Description must be shorter than 255 characters.")

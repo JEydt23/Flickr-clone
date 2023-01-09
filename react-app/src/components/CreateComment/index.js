@@ -30,11 +30,12 @@ function CreateComment() {
             const formValues = {
                 comment, photoId
             }
-            const newComment = await dispatch(createComment(formValues))
+            // const newComment =
+            await dispatch(createComment(formValues))
 
-            if (newComment) {
-                history.push(`/photos/${photoId}`)
-            }
+            // if (newComment) {
+            //     history.push(`/photos/${photoId}`)
+            // }
             setComment("")
             setShowErrors(false)
         }

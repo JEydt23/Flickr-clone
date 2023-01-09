@@ -23,7 +23,7 @@ function PhotoDetail() {
     useEffect(() => {
         dispatch(getOnePhoto(photoId))
 
-    }, [dispatch, photoId, singlePhotoState.id, commentState])
+    }, [dispatch, photoId, singlePhotoState?.id, commentState])
 
     const dateConverter = (date) => {
         const newDate = new Date(date)

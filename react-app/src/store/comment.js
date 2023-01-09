@@ -48,6 +48,8 @@ export const getComments = photo_id => async dispatch => {
     const res = await fetch(`/api/photos/${photo_id}/comments`)
     if (res.ok) {
         const comments = await res.json()
+        console.log("RES ===== ", res)
+        console.log("COMMENTS ===== ", comments)
         dispatch(loadComments(comments))
         return comments
     }
@@ -103,6 +105,7 @@ export const getOneComment = (photo_id, comment_id) => async dispatch => {
     const res = await fetch(`/api/photos/${photo_id}/${comment_id}`)
     if (res.ok) {
         const response = await res.json()
+
         dispatch(loadOneComment(response))
         return response
     }
