@@ -47,7 +47,7 @@ function EditPhoto() {
                 title, description, file_path, tags
             }
             const edittedPhoto = await dispatch(edittingPhoto(formValues, updatedThisPhoto.id))
-            if (edittedPhoto) history.push('/photos/')
+            if (edittedPhoto) history.push('/photos')
         }
     }
 
