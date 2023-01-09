@@ -38,11 +38,14 @@ function EditPhoto() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formValues = {
-            title, description, file_path
+        if (!errors.length) {
+
+            const formValues = {
+                title, description, file_path, tags
+            }
+            const edittedPhoto = await dispatch(edittingPhoto(formValues, updatedThisPhoto.id))
+            if (edittedPhoto) history.push('/photos/')
         }
-        const edittedPhoto = await dispatch(edittingPhoto(formValues, updatedThisPhoto.id))
-        if (edittedPhoto) history.push('/photos/')
     }
 
     return (
@@ -98,7 +101,8 @@ function EditPhoto() {
                 <div className='edit-button-div'>
                     <button type='submit'
                         className='submitButton'
-                        disabled={errors.length > 0}>
+                    // disabled={errors.length > 0}
+                    >
                         Publish Edited Photo
                     </button>
                     <div >

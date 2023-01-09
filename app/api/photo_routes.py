@@ -92,6 +92,7 @@ def update_photo(photoId):
         setattr(photo, "title", form.data['title'])
         setattr(photo, "description", form.data["description"])
         setattr(photo, "file_path", form.data["file_path"])
+        setattr(photo, "tags", form.data["tags"])
 
     # if form.errrors:
     #     print(form.errors)
