@@ -30,7 +30,7 @@ def seed_photos():
         id='9', user_id="3", title="The Barn Life", description="Simple living ain't so simple.", file_path="https://www.scenic.org/wp-content/uploads/2021/04/Alley-Spring-1-1024x768.jpg", tags="Home"
     )
     photo10= Photo(
-        id='10', user_id="1", title="All Aboard!", description="Train switches tracks.", file_path="https://assets.simpleviewinc.com/simpleview/image/fetch/q_75/https://assets.simpleviewinc.com/simpleview/image/upload/crm/newyorkstate/ADK_AdirondackScenicRR_Fall_-NYSDED_F5BE0124-AFA0-EEE0-12B4CE618EC6A288-f5bdff379c3519b_f5be0181-9f4b-f91c-65941970d74c886d.jpg", tags="Trains"
+        id='10', user_id="1", title="All Aboard!", description="Train switches tracks.", file_path="https://images.pexels.com/photos/258347/pexels-photo-258347.jpeg", tags="Trains"
     )
 
 
