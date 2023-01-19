@@ -21,6 +21,34 @@ function AllPhotos() {
   }
   if (!photoState.length) return null;
   // console.log("photoState ==== ", photoState)
+
+  function timeSince(dateString) {
+    let currentTime = new Date();
+    let date = new Date(dateString);
+    let timeDifference = currentTime - date;
+
+    let years = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25));
+    let months = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30.44));
+    let days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    let hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    let minutes = Math.floor(timeDifference / (1000 * 60));
+    let seconds = Math.floor(timeDifference / 1000)
+
+    if (years > 0) {
+      return years + " years ago";
+    } else if (months > 1) {
+      return months + " months ago";
+    } else if (days > 1) {
+      return days + " days ago";
+    } else if (hours > 1) {
+      return hours + " hours ago";
+    } else if (minutes > 1) {
+      return minutes + " minutes ago"
+    } else {
+      return seconds + " seconds ago"
+    }
+  }
+
   return (
     <div className='main-all-photo'>
       <div>
@@ -36,7 +64,7 @@ function AllPhotos() {
                   {photo.User?.username} <img src={pro} alt="pro" className='pro-img'></img>
                 </div>
                 <div className='date-added-all-photo'>
-                  {photo.date_uploaded}
+                  {timeSince(photo.date_uploaded)}
                 </div>
               </div>
               {/* <img src={photo.file_path} alt={photo.title} /> */}
