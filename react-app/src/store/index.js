@@ -3,9 +3,10 @@ import thunk from 'redux-thunk';
 import session from './session'
 import photo from './photo'
 import comment from './comment'
+import like from './like'
 
 const rootReducer = combineReducers({
-  session, photo, comment
+  session, photo, comment, like
 });
 
 

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, Blueprint, redirect, request
 from sqlalchemy.sql import func, select
-from ..models import db, Photo, User, Comment
-from ..forms import PhotoForm
+from ..models import db, Photo, User, Comment, Like
+from ..forms import PhotoForm, LikeForm
 from flask_login import login_required, current_user
 from .auth_routes import validation_errors_to_error_messages
 
@@ -12,7 +12,7 @@ photo_route = Blueprint("photos", __name__)
 
 @photo_route.route('/')
 def get_all_photos():
-    # print("Hi")
+
     photos = Photo.query.all()
     res = []
     for photo in photos:
@@ -35,7 +35,7 @@ def get_all_photos():
 
             }
         })
-    # print("res ==== ", res)
+
     return jsonify({'Photos': res})
 
 
@@ -139,3 +139,25 @@ def get_comment(photo_id):
 
     # if len(comments) == 0:
     #     return "No comments for this photo"
+
+
+# CREATE A LIKE FOR A PHOTO
+
+@photo_route.route('/likes/<int:photo_id>', methods=['POST'])
+@login_required
+def create_photo_like(photo_id):
+    form = LikeForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    form['user_id'].data = current_user.id
+    form['photo_id'].data = photo_id
+    if form.validate_on_submit():
+        new_like = Like(
+            user_id = current_user.id,
+            photo_id = photo_id
+        )
+    if form.errors:
+        print("Form Errors ======== ", form.errors)
+        return "Invalid data."
+    db.session.add(new_like)
+    db.session.commit()
+    return new_like.to_dict()

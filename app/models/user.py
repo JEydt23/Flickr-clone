@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
 
     photos = db.relationship("Photo", back_populates="users", cascade="all, delete")
     comments = db.relationship("Comment", back_populates="users", cascade="all, delete")
+    likes = db.relationship("Like", back_populates="users", cascade="all, delete")
 
     @property
     def password(self):
