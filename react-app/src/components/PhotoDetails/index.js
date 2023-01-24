@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { useHistory, useParams } from "react-router-dom";
-import { getOnePhoto, deletingPhoto } from '../../store/photo';
+import { useParams } from "react-router-dom";
+import { getOnePhoto, addLike } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
 import { GetCommentsByPhoto } from '../Comments/Comments';
 import CreateComment from '../CreateComment';
@@ -14,16 +14,26 @@ import './PhotoDetails.css'
 function PhotoDetail() {
     const singlePhotoState = useSelector(state => state.photo.viewOnePhoto)
     const commentState = useSelector(state => state.comment.allComments)
-    const history = useHistory()
+    // const history = useHistory()
     const dispatch = useDispatch();
     const { photoId } = useParams();
     const currentUser = useSelector(state => state.session.user)
-    // console.log('single photo state =========== ', singlePhotoState)
+    console.log('single photo state =========== ', singlePhotoState)
 
     useEffect(() => {
         dispatch(getOnePhoto(photoId))
 
     }, [dispatch, photoId, singlePhotoState?.id, commentState])
+
+
+    const likePhoto = (e) => {
+        e.preventDefault()
+        dispatch(addLike(singlePhotoState.id, singlePhotoState.user_id)).then(() => {
+            dispatch(getOnePhoto(singlePhotoState.id))
+        })
+    }
+
+
 
     const dateConverter = (date) => {
         const newDate = new Date(date)
@@ -41,6 +51,11 @@ function PhotoDetail() {
                         onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }}
                     />
                 </div>
+                    <div className='likes-button-container'>
+                        <button onClick={likePhoto} className='button'>
+                        ☆
+                        </button>
+                    </div>
                 <div className='single-photo-main-box'>
                     <div className='left-side'>
                         <div className='photo-info-box'>
@@ -74,11 +89,23 @@ function PhotoDetail() {
                             <div className='misc-info-box'>
                                 <div className='tippity-top'>
                                     <div className='number-comments-date'>
-                                        <div className='number-comments'>
-                                            {singlePhotoState.comments?.length}
-                                        </div>
-                                        <div className='comments-count-text'>
-                                            comment(s)
+                                        <div className='likes-and-comments'>
+                                            <div className='likes-container'>
+                                                <div className='number-likes'>
+                                                    {singlePhotoState?.totalLikes}
+                                                </div>
+                                                <div className='number-likes-text'>
+                                                    faves
+                                                </div>
+                                            </div>
+                                            <div className='comments-stats-container'>
+                                                <div className='number-comments'>
+                                                    {singlePhotoState.comments?.length}
+                                                </div>
+                                                <div className='comments-count-text'>
+                                                    comment(s)
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className='date-uploaded'>

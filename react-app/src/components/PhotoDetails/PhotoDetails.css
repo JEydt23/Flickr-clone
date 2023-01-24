@@ -194,7 +194,8 @@ textarea.editInput {
 
 .number-comments-date {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
 
 }
 
@@ -215,7 +216,70 @@ textarea.editInput {
 
 }
 
+.number-likes {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 18px;
+    padding-bottom: 10px;
+
+}
+
+.number-likes-text {
+    font-size: 12px;
+    text-align: center;
+
+
+}
+
+
 .camera-specs {
     border-top: 1px solid rgba(0, 0, 0, 0.288);
     padding-top: 20px;
+}
+
+button.button {
+    /* position: relative; */
+
+    font-size: 42px;
+    height: 42px;
+    color: white;
+    text-align: center;
+    line-height: 42px;
+    vertical-align: middle;
+    background-color: transparent;
+    border-color: transparent;
+    /* border: 1px black solid; */
+}
+
+button.button:hover {
+    cursor: pointer;
+}
+
+.likes-button-container {
+    display: flex;
+    justify-content: flex-end;
+    /* justify-items: flex-end;
+    align-items: flex-end; */
+    width: 90%;
+    position: relative;
+    top: -60px;
+    height: 42px;
+}
+
+
+.likes-and-comments {
+    display: flex;
+    flex-direction: row;
+}
+
+.likes-container {
+    padding-right: 10px;
+
+}
+
+.comments-stats-container {
+    padding-left: 10px;
 }

@@ -45,9 +45,10 @@ def get_all_photos():
 @photo_route.route('/<int:photoId>')
 def get_photo(photoId):
     photo = Photo.query.get(photoId).to_dict()
-
+    likes = Like.query.filter_by(photo_id = photoId).all()
     userInfo = User.query.get(photo["user_id"])
 
+    photo['totalLikes'] = len(likes)
     photo['userInfo'] = userInfo.to_dict()
 
 

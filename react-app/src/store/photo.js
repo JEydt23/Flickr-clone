@@ -102,6 +102,8 @@ export const edittingPhoto = (photo, id) => async dispatch => {
     }
 }
 
+// DELETE A PHOTO THUNK
+
 export const deletingPhoto = id => async dispatch => {
     const response = await fetch(`/api/photos/${id}`, {
         method:"DELETE"
@@ -110,6 +112,17 @@ export const deletingPhoto = id => async dispatch => {
         const photo = await response.json()
         await dispatch(deletePhoto(id))
         return photo
+    }
+}
+
+// ADD A LIKE THUNK
+
+export const addLike = (id, userId) => async dispatch => {
+    const response = await fetch(`/api/photos/likes/${id}`, {
+        method: 'POST', body: { user_id: userId, photo_id: id }
+    })
+    if (response.ok) {
+        return
     }
 }
 
