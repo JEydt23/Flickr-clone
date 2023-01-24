@@ -1,4 +1,4 @@
-import {csrfFetch} from './csrf'
+// import {csrfFetch} from './csrf'
 
 const LOAD_LIKES = '/likes/LOAD_LIKES'
 const ADD_LIKE = '/likes/ADD_LIKE'
@@ -27,7 +27,7 @@ const deleteLike = like => {
 
 
 export const getLikesThunk = () => async dispatch => {
-    const response = await csrfFetch('/api/photos/likes')
+    const response = await fetch('/api/photos/likes')
     if (response.ok){
         const likes = await response.json()
         dispatch(getLikes(likes))
@@ -36,7 +36,7 @@ export const getLikesThunk = () => async dispatch => {
 }
 
 export const addLikeThunk = () => async dispatch => {
-    const response = await csrfFetch('/api/photos/likes')
+    const response = await fetch('/api/photos/likes')
     if (response.ok){
         const like = await response.json()
         dispatch(addLike(like))
@@ -45,7 +45,7 @@ export const addLikeThunk = () => async dispatch => {
 }
 
 export const deleteLikeThunk = () => async dispatch => {
-    const response = await csrfFetch('/api/photos/likes')
+    const response = await fetch('/api/photos/likes')
     if (response.ok){
         const like = await response.json()
         dispatch(deleteLike(like))
