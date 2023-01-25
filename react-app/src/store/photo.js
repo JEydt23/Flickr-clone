@@ -140,7 +140,7 @@ export default function reducer(state = { viewOnePhoto: {}, viewAllPhotos: {} },
         }
 
         case LOAD_ONE_PHOTO: {
-            const newState = { viewOnePhoto: {}, viewAllPhotos: {} }
+            const newState = { viewOnePhoto: {}, viewAllPhotos: { ...state.viewAllPhotos } }
 
             newState.viewOnePhoto = action.photo
             return newState

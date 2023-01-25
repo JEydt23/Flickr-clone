@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getAllPhotos, createPhoto} from '../../store/photo';
+import { getAllPhotos, createPhoto } from '../../store/photo';
+import { addLike, getOnePhoto } from '../../store/photo';
 import pro from './pro logo.png'
 import './AllPhotos.css'
 
@@ -10,6 +11,7 @@ import './AllPhotos.css'
 
 function AllPhotos() {
   const photoState = useSelector(state => Object.values(state.photo.viewAllPhotos))
+  const currentUser = useSelector(state => state.session.user)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllPhotos())
@@ -19,8 +21,17 @@ function AllPhotos() {
   function createAPhoto() {
     dispatch(createPhoto())
   }
+
+  const likePhoto = (e) => {
+    e.preventDefault()
+    console.log("e.value ===== ", e.target.value)
+    dispatch(addLike(e.target.value, currentUser.id)).then(() => {
+      dispatch(getOnePhoto(e.target.value))
+    })
+  }
+
   if (!photoState.length) return null;
-  // console.log("photoState ==== ", photoState)
+  console.log("photoState ==== ", photoState)
 
   function timeSince(dateString) {
     let currentTime = new Date();
@@ -57,7 +68,7 @@ function AllPhotos() {
         {photoState.map(photo => (
           <div key={photo.id} className='photos-div' >
             {/* {console.log("photo key ===== ", photo)} */}
-            <NavLink to={`/photos/${photo.id}`} style={{textDecoration: "none"}}>
+            <NavLink to={`/photos/${photo.id}`} style={{ textDecoration: "none" }}>
               {/* <h2>{photo.title}</h2> */}
               <div className='user-date'>
                 <div className='username-all-photo'>
@@ -75,7 +86,11 @@ function AllPhotos() {
               {/* <p>{photo.description}</p>
               <p>Uploaded by  on {photo.date_uploaded}</p> */}
             </NavLink>
-
+            <div className='likes-button-container'>
+              <button value={photo.id} onClick={likePhoto} className='button'>
+                ☆
+              </button>
+            </div>
           </div>
         ))}
       </div>
