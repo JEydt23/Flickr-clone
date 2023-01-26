@@ -18,7 +18,7 @@ function LikeButton({ photo }) {
         if (likeUserCheck) setLiked(true)
         else setLiked(false)
 
-    }, [photo.id, photoState, dispatch])
+    }, [])
 
 
 
@@ -28,7 +28,7 @@ function LikeButton({ photo }) {
         dispatch(addLike(e.target.value, currentUser.id)).then(() => {
                 dispatch(getAllPhotos())
             })
-            // setLiked(true)
+            setLiked(true)
     }
 
     const unlikePhoto = (e) => {
@@ -36,7 +36,7 @@ function LikeButton({ photo }) {
         dispatch(removeLike(e.target.value, currentUser.id)).then(() => {
                 dispatch(getAllPhotos())
             })
-        // setLiked(false)
+        setLiked(false)
     }
 
     return (
