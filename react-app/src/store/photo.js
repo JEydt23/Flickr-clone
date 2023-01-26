@@ -5,6 +5,7 @@ const ADD_PHOTO = '/photos/ADD_PHOTO'
 const EDIT_PHOTO = '/photos/EDIT_PHOTO'
 const DELETE_PHOTO = '/photos/DELETE_PHOTO'
 
+
 // ACTION CREATORS
 
 const allPhotos = photos => {
@@ -41,6 +42,7 @@ const deletePhoto = photo => {
         photo
     }
 }
+
 
 // THUNKS
 
@@ -119,9 +121,22 @@ export const deletingPhoto = id => async dispatch => {
 
 export const addLike = (id, userId) => async dispatch => {
     const response = await fetch(`/api/photos/likes/${id}`, {
-        method: 'POST', body: { user_id: userId, photo_id: id }
+        method: 'POST',
+        body: { user_id: userId, photo_id: id }
     })
     if (response.ok) {
+        return
+    }
+}
+
+export const removeLike = (id, userId) => async dispatch => {
+    console.log("IS THIS THE RIGHT PHOTO ====== ", id)
+    const response = await fetch(`/api/photos/likes/${id}`, {
+        method: 'DELETE',
+        // headers: { 'Content-Type': 'application/json'}
+    })
+    if (response.ok){
+        console.log("LIKE DELETED")
         return
     }
 }
@@ -140,7 +155,7 @@ export default function reducer(state = { viewOnePhoto: {}, viewAllPhotos: {} },
         }
 
         case LOAD_ONE_PHOTO: {
-            const newState = { viewOnePhoto: {}, viewAllPhotos: { ...state.viewAllPhotos } }
+            const newState = { viewOnePhoto: {...state.viewOnePhoto}, viewAllPhotos: { ...state.viewAllPhotos } }
 
             newState.viewOnePhoto = action.photo
             return newState
@@ -157,6 +172,8 @@ export default function reducer(state = { viewOnePhoto: {}, viewAllPhotos: {} },
             newState.viewAllPhotos[action.photo.id] = action.photo
             newState.photo = action.photo
             return newState
+
+
 
         default:
             return state

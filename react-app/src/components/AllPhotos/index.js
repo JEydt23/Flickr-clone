@@ -2,33 +2,32 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getAllPhotos, createPhoto } from '../../store/photo';
-import { addLike, getOnePhoto } from '../../store/photo';
+import { addLike, getOnePhoto, removeLike } from '../../store/photo';
 import pro from './pro logo.png'
 import './AllPhotos.css'
+import { GetCommentsByPhoto } from '../Comments/Comments';
+import LikeButton from '../LikesButton';
 
 
 
 
 function AllPhotos() {
   const photoState = useSelector(state => Object.values(state.photo.viewAllPhotos))
+  const singlePhotoState = useSelector(state => state.photo.viewOnePhoto)
   const currentUser = useSelector(state => state.session.user)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllPhotos())
 
-  }, [dispatch]);
+  }, [dispatch, singlePhotoState.likes]);
 
-  function createAPhoto() {
-    dispatch(createPhoto())
-  }
+  // function createAPhoto() {
+  //   dispatch(createPhoto())
+  // }
 
-  const likePhoto = (e) => {
-    e.preventDefault()
-    console.log("e.value ===== ", e.target.value)
-    dispatch(addLike(e.target.value, currentUser.id)).then(() => {
-      dispatch(getOnePhoto(e.target.value))
-    })
-  }
+  photoState.sort((a, b) => new Date(b.date_uploaded) - new Date(a.date_uploaded))
+
+
 
   if (!photoState.length) return null;
   console.log("photoState ==== ", photoState)
@@ -86,11 +85,7 @@ function AllPhotos() {
               {/* <p>{photo.description}</p>
               <p>Uploaded by  on {photo.date_uploaded}</p> */}
             </NavLink>
-            <div className='likes-button-container'>
-              <button value={photo.id} onClick={likePhoto} className='button'>
-                ☆
-              </button>
-            </div>
+              <LikeButton photo={photo} />
           </div>
         ))}
       </div>
@@ -99,3 +94,16 @@ function AllPhotos() {
 }
 
 export default AllPhotos;
+
+
+{/* <div className='likes-button-container'>
+{console.log("XXXXXXXXXX ===", photo.likesComments.userLikes)}
+  {photo.likesComments.userLikes.includes(currentUser.id) ?
+  <button value={photo.id} onClick={unlikePhoto} className='button'>
+  ★
+  </button>
+  :
+  <button value={photo.id} onClick={likePhoto} className='button'>
+    ☆
+  </button>}
+</div> */}

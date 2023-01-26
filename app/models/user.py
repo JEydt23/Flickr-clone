@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+# from .join import like
 
 
 class User(db.Model, UserMixin):
@@ -18,9 +19,13 @@ class User(db.Model, UserMixin):
     profile_picture = db.Column(db.String(255))
     bio = db.Column(db.String(1000))
 
+
     photos = db.relationship("Photo", back_populates="users", cascade="all, delete")
     comments = db.relationship("Comment", back_populates="users", cascade="all, delete")
     likes = db.relationship("Like", back_populates="users", cascade="all, delete")
+
+    # liked_photos = db.relationship("Photo", back_populates="liked_by_user", secondary=like, lazy="joined")
+
 
     @property
     def password(self):

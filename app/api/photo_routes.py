@@ -27,13 +27,14 @@ def get_all_photos():
             "file_path": photo.file_path,
             "date_uploaded": photo.date_uploaded,
             "tags": photo.tags,
+            "likesComments": photo.to_dict_likes(),
             "User": {
                 "id": photoUser.id,
                 "username": photoUser.username,
                 "first_name": photoUser.first_name,
                 "last_name": photoUser.last_name,
+            },
 
-            }
         })
 
     return jsonify({'Photos': res})
@@ -51,7 +52,7 @@ def get_photo(photoId):
     photo['totalLikes'] = len(likes)
     photo['userInfo'] = userInfo.to_dict()
 
-
+    
     return photo
 
 # CREATE A NEW PHOTO UPLOAD
@@ -142,7 +143,7 @@ def get_comment(photo_id):
     #     return "No comments for this photo"
 
 
-# CREATE A LIKE FOR A PHOTO
+# CREATE A LIKE FOR A PHOTO BY PHOTO ID
 
 @photo_route.route('/likes/<int:photo_id>', methods=['POST'])
 @login_required
@@ -162,3 +163,21 @@ def create_photo_like(photo_id):
     db.session.add(new_like)
     db.session.commit()
     return new_like.to_dict()
+
+# REMOVE A LIKE FROM A PHOTO BY PHOTO ID
+
+@photo_route.route('/likes/<int:photo_id>', methods=['DELETE'])
+@login_required
+def remove_photo_like(photo_id):
+    like = Like.query.filter_by(photo_id = photo_id).first()
+    print("DID WE HIT THIS ROUTE WHEN DELETING A LIKE?")
+
+    if not like:
+        return ("No Like Found.")
+    else:
+        db.session.delete(like)
+        db.session.commit()
+        return {
+            "message": "Successfully Deleted!",
+            "statusCode":200
+            }

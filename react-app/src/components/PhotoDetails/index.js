@@ -1,37 +1,63 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { getOnePhoto, addLike } from '../../store/photo';
+import { getOnePhoto, addLike, removeLike, getAllPhotos } from '../../store/photo';
 import EditPhoto from '../EditPhoto'
 import { GetCommentsByPhoto } from '../Comments/Comments';
 import CreateComment from '../CreateComment';
 import camera from './camera_specs_bw.png'
 // import profPic from './defaultprofpic.png'
 import './PhotoDetails.css'
+// import LikeButton from '../LikesButton';
 
 
 
 function PhotoDetail() {
     const singlePhotoState = useSelector(state => state.photo.viewOnePhoto)
     const commentState = useSelector(state => state.comment.allComments)
-    // const history = useHistory()
+    const [liked, setLiked] = useState(false)
     const dispatch = useDispatch();
     const { photoId } = useParams();
     const currentUser = useSelector(state => state.session.user)
     console.log('single photo state =========== ', singlePhotoState)
 
     useEffect(() => {
-        dispatch(getOnePhoto(photoId))
+            if (photoId) dispatch(getOnePhoto(photoId))
 
-    }, [dispatch, photoId, singlePhotoState?.id, commentState])
+    }, [photoId, singlePhotoState?.id, commentState, dispatch])
 
+    useEffect(() => {
+        const likeUserCheck = singlePhotoState.userLikes?.find(user =>
+            currentUser.id === user.user_id)
+            if (likeUserCheck) setLiked(true)
+            else setLiked(false)
+    }, [singlePhotoState?.id])
 
     const likePhoto = (e) => {
         e.preventDefault()
-        dispatch(addLike(singlePhotoState.id, singlePhotoState.user_id)).then(() => {
-            dispatch(getOnePhoto(singlePhotoState.id))
-        })
+        // console.log("e.value ===== ", e.target.value)
+        dispatch(addLike(e.target.value, currentUser.id)).then(() => {
+                dispatch(getOnePhoto(photoId))
+            })
+        setLiked(true)
+
     }
+
+    const unlikePhoto = (e) => {
+        e.preventDefault()
+        dispatch(removeLike(e.target.value, currentUser.id)).then(() => {
+                dispatch(getOnePhoto(photoId))
+            })
+        setLiked(false)
+    }
+
+
+    // const likePhoto = (e) => {
+    //     e.preventDefault()
+    //     dispatch(addLike(singlePhotoState.id, singlePhotoState.user_id)).then(() => {
+    //         dispatch(getOnePhoto(singlePhotoState.id))
+    //     })
+    // }
 
 
 
@@ -39,6 +65,7 @@ function PhotoDetail() {
         const newDate = new Date(date)
         return `${newDate.toLocaleString('en-US', { month: 'long' })} ${newDate.getDate()}, ${newDate.getFullYear()}`
     }
+
 
 
     return (
@@ -51,11 +78,16 @@ function PhotoDetail() {
                         onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }}
                     />
                 </div>
-                    <div className='likes-button-container'>
-                        <button onClick={likePhoto} className='button'>
-                        ☆
+                <div className='likes-button-container'>
+                    {liked ?
+                        <button value={photoId} onClick={unlikePhoto} className='button'>
+                            ★
                         </button>
-                    </div>
+                        :
+                        <button value={photoId} onClick={likePhoto} className='button'>
+                            ☆
+                        </button>}
+                </div>
                 <div className='single-photo-main-box'>
                     <div className='left-side'>
                         <div className='photo-info-box'>
