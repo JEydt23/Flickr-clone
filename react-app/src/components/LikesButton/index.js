@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { getAllPhotos, createPhoto } from '../../store/photo';
-import { addLike, getOnePhoto, removeLike } from '../../store/photo';
+// import { NavLink } from 'react-router-dom';
+import { getAllPhotos } from '../../store/photo';
+import { addLike, removeLike } from '../../store/photo';
 
 function LikeButton({ photo }) {
     const photoState = useSelector(state => Object.values(state.photo.viewAllPhotos))
