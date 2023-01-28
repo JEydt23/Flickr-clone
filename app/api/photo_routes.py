@@ -48,11 +48,13 @@ def get_photo(photoId):
     photo = Photo.query.get(photoId).to_dict()
     likes = Like.query.filter_by(photo_id = photoId).all()
     userInfo = User.query.get(photo["user_id"])
+    followers = userInfo.following.all()
 
     photo['totalLikes'] = len(likes)
     photo['userInfo'] = userInfo.to_dict()
+    # photo['totalFollowers'] = [follower.to_dict() for follower in followers]
 
-    
+
     return photo
 
 # CREATE A NEW PHOTO UPLOAD

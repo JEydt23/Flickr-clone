@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { getOnePhoto, addLike, removeLike, getAllPhotos } from '../../store/photo';
-import { addingFollowThunk, deletingFollowThunk } from '../../store/follow';
+import { addingFollowThunk, deletingFollowThunk, gettingFollowsThunk } from '../../store/follow';
 import EditPhoto from '../EditPhoto'
 import { GetCommentsByPhoto } from '../Comments/Comments';
 import CreateComment from '../CreateComment';
@@ -27,7 +27,9 @@ function PhotoDetail() {
     console.log('single photo state =========== ', singlePhotoState)
 
     useEffect(() => {
+
             if (photoId) dispatch(getOnePhoto(photoId))
+            dispatch(gettingFollowsThunk(singlePhotoState.user_id))
 
     }, [photoId, singlePhotoState?.id, commentState, dispatch])
 
@@ -36,7 +38,7 @@ function PhotoDetail() {
             currentUser.id === user.user_id)
             if (likeUserCheck) setLiked(true)
             else setLiked(false)
-    }, [singlePhotoState?.id])
+    }, [singlePhotoState?.id, followers, followerCount, dispatch])
 
     useEffect(() => {
         if (followerCount === 0) return setFollowing(false)
