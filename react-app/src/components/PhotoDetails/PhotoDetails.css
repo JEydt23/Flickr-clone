@@ -186,6 +186,7 @@ textarea.editInput {
 
 
 }
+
 .taken-on {
     padding-bottom: 20px;
     font-size: 16px;
@@ -282,4 +283,65 @@ button.button:hover {
 
 .comments-stats-container {
     padding-left: 10px;
+}
+
+.followContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.unfollowBtn {
+    width: 120px;
+    height: 25%;
+    border-radius: 5px;
+    align-self: center;
+    border: 0px;
+    padding: 10px;
+    background-color: white;
+    color: rgb(18, 143, 220);
+    border: 1px solid rgb(18, 143, 220);
+    margin: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.unfollowBtn:hover {
+    color: black;
+    cursor: pointer;
+    border: black 1px solid;
+}
+
+.followBtn {
+    width: 100px;
+    height: 25%;
+    border-radius: 5px;
+    align-self: center;
+    border: 0px;
+    padding: 10px;
+    background-color: rgb(18, 143, 220);
+    color: white;
+    margin: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.followBtn:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.authorFollowers {
+    /* width: 10%; */
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: gray
+}
+
+.user-name-prof {
+    display: flex;
+    flex-direction: row;
 }

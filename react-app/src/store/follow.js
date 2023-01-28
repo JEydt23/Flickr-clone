@@ -48,6 +48,7 @@ export const gettingFollowingsThunk = (userId) => async dispatch => {
 
 // ADD FOLLOW
 export const addingFollowThunk = (userId) => async dispatch => {
+    console.log("FOLLOW THUNK USERID ==== ", userId)
     const response = await fetch(`/api/follows/${userId}`, {
 
         method: "POST"
@@ -55,6 +56,7 @@ export const addingFollowThunk = (userId) => async dispatch => {
 
     if (!response.error) {
         const follower = await response.json()
+        console.log("RESPONSE IN ADD FOLLOW THUNK HITS ===== ", follower)
         dispatch(addFollow(follower))
         return follower
     }
@@ -62,7 +64,7 @@ export const addingFollowThunk = (userId) => async dispatch => {
 
 // UNFOLLOW
 export const deletingFollowThunk = (userId, currentUserId) => async dispatch => {
-
+    console.log("UNFOLLOW THUNK USERID AND CURRENTUSERID ===== ", userId, currentUserId)
     const response = await fetch(`/api/follows/${userId}`, {
 
         method: 'DELETE'
@@ -70,6 +72,8 @@ export const deletingFollowThunk = (userId, currentUserId) => async dispatch => 
 
     if (!response.error) {
         const follower = await response.json()
+        console.log("RESPONSE IN REMOVE FOLLOW THUNK HITS ===== ", follower)
+
         dispatch(deleteFollow(currentUserId))
         return follower
     }
@@ -102,8 +106,8 @@ export default function reducer(state = { Followers: {}, Followings: {}, totalFo
 
         case ADD_FOLLOW: {
             const newState = { Followers: { ...state.Followers }, totalFollowers: 0 }
-
-            newState.Followers[action.follower.follower.id] = action.follower.follower
+            console.log("newState = ", newState)
+            newState.Followers[action.follower.follower?.id] = action.follower.follower
 
             newState.totalFollowers = action.follower.totalFollowers
             return newState

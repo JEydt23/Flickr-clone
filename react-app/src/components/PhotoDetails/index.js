@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { getOnePhoto, addLike, removeLike, getAllPhotos } from '../../store/photo';
+import { addingFollowThunk, deletingFollowThunk } from '../../store/follow';
 import EditPhoto from '../EditPhoto'
 import { GetCommentsByPhoto } from '../Comments/Comments';
 import CreateComment from '../CreateComment';
@@ -19,6 +20,10 @@ function PhotoDetail() {
     const dispatch = useDispatch();
     const { photoId } = useParams();
     const currentUser = useSelector(state => state.session.user)
+    const followers = useSelector(state => state.following?.Followers)
+    const followerCount = useSelector(state => state.follow.totalFollowers)
+    const [following, setFollowing] = useState();
+
     console.log('single photo state =========== ', singlePhotoState)
 
     useEffect(() => {
@@ -32,6 +37,18 @@ function PhotoDetail() {
             if (likeUserCheck) setLiked(true)
             else setLiked(false)
     }, [singlePhotoState?.id])
+
+    useEffect(() => {
+        if (followerCount === 0) return setFollowing(false)
+        for (let follower in followers) {
+            let num = Number(follower)
+            if (num == currentUser?.id) {
+                return setFollowing(true)
+            } else {
+                setFollowing(false)
+            }
+        }
+    }, [followers, followerCount, dispatch])
 
     const likePhoto = (e) => {
         e.preventDefault()
@@ -52,12 +69,21 @@ function PhotoDetail() {
     }
 
 
-    // const likePhoto = (e) => {
-    //     e.preventDefault()
-    //     dispatch(addLike(singlePhotoState.id, singlePhotoState.user_id)).then(() => {
-    //         dispatch(getOnePhoto(singlePhotoState.id))
-    //     })
-    // }
+    const handleFollowClick = (e) => {
+        e.preventDefault()
+        dispatch(addingFollowThunk(singlePhotoState.user_id))
+
+        setFollowing(true)
+
+    }
+
+    const handleRemoveFollowClick = (e) => {
+        e.preventDefault()
+        dispatch(deletingFollowThunk(singlePhotoState.user_id, currentUser.id))
+
+        setFollowing(false)
+
+    }
 
 
 
@@ -67,7 +93,7 @@ function PhotoDetail() {
     }
 
 
-
+    console.log(followerCount, "FOLLOWER COUNT")
     return (
         <div className='whole-page-main-div'>
             <div key={singlePhotoState}>
@@ -95,7 +121,26 @@ function PhotoDetail() {
 
                                 <h2><i class="fa-solid fa-user" /> &nbsp; {singlePhotoState.userInfo?.username}</h2>
 
+                            {currentUser ?
+                                (singlePhotoState.userInfo?.id !== currentUser?.id) &&
+
+                                (following ?
+                                    <button className='unfollowBtn' onClick={handleRemoveFollowClick}>
+                                       ✓ Following
+                                    </button>
+                                    :
+                                    <button className='followBtn' onClick={handleFollowClick}>
+                                      + Follow
+                                    </button>
+                                )
+                                :
+                                null
+                            }
                             </div>
+                            <div className='followContainer'>
+                            <div className='authorFollowers'>{followerCount}  followers</div>
+
+                        </div>
                             <h4>{singlePhotoState.title}</h4>
                             <p>{singlePhotoState.description}</p>
                             {/* <p> Taken on {singlePhotoState.date_uploaded}</p> */}
