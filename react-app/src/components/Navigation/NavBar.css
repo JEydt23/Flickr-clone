@@ -136,3 +136,39 @@ a.aboutMe:hover {
 .logout:hover {
     background-color: grey;
 }
+
+
+.explore-link {
+
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    height: 38px;
+
+    padding-right: 25px;
+
+    color: white;
+    text-decoration: none;
+}
+
+a.explore-link.active {
+    color: white;
+    position: relative;
+    display: flex;
+    text-decoration: none;
+    justify-content: flex-start;
+    /* align-items: center;
+    align-self: center; */
+    height: 38px;
+    padding-left: 60px;
+    bottom: 5px;
+    margin-bottom: 20px;
+
+}
+
+a.explore-link:hover {
+    color: rgb(233, 223, 223);
+    text-decoration: none;
+}

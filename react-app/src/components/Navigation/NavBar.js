@@ -21,7 +21,11 @@ const NavBar = () => {
           <NavLink to='/photos' exact={true} activeClassName='active' style={{ textDecoration: "none" }} >
             <img src={logo} alt='home' id='logo' className='logo-props'></img>&nbsp;<label className='picture-this'>Picture This</label>
           </NavLink>
-
+          <div className='explore'>
+            <NavLink to='/explore' exact={true} activeClassName='active' className='explore-link' style={{ textDecoration: "none" }}>
+              Explore
+            </NavLink>
+          </div>
         </div>
         <div className='nav-right'>
           <div className='about-me-nav'>

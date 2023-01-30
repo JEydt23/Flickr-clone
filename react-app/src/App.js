@@ -15,6 +15,7 @@ import EditPhoto from './components/EditPhoto';
 import LandingPage from './components/LandingPage'
 import PageNotFound from './components/404Page/404page';
 import AboutMe from './components/AboutMe/AboutMe'
+import Explore from './components/Explore'
 
 
 function App() {
@@ -53,6 +54,9 @@ function App() {
         </Route>
         <Route path='/about' exact={true}>
           <AboutMe />
+        </Route>
+        <Route path='/explore' exact={true}>
+          <Explore />
         </Route>
         <Route path='/photos' exact={true} >
           <AllPhotos />
