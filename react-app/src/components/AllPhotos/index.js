@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getAllPhotos, createPhoto } from '../../store/photo';
+import { getFollowingPhotoThunk, createPhoto, getAllPhotos } from '../../store/photo';
 import { addLike, getOnePhoto, removeLike } from '../../store/photo';
 import pro from './pro logo.png'
 import './AllPhotos.css'
 import { GetCommentsByPhoto } from '../Comments/Comments';
 import LikeButton from '../LikesButton';
+import { gettingFollowingsThunk } from '../../store/follow';
 
 
 
@@ -15,11 +16,20 @@ function AllPhotos() {
   const photoState = useSelector(state => Object.values(state.photo.viewAllPhotos))
   const singlePhotoState = useSelector(state => state.photo.viewOnePhoto)
   const currentUser = useSelector(state => state.session.user)
+  const followers = useSelector(state => state.follow?.Followers)
+  console.log("FOLLOWERS: ", followers)
+  const followersList = Object.values(followers)
+  console.log("FOLLOWERS LIST ===== ", followersList)
+
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getAllPhotos())
+    dispatch(getFollowingPhotoThunk(currentUser?.id))
+    dispatch(gettingFollowingsThunk(currentUser?.id))
+    // dispatch()
 
   }, [dispatch, singlePhotoState.likes]);
+
+
 
   // function createAPhoto() {
   //   dispatch(createPhoto())
@@ -29,7 +39,7 @@ function AllPhotos() {
 
 
 
-  if (!photoState.length) return null;
+  // if (!photoState.length) return null;
   console.log("photoState ==== ", photoState)
 
   function timeSince(dateString) {
@@ -61,34 +71,44 @@ function AllPhotos() {
 
   return (
     <div className='main-all-photo'>
-      <div>
-      </div>
-      <div className='photo-gallery'>
-        {photoState.map(photo => (
-          <div key={photo.id} className='photos-div' >
-            {/* {console.log("photo key ===== ", photo)} */}
-            <NavLink to={`/photos/${photo.id}`} style={{ textDecoration: "none" }}>
-              {/* <h2>{photo.title}</h2> */}
-              <div className='user-date'>
-                <div className='username-all-photo'>
-                  {photo.User?.username} <img src={pro} alt="pro" className='pro-img'></img>
-                </div>
-                <div className='date-added-all-photo'>
-                  {timeSince(photo.date_uploaded)}
-                </div>
-              </div>
-              {/* <img src={photo.file_path} alt={photo.title} /> */}
-              <img className="all-photos-photo"
-                src={photo.file_path}
-                alt={photo.title}
-                onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }} />
-              {/* <p>{photo.description}</p>
-              <p>Uploaded by  on {photo.date_uploaded}</p> */}
-            </NavLink>
-              <LikeButton photo={photo} />
+      {followersList?.length === 0 ?
+        <div className='main-404-div'>
+          <div className='main-404'>
+            You are not following any users
           </div>
-        ))}
-      </div>
+          <div>
+            <NavLink to='/explore' className="navlink-photos">
+              Click here to explore users to follow.
+            </NavLink>
+          </div>
+        </div>
+        :
+        <div className='photo-gallery'>
+          {photoState.map(photo => (
+            <div key={photo.id} className='photos-div' >
+              {/* {console.log("photo key ===== ", photo)} */}
+              <NavLink to={`/photos/${photo.id}`} style={{ textDecoration: "none" }}>
+                {/* <h2>{photo.title}</h2> */}
+                <div className='user-date'>
+                  <div className='username-all-photo'>
+                    {photo.User?.username} <img src={pro} alt="pro" className='pro-img'></img>
+                  </div>
+                  <div className='date-added-all-photo'>
+                    {timeSince(photo.date_uploaded)}
+                  </div>
+                </div>
+                {/* <img src={photo.file_path} alt={photo.title} /> */}
+                <img className="all-photos-photo"
+                  src={photo.file_path}
+                  alt={photo.title}
+                  onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }} />
+                {/* <p>{photo.description}</p>
+              <p>Uploaded by  on {photo.date_uploaded}</p> */}
+              </NavLink>
+              <LikeButton photo={photo} />
+            </div>
+          ))}
+        </div>}
     </div>
   );
 }

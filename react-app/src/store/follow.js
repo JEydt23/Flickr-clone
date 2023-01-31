@@ -30,18 +30,20 @@ export const gettingFollowsThunk = (userId) => async dispatch => {
     const response = await fetch(`/api/follows/${userId}/following`)
     if (response.ok) {
         const followers = await response.json()
+        console.log("GETTING FOLLOWS THUNK HITS", followers)
         dispatch(getFollowers(followers))
         return followers
     }
 }
 
-// GET LIST OF PEOPLE THAT THE USER IS FOLLOWS
+// GET LIST OF PEOPLE THAT THE USER FOLLOWS
 export const gettingFollowingsThunk = (userId) => async dispatch => {
 
     const response = await fetch(`/api/follows/${userId}/follower`)
 
     if (response.ok) {
         const followings = await response.json()
+        // console.log("FOLLOWING USER LIST THUNK HIT", followings)
         dispatch(getFollowers(followings))
     }
 }
@@ -78,6 +80,8 @@ export const deletingFollowThunk = (userId, currentUserId) => async dispatch => 
         return follower
     }
 }
+
+
 
 // REDUCER
 

@@ -57,6 +57,46 @@ def get_photo(photoId):
 
     return photo
 
+# GET PHOTOS OF ALL USERS YOU FOLLOW
+
+@photo_route.route('/user/<int:user_id>/following')
+@login_required
+def get_photos_by_follower(user_id):
+    res = []
+    user = User.query.get(user_id)
+    following_users = user.followers.all()
+
+
+    following_users_ids = [user.to_dict()['id'] for user in following_users]
+    print("FOLLOWING USERS IDS ========== ", following_users_ids)
+    for id in following_users_ids:
+
+        following_user_photos_class = Photo.query.filter_by(user_id = id)
+        # following_user_photos = photo.to_dict() for photo in following_user_photos_class]
+        print("FOLLOWING USER PHOTOS CLASS ======= ", following_user_photos_class)
+        for photo in following_user_photos_class:
+            photo_dict = photo.to_dict()
+            user = User.query.get(id).to_dict()
+            print("PHOTO_DICT ====== ", photo_dict)
+            res.append({
+                "id": photo_dict['id'],
+                "user_id": photo_dict['user_id'],
+                "title": photo_dict['title'],
+                "description": photo_dict['description'],
+                "file_path": photo_dict['file_path'],
+                "date_uploaded": photo_dict['date_uploaded'],
+                "tags": photo_dict['tags'],
+                 "likesComments": photo.to_dict_likes(),
+                "User": {
+                    "id": user['id'],
+                    "username": user['username'],
+                    "first_name": user['first_name'],
+                    "last_name": user['last_name'],
+                },
+            })
+
+    return {'Photos': res}
+
 # CREATE A NEW PHOTO UPLOAD
 
 @photo_route.route('/', methods=['POST'])

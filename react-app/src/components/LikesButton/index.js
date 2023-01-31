@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { gettingFollowsThunk } from '../../store/follow';
 // import { NavLink } from 'react-router-dom';
 import { getAllPhotos } from '../../store/photo';
 import { addLike, removeLike } from '../../store/photo';
@@ -26,7 +27,7 @@ function LikeButton({ photo }) {
         e.preventDefault()
         // console.log("e.value ===== ", e.target.value)
         dispatch(addLike(e.target.value, currentUser.id)).then(() => {
-                dispatch(getAllPhotos())
+                dispatch(gettingFollowsThunk(currentUser.id))
             })
             setLiked(true)
     }
@@ -34,7 +35,7 @@ function LikeButton({ photo }) {
     const unlikePhoto = (e) => {
         e.preventDefault()
         dispatch(removeLike(e.target.value, currentUser.id)).then(() => {
-                dispatch(getAllPhotos())
+                dispatch(gettingFollowsThunk(currentUser.id))
             })
         setLiked(false)
     }

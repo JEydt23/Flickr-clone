@@ -20,44 +20,55 @@ function PhotoDetail() {
     const dispatch = useDispatch();
     const { photoId } = useParams();
     const currentUser = useSelector(state => state.session.user)
-    const followers = useSelector(state => state.following?.Followers)
+    const followers = useSelector(state => state.follow?.Followers)
     const followerCount = useSelector(state => state.follow.totalFollowers)
     const [following, setFollowing] = useState();
 
     console.log('single photo state =========== ', singlePhotoState)
+    console.log("SINGLE PHOTO FOLLOWERS ==== ", followers)
 
     useEffect(() => {
-
-            if (photoId) dispatch(getOnePhoto(photoId))
+        if (photoId) {
             dispatch(gettingFollowsThunk(singlePhotoState.user_id))
+            dispatch(getOnePhoto(photoId))
 
-    }, [photoId, singlePhotoState?.id, commentState, dispatch])
+        }
+
+
+    }, [dispatch, photoId, singlePhotoState?.id, commentState])
 
     useEffect(() => {
+
         const likeUserCheck = singlePhotoState.userLikes?.find(user =>
             currentUser.id === user.user_id)
-            if (likeUserCheck) setLiked(true)
-            else setLiked(false)
-    }, [singlePhotoState?.id, followers, followerCount, dispatch])
+        if (likeUserCheck) setLiked(true)
+        else setLiked(false)
+    }, [singlePhotoState?.id, dispatch])
 
     useEffect(() => {
-        if (followerCount === 0) return setFollowing(false)
+
+        // if (followerCount === 0) return setFollowing(false)
         for (let follower in followers) {
             let num = Number(follower)
+            console.log("follower ==== ", follower)
             if (num == currentUser?.id) {
+                // console.log("FIRST IF STATEMENT")
                 return setFollowing(true)
-            } else {
+            } else if (num != currentUser?.id){
+                // console.log("SECOND IF STATEMENT")
                 setFollowing(false)
+            } else {
+                console.log("DIDNT HIT IF STATEMENTS")
             }
         }
-    }, [followers, followerCount, dispatch])
+    }, [])
 
     const likePhoto = (e) => {
         e.preventDefault()
         // console.log("e.value ===== ", e.target.value)
         dispatch(addLike(e.target.value, currentUser.id)).then(() => {
-                dispatch(getOnePhoto(photoId))
-            })
+            dispatch(getOnePhoto(photoId))
+        })
         setLiked(true)
 
     }
@@ -65,15 +76,18 @@ function PhotoDetail() {
     const unlikePhoto = (e) => {
         e.preventDefault()
         dispatch(removeLike(e.target.value, currentUser.id)).then(() => {
-                dispatch(getOnePhoto(photoId))
-            })
+            dispatch(getOnePhoto(photoId))
+        })
         setLiked(false)
     }
 
 
     const handleFollowClick = (e) => {
         e.preventDefault()
-        dispatch(addingFollowThunk(singlePhotoState.user_id))
+        // dispatch(gettingFollowsThunk(singlePhotoState?.user_id))
+        dispatch(addingFollowThunk(singlePhotoState.user_id)).then(() => {
+            dispatch(getOnePhoto(photoId))
+        })
 
         setFollowing(true)
 
@@ -81,9 +95,12 @@ function PhotoDetail() {
 
     const handleRemoveFollowClick = (e) => {
         e.preventDefault()
-        dispatch(deletingFollowThunk(singlePhotoState.user_id, currentUser.id))
-
+        // dispatch(gettingFollowsThunk(singlePhotoState?.user_id))
+        dispatch(deletingFollowThunk(singlePhotoState.user_id, currentUser.id)).then(() => {
+            dispatch(getOnePhoto(photoId))
+        })
         setFollowing(false)
+
 
     }
 
@@ -95,7 +112,7 @@ function PhotoDetail() {
     }
 
 
-    console.log(followerCount, "FOLLOWER COUNT")
+    // console.log(followerCount, "FOLLOWER COUNT")
     return (
         <div className='whole-page-main-div'>
             <div key={singlePhotoState}>
@@ -123,26 +140,26 @@ function PhotoDetail() {
 
                                 <h2><i class="fa-solid fa-user" /> &nbsp; {singlePhotoState.userInfo?.username}</h2>
 
-                            {currentUser ?
-                                (singlePhotoState.userInfo?.id !== currentUser?.id) &&
+                                {currentUser ?
+                                    (singlePhotoState.userInfo?.id !== currentUser?.id) &&
 
-                                (following ?
-                                    <button className='unfollowBtn' onClick={handleRemoveFollowClick}>
-                                       ✓ Following
-                                    </button>
+                                    (following ?
+                                        <button className='unfollowBtn' onClick={handleRemoveFollowClick}>
+                                            ✓ Following
+                                        </button>
+                                        :
+                                        <button className='followBtn' onClick={handleFollowClick}>
+                                            + Follow
+                                        </button>
+                                    )
                                     :
-                                    <button className='followBtn' onClick={handleFollowClick}>
-                                      + Follow
-                                    </button>
-                                )
-                                :
-                                null
-                            }
+                                    null
+                                }
                             </div>
                             <div className='followContainer'>
-                            <div className='authorFollowers'>{followerCount}  followers</div>
+                                <div className='authorFollowers'>{followerCount}  followers</div>
 
-                        </div>
+                            </div>
                             <h4>{singlePhotoState.title}</h4>
                             <p>{singlePhotoState.description}</p>
                             {/* <p> Taken on {singlePhotoState.date_uploaded}</p> */}

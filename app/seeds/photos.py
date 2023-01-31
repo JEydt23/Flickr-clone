@@ -32,7 +32,36 @@ def seed_photos():
     photo10= Photo(
         id='10', user_id="1", title="All Aboard!", description="Train switches tracks.", file_path="https://images.pexels.com/photos/258347/pexels-photo-258347.jpeg", tags="Trains"
     )
-
+    photo11 = Photo(
+        id="11", user_id="2", title="No Idea", description="Random image generated for test purposes", file_path="https://www.highreshdwallpapers.com/wp-content/uploads/2011/06/High-resolution-random-swirls-vector-wallpaper.jpg", tags="Art"
+    )
+    photo12 = Photo(
+        id="12", user_id="3", title="Hood, Black, Grist, Man, Random, White", description="Faceless and imageless", file_path="https://w0.peakpx.com/wallpaper/1014/995/HD-wallpaper-hood-black-grey-man-random-white.jpg", tags="Art"
+    )
+    photo13 = Photo(
+        id="13", user_id="1", title="Rocks on Rock", description="Rocks on rocks on rocks on rocks on rocks", file_path="https://www.animhut.com/wp-content/uploads/2014/03/100-Random-Stock-Photography-for-Commercial-Use-13.jpg", tags="Nature"
+    )
+    photo14 = Photo(
+        id="14", user_id="2", title="Gresause National Park", description="Mountains and what not", file_path="https://i.redd.it/vpflwcqn67fa1.jpg", tags="Nature"
+    )
+    photo15 = Photo(
+        id="15", user_id="3", title="Drawing", description="People people people", file_path="https://t3.ftcdn.net/jpg/03/28/81/02/360_F_328810236_vYpgDhMSmAzislAtbkA900AcqPTmTnuE.jpg", tags="Art"
+    )
+    photo16 = Photo(
+        id="16", user_id="1", title="Old Photo of Person in Black and White", description="See title for description", file_path="https://mymodernmet.com/wp/wp-content/uploads/archive/IMqHEUu9PNwBzdsiv7PX_1082066608.jpeg", tags="Art"
+    )
+    photo17 = Photo(
+        id="17", user_id="2", title="Winter Wonderland", description="Very pretty picture", file_path="https://i.redd.it/ojss8pdop8fa1.jpg", tags="Nature"
+    )
+    photo18 = Photo(
+        id="18", user_id="3", title="Great Blue Heron", description="Upstate New York", file_path="https://i.redd.it/viy6vr2hzafa1.jpg", tags="Nature"
+    )
+    photo19 = Photo(
+        id="19", user_id="1", title="Mystic Falls in Telluride", description="Pretty neat", file_path="https://i.redd.it/cm14ormc48fa1.jpg", tags="Nature"
+    )
+    photo20 = Photo(
+        id="20", user_id="2", title="The Garlic Forest", description="Buckinghamshire, UK", file_path="https://i.redd.it/bhqpnzm185fa1.jpg", tags="Nature"
+    )
 
     db.session.add(photo1)
     db.session.add(photo2)
@@ -44,6 +73,16 @@ def seed_photos():
     db.session.add(photo8)
     db.session.add(photo9)
     db.session.add(photo10)
+    db.session.add(photo11)
+    db.session.add(photo12)
+    db.session.add(photo13)
+    db.session.add(photo14)
+    db.session.add(photo15)
+    db.session.add(photo16)
+    db.session.add(photo17)
+    db.session.add(photo18)
+    db.session.add(photo19)
+    db.session.add(photo20)
 
     db.session.commit()
 

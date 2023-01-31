@@ -159,8 +159,6 @@ a.explore-link.active {
     display: flex;
     text-decoration: none;
     justify-content: flex-start;
-    /* align-items: center;
-    align-self: center; */
     height: 38px;
     padding-left: 60px;
     bottom: 5px;
