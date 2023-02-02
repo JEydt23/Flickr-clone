@@ -175,20 +175,23 @@ export default function reducer(state = { viewOnePhoto: {}, viewAllPhotos: {} },
         }
 
         case ADD_PHOTO: {
-            const newState = { ...state, viewOnePhoto: { ...state.photo }, viewAllPhotos: { ...state.viewAllPhotos } }
+            const newState = { ...state, viewOnePhoto: { ...state.viewOnePhoto }, viewAllPhotos: { ...state.viewAllPhotos } }
             // newState.viewOnePhoto = action.photo
             newState.viewAllPhotos[action.photo.id] = action.photo
             return newState
         }
 
-        case EDIT_PHOTO:
-            const newState = { ...state, viewOnePhoto: { ...state.photo }, viewAllPhotos: { ...state.viewAllPhotos } }
+        case EDIT_PHOTO: {
+            const newState = { ...state, viewOnePhoto: { ...state.viewOnePhoto }, viewAllPhotos: { ...state.viewAllPhotos } }
             newState.viewAllPhotos[action.photo.id] = action.photo
             newState.photo = action.photo
             return newState
-
-
-
+        }
+        case DELETE_PHOTO: {
+            const newState = {...state, viewOnePhoto: {...state.viewOnePhoto}, viewAllPhotos: {...state.viewAllPhotos} }
+            delete newState.viewAllPhotos[action.photo]
+            return newState
+        }
         default:
             return state
     }
