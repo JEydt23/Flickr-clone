@@ -30,7 +30,7 @@ export const gettingFollowsThunk = (userId) => async dispatch => {
     const response = await fetch(`/api/follows/${userId}/following`)
     if (response.ok) {
         const followers = await response.json()
-        console.log("GETTING FOLLOWS THUNK HITS", followers)
+        // console.log("GETTING FOLLOWS THUNK HITS", followers)
         dispatch(getFollowers(followers))
         return followers
     }
@@ -50,7 +50,7 @@ export const gettingFollowingsThunk = (userId) => async dispatch => {
 
 // ADD FOLLOW
 export const addingFollowThunk = (userId) => async dispatch => {
-    console.log("FOLLOW THUNK USERID ==== ", userId)
+    // console.log("FOLLOW THUNK USERID ==== ", userId)
     const response = await fetch(`/api/follows/${userId}`, {
 
         method: "POST"
@@ -58,7 +58,7 @@ export const addingFollowThunk = (userId) => async dispatch => {
 
     if (!response.error) {
         const follower = await response.json()
-        console.log("RESPONSE IN ADD FOLLOW THUNK HITS ===== ", follower)
+        // console.log("RESPONSE IN ADD FOLLOW THUNK HITS ===== ", follower)
         dispatch(addFollow(follower))
         return follower
     }
@@ -66,7 +66,7 @@ export const addingFollowThunk = (userId) => async dispatch => {
 
 // UNFOLLOW
 export const deletingFollowThunk = (userId, currentUserId) => async dispatch => {
-    console.log("UNFOLLOW THUNK USERID AND CURRENTUSERID ===== ", userId, currentUserId)
+    // console.log("UNFOLLOW THUNK USERID AND CURRENTUSERID ===== ", userId, currentUserId)
     const response = await fetch(`/api/follows/${userId}`, {
 
         method: 'DELETE'
@@ -74,7 +74,7 @@ export const deletingFollowThunk = (userId, currentUserId) => async dispatch => 
 
     if (!response.error) {
         const follower = await response.json()
-        console.log("RESPONSE IN REMOVE FOLLOW THUNK HITS ===== ", follower)
+        // console.log("RESPONSE IN REMOVE FOLLOW THUNK HITS ===== ", follower)
 
         dispatch(deleteFollow(currentUserId))
         return follower

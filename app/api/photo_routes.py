@@ -4,6 +4,8 @@ from ..models import db, Photo, User, Comment, Like
 from ..forms import PhotoForm, LikeForm
 from flask_login import login_required, current_user
 from .auth_routes import validation_errors_to_error_messages
+from .aws import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 
 photo_route = Blueprint("photos", __name__)
 
@@ -102,25 +104,66 @@ def get_photos_by_follower(user_id):
 @photo_route.route('/', methods=['POST'])
 @login_required
 def create_photo():
-    form = PhotoForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        new_photo = Photo(
-            user_id = current_user.id,
-            title = form.data["title"],
-            description = form.data["description"],
-            file_path = form.data["file_path"],
-            tags = form.data["tags"]
-        )
-        db.session.add(new_photo)
-        db.session.commit()
-        return new_photo.to_dict()
+    print(request, "XXXXXXXXXXX IS THIS WHATS WRONG? XXXXXXXXXXXXXXXXXXXXXXX")
 
-    if form.errors:
-        print("***********", form.errors)
-        return {"error" : validation_errors_to_error_messages(form.errors)}, 401
+    if "photo" not in request.files:
+        return {"errors": "photo required"}, 400
 
-    return {"error" : "Field required."}
+    photo = request.files["photo"]
+
+    if not allowed_file(photo.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    photo.filename = get_unique_filename(photo.filename)
+
+    upload = upload_file_to_s3(photo)
+    print("DIS BE DA UPLOAD  +++++++++++ ", upload)
+
+    if "url" not in upload:
+        # if the dictionary doesn't have a file_path key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        print("ZZZZZZZZZZZZZZZZZZZZZZ IS THIS WHATS WRONG? ZZZZZZZZZZZZZZZZZ")
+        return upload, 400
+
+    # url = upload["url"]
+    # flask_login allows us to get the current user from the request
+
+
+
+    # form = PhotoForm()
+    # form['csrf_token'].data = request.cookies['csrf_token']
+    # if form.validate_on_submit():
+    #     new_photo = Photo(
+    #     user_id = current_user.id,
+    #     title = form.data["title"],
+    #     description = form.data["description"],
+    #     file_path = form.data["file_path"],
+    #     tags = form.data["tags"]
+    # )
+
+    user_id = current_user.id
+    title = request.form['title']
+    description = request.form['description']
+    file_path = upload['url']
+    tags = request.form['tags']
+
+    new_photo = Photo(
+        user_id = user_id,
+        title = title,
+        description = description,
+        file_path = file_path,
+        tags = tags
+    )
+    db.session.add(new_photo)
+    db.session.commit()
+    return new_photo.to_dict()
+
+    # if form.errors:
+    #     print("***********", form.errors)
+    #     return {"error" : validation_errors_to_error_messages(form.errors)}, 401
+
+    # return {"error" : "Field required."}
 
 
 

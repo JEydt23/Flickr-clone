@@ -65,7 +65,7 @@ export const getOnePhoto = (photoId) => async dispatch => {
     const response = await fetch(`/api/photos/${photoId}`)
     if (response.ok) {
         const photo = await response.json()
-        console.log("ONE PHOTO THUNK RES.OK ==== ", photo)
+        // console.log("ONE PHOTO THUNK RES.OK ==== ", photo)
         dispatch(onePhoto(photo))
         return photo
     }
@@ -74,12 +74,13 @@ export const getOnePhoto = (photoId) => async dispatch => {
 // CREATE A PHOTO THUNK
 
 export const createPhoto = (photo) => async dispatch => {
-    // console.log("***** PHOTO ==== ", photo)
+    console.log("***** PHOTO ==== ")
     const response = await fetch(`/api/photos/`, {
         method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(photo)
+        // headers: { "Content-Type": "application/json" },
+        body: photo
     })
+    console.log("RESPONSE FOR CREATE PHOTO AWS: ", response)
     if (response.ok) {
         const photo = await response.json()
         dispatch(addPhoto(photo))
@@ -175,7 +176,8 @@ export default function reducer(state = { viewOnePhoto: {}, viewAllPhotos: {} },
 
         case ADD_PHOTO: {
             const newState = { ...state, viewOnePhoto: { ...state.photo }, viewAllPhotos: { ...state.viewAllPhotos } }
-            newState.viewOnePhoto = action.photo
+            // newState.viewOnePhoto = action.photo
+            newState.viewAllPhotos[action.photo.id] = action.photo
             return newState
         }
 

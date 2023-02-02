@@ -44,12 +44,12 @@ const loadOneComment = comment => {
 // THUNKS
 
 export const getComments = photo_id => async dispatch => {
-    console.log("photo_id ====== ", photo_id)
+    // console.log("photo_id ====== ", photo_id)
     const res = await fetch(`/api/photos/${photo_id}/comments`)
     if (res.ok) {
         const comments = await res.json()
-        console.log("RES ===== ", res)
-        console.log("COMMENTS ===== ", comments)
+        // console.log("RES ===== ", res)
+        // console.log("COMMENTS ===== ", comments)
         dispatch(loadComments(comments))
         return comments
     }
@@ -66,10 +66,10 @@ export const createComment = (commentObj) => async dispatch => {
             "photoId": photoId
         })
     })
-    console.log("THIS IS THE RES IN CREATE THUNK ===== ", res)
+    // console.log("THIS IS THE RES IN CREATE THUNK ===== ", res)
     if (res.ok) {
         const makeComment = await res.json()
-        console.log("DID WE HIT HERE? ===== ", makeComment)
+        // console.log("DID WE HIT HERE? ===== ", makeComment)
         dispatch(addComment(makeComment))
         return makeComment
     }
@@ -77,7 +77,7 @@ export const createComment = (commentObj) => async dispatch => {
 
 export const editCommentThunk = comment => async (dispatch) => {
     const { comment_id } = comment;
-    console.log("comment ======== ", comment)
+    // console.log("comment ======== ", comment)
 
     const commentFetch = await fetch(`/api/comments/${comment_id}`, {
         method: "PUT",
@@ -86,7 +86,7 @@ export const editCommentThunk = comment => async (dispatch) => {
     })
     if (commentFetch.ok) {
         const editedComment = await commentFetch.json();
-        console.log("EDITED COMMENT ======== ", editedComment)
+        // console.log("EDITED COMMENT ======== ", editedComment)
         dispatch(editComment(editedComment))
         return editedComment
     }
