@@ -118,9 +118,68 @@ textarea.create-photo-input {
 
 }
 
-/* .char-counter {
-    width: 100%;
+.aws-photo-upload-container{
     display: flex;
-    justify-content: end;
-    margin-right: 35px;
-} */
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: 400px;
+
+}
+
+input.file_pathInput {
+    /* position: relative;
+    font-weight: 12px; */
+
+    display: none;
+    /* justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 5px;
+    border: 0px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: rgb(18, 143, 220);
+    min-width: 15vw;
+    color: rgb(255, 255, 255); */
+
+}
+
+img.photo-preview {
+    height: 25%;
+    width: 25%;
+    /* justify-items: center;
+    justify-content: center; */
+
+}
+
+label.aws {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    justify-items: center;
+    align-items: center;
+    width: 50px;
+    color: black;
+    font-size: 12px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 5px;
+    border: 0px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: rgb(18, 143, 220);
+    min-width: 10vw;
+    color: rgb(255, 255, 255);
+    position: relative;
+    font-weight: lighter;
+    cursor: pointer;
+
+}
+
+.submitButton {
+    cursor: pointer;
+
+}

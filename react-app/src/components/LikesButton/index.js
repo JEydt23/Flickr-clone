@@ -13,7 +13,7 @@ function LikeButton({ photo }) {
     // console.log('PHOTO -======- ', photo)
 
     useEffect(() => {
-        const likeUserCheck = photo.likesComments.userLikes.find(user =>
+        const likeUserCheck = photo.likesComments.userLikes?.find(user =>
             currentUser.id === user.user_id
         )
         if (likeUserCheck) setLiked(true)

@@ -16,6 +16,7 @@ function CreatePhoto() {
     const [showErrors, setShowErrors] = useState(false)
     const [photo, setPhoto] = useState(null);
     const [photoLoading, setPhotoLoading] = useState(false)
+    const [photoPreview, setPhotoPreview] = useState(null)
 
     useEffect(() => {
         console.log(errors.length, "ERRORS ON LOAD")
@@ -30,7 +31,7 @@ function CreatePhoto() {
         // if (tags.trim() == '') validationErrors.push("Can't start tag with whitespace.")
         // if (!file_path?.match(/\.(gif|png|jpeg|jpg)$/)) validationErrors.push("The photo's URL must end in .gif, .png, .jpeg, or .jpg");
         setErrors(validationErrors)
-    }, [title, description,  tags])
+    }, [title, description, tags])
 
     // useEffect(()=>{
     //     dispatch(createPhoto())
@@ -75,6 +76,7 @@ function CreatePhoto() {
     const updatePhoto = (e) => {
         const file = e.target.files[0];
         setPhoto(file)
+        setPhotoPreview(URL.createObjectURL(file))
     }
 
     return (
@@ -106,18 +108,22 @@ function CreatePhoto() {
                     <div className='char-counter'>
                         {description.length}/255 characters
                     </div>
-                    <label>
-                        {/* File_path */}
-                        <input
-                            type="file"
-                            className='file_pathInput'
-                            accept='photo/*'
-                            // value={file_path}
-                            // placeholder="Image URL for your photo (required)"
-                            // onChange={(e) => setFile_Path(e.target.value)}
-                            onChange={updatePhoto}
-                            required />
-                    </label>
+                    <div className='aws-photo-upload-container'>
+                        <img src={photoPreview ? photoPreview : null} className='photo-preview' />
+                        <label className='aws'>
+                            Select File
+                            {/* Pick a photo to upload */}
+                            <input
+                                type="file"
+                                className='file_pathInput'
+                                accept='photo/*'
+                                // value={file_path}
+                                // placeholder="Pick a photo (required)"
+                                // onChange={(e) => setFile_Path(e.target.value)}
+                                onChange={updatePhoto}
+                                required />
+                        </label>
+                    </div>
                     <label>
                         {/* Tags */}
                         <input
