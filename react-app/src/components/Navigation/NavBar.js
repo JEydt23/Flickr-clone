@@ -13,6 +13,7 @@ import './NavBar.css'
 
 const NavBar = () => {
   const user = useSelector(state => state.session.user)
+  console.log("user ==", user)
   return (
     <nav>
       <div className='nav'>
@@ -25,11 +26,16 @@ const NavBar = () => {
               Explore
             </NavLink>
           </div>
-          <div className='explore'>
-            <NavLink to={`/photos/user/${user.id}/current`} className='explore-link'>
-              You
-            </NavLink>
-          </div>
+          {user ?
+            <div className='explore'>
+              <NavLink to={`/photos/user/${user?.id}/current`} className='explore-link'>
+                You
+              </NavLink>
+            </div>:
+              <div>
+
+              </div>}
+
         </div>
         <div className='nav-right'>
           <div className='about-me-nav'>
