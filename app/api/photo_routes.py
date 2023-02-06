@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, Blueprint, redirect, request
 from sqlalchemy.sql import func, select
-from ..models import db, Photo, User, Comment, Like
+from ..models import db, Photo, User, Comment, Like, follows
 from ..forms import PhotoForm, LikeForm
 from flask_login import login_required, current_user
 from .auth_routes import validation_errors_to_error_messages
@@ -54,9 +54,8 @@ def get_photo(photoId):
 
     photo['totalLikes'] = len(likes)
     photo['userInfo'] = userInfo.to_dict()
-    # photo['totalFollowers'] = [follower.to_dict() for follower in followers]
-
-
+    photo['followers'] = [follower.to_dict() for follower in followers]
+    
     return photo
 
 # GET PHOTOS OF ALL USERS YOU FOLLOW

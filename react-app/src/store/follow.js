@@ -50,7 +50,7 @@ export const gettingFollowingsThunk = (userId) => async dispatch => {
 
 // ADD FOLLOW
 export const addingFollowThunk = (userId) => async dispatch => {
-    // console.log("FOLLOW THUNK USERID ==== ", userId)
+    console.log("FOLLOW THUNK USERID ==== ", userId)
     const response = await fetch(`/api/follows/${userId}`, {
 
         method: "POST"
@@ -66,7 +66,7 @@ export const addingFollowThunk = (userId) => async dispatch => {
 
 // UNFOLLOW
 export const deletingFollowThunk = (userId, currentUserId) => async dispatch => {
-    // console.log("UNFOLLOW THUNK USERID AND CURRENTUSERID ===== ", userId, currentUserId)
+    console.log("UNFOLLOW THUNK USERID AND CURRENTUSERID ===== ", userId, currentUserId)
     const response = await fetch(`/api/follows/${userId}`, {
 
         method: 'DELETE'
@@ -111,6 +111,7 @@ export default function reducer(state = { Followers: {}, Followings: {}, totalFo
         case ADD_FOLLOW: {
             const newState = { Followers: { ...state.Followers }, totalFollowers: 0 }
             console.log("newState = ", newState)
+            console.log("Followers in store ==== ", newState.Followers)
             newState.Followers[action.follower.follower?.id] = action.follower.follower
 
             newState.totalFollowers = action.follower.totalFollowers
@@ -118,6 +119,7 @@ export default function reducer(state = { Followers: {}, Followings: {}, totalFo
         }
         case DELETE_FOLLOW: {
             const newState = { Followers: { ...state.Followers }, totalFollowers: state.totalFollowers }
+            console.log("unfollow newState == ", newState)
             delete newState.Followers[action.userId]
             newState.totalFollowers--
             return newState

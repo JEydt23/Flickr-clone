@@ -24,20 +24,22 @@ function PhotoDetail() {
     const followerCount = useSelector(state => state.follow?.totalFollowers)
     const [following, setFollowing] = useState();
 
-    // console.log('single photo state =========== ', singlePhotoState)
-    console.log("SINGLE PHOTO FOLLOWERS ==== ", followers)
-    console.log("OBJECT VALUES FOLLOWERS =====XX===", Object.values(followers))
+    console.log('single photo state =========== ', singlePhotoState)
+    console.log("SINGLE PHOTO FOLLOWERS ==== ", singlePhotoState.followers)
+    console.log("CURRENT USER ID === ", currentUser)
+    // console.log("OBJECT VALUES FOLLOWERS =====XX===", Object.values(singlePhotoState.followers))
 
 
 
     useEffect(() => {
         if (photoId) {
-            dispatch(gettingFollowsThunk(singlePhotoState.user_id))
             dispatch(getOnePhoto(photoId))
+            dispatch(gettingFollowsThunk(singlePhotoState.user_id))
 
         }
 
-    }, [photoId, commentState, singlePhotoState.user_id, dispatch])
+
+    }, [photoId, commentState, singlePhotoState.user_id, singlePhotoState.followers?.id, dispatch])
 
     useEffect(() => {
 
@@ -51,55 +53,59 @@ function PhotoDetail() {
 
     useEffect(() => {
 
-        if (followerCount === 0) return setFollowing(false)
-        for (let follower in followers) {
-            let num = Number(follower)
-            console.log("NUM(FOLLOWER) ==== ", followers)
-            if (num === currentUser.id) {
-                console.log("FIRST IF STATEMENT")
-                return setFollowing(true)
-            } else if (num !== currentUser.id) {
-                console.log("SECOND IF STATEMENT")
-                setFollowing(false)
-            } else {
-                console.log("DIDNT HIT IF STATEMENTS")
-            }
+        if (singlePhotoState.followers?.length === 0) return setFollowing(false)
+
+        let follower = singlePhotoState.followers?.find(follower => follower.id === currentUser.id)
+
+        console.log("FOLLOWER FIND", follower)
+
+        if (follower?.id === currentUser.id){
+            setFollowing(true)
+        } else {
+            setFollowing(false)
         }
-    }, [followers])
+
+    }, [singlePhotoState.followers])
 
     const likePhoto = (e) => {
         e.preventDefault()
         // console.log("e.value ===== ", e.target.value)
-        dispatch(addLike(e.target.value, currentUser.id)).then(() => {
+        dispatch(addLike(e.target.value, currentUser?.id)).then(() => {
             dispatch(getOnePhoto(photoId))
+
         })
         setLiked(true)
     }
 
     const unlikePhoto = (e) => {
         e.preventDefault()
-        dispatch(removeLike(e.target.value, currentUser.id)).then(() => {
+        dispatch(removeLike(e.target.value, currentUser?.id)).then(() => {
             dispatch(getOnePhoto(photoId))
         })
+
         setLiked(false)
 
     }
 
     const handleFollowClick = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         dispatch(addingFollowThunk(singlePhotoState.user_id)).then(() => {
             dispatch(getOnePhoto(photoId))
         })
         setFollowing(true)
+        // dispatch(getOnePhoto(singlePhotoState.id))
+
         console.log("FOLLOWED")
     }
 
     const handleRemoveFollowClick = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         dispatch(deletingFollowThunk(singlePhotoState.user_id, currentUser.id)).then(() => {
             dispatch(getOnePhoto(photoId))
         })
-        return setFollowing(false)
+        setFollowing(false)
+        // dispatch(getOnePhoto(singlePhotoState.id))
+
         console.log("UNFOLLOWED")
     }
 
@@ -138,7 +144,7 @@ function PhotoDetail() {
                             <div className='user-name-prof'>
 
                                 <h2><i class="fa-solid fa-user" /> &nbsp; {singlePhotoState.userInfo?.username}</h2>
-                                {followers && currentUser ?
+                                {singlePhotoState.followers && currentUser ?
                                     (singlePhotoState.userInfo?.id !== currentUser?.id) &&
 
                                     (following ?
@@ -156,7 +162,7 @@ function PhotoDetail() {
                                 }
                             </div>
                             <div className='followContainer'>
-                                <div className='authorFollowers'>{followerCount}  followers</div>
+                                <div className='authorFollowers'>{singlePhotoState.followers?.length}  followers</div>
 
                             </div>
                             <h4>{singlePhotoState.title}</h4>
