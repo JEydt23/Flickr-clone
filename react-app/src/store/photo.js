@@ -154,6 +154,18 @@ export const getFollowingPhotoThunk = (userId) => async dispatch => {
     }
 }
 
+// GET ALL OF CURRENT USERS PHOTOS
+
+export const getMyPhotos = userId => async dispatch => {
+    const response = await fetch(`/api/photos/user/${userId}/current`)
+    if (response.ok){
+        const photos = await response.json()
+        console.log("MY PHOTOS THUNK HIT ==== ", photos)
+        dispatch(allPhotos(photos))
+        return photos
+    }
+}
+
 // PHOTO REDUCER
 
 export default function reducer(state = { viewOnePhoto: {}, viewAllPhotos: {} }, action) {

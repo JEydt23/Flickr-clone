@@ -16,6 +16,7 @@ import LandingPage from './components/LandingPage'
 import PageNotFound from './components/404Page/404page';
 import AboutMe from './components/AboutMe/AboutMe'
 import Explore from './components/Explore'
+import MyPhotos from './components/MyPhotos';
 
 
 function App() {
@@ -63,6 +64,9 @@ function App() {
         </Route>
         <Route path='/photos/:photoId/edit' exact={true}>
           <EditPhoto />
+        </Route>
+        <Route path='/photos/user/:userId/current' exact={true}>
+        <MyPhotos />
         </Route>
         <Route path='/photos/:photoId' exact={true} >
           <PhotoDetail />

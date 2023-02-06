@@ -5,10 +5,9 @@ import logo from './logotransparentback.png'
 // import session from '../../store/session'
 import { useSelector } from 'react-redux';
 // import createAPhoto from '../CreatePhoto'
-
-
-
 import './NavBar.css'
+
+
 
 
 
@@ -24,6 +23,11 @@ const NavBar = () => {
           <div className='explore'>
             <NavLink to='/explore' exact={true} activeClassName='active' className='explore-link' style={{ textDecoration: "none" }}>
               Explore
+            </NavLink>
+          </div>
+          <div className='explore'>
+            <NavLink to={`/photos/user/${user.id}/current`} className='explore-link'>
+              You
             </NavLink>
           </div>
         </div>

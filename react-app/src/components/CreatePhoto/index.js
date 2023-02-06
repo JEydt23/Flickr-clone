@@ -75,6 +75,7 @@ function CreatePhoto() {
     }
     const updatePhoto = (e) => {
         const file = e.target.files[0];
+        console.log("XXXXXXXXXXXXXX ", typeof file)
         setPhoto(file)
         setPhotoPreview(URL.createObjectURL(file))
     }

@@ -266,3 +266,30 @@ def remove_photo_like(photo_id):
             "message": "Successfully Deleted!",
             "statusCode":200
             }
+
+
+@photo_route.route('/user/<int:user_id>/current')
+@login_required
+def get_my_photos(user_id):
+    photos = Photo.query.filter_by(user_id = current_user.id).all()
+    user = User.query.filter_by(id = user_id).first()
+    res = []
+
+    for photo in photos:
+        res.append({
+            "id": photo.id,
+            "user_id": photo.user_id,
+            "title": photo.title,
+            "description": photo.description,
+            "file_path": photo.file_path,
+            "date_uploaded": photo.date_uploaded,
+            "tags": photo.tags,
+            "likesComments": photo.to_dict_likes(),
+            "User": {
+                "id": user.id,
+                "username": user.username,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+            },
+        })
+    return jsonify({"Photos": res})

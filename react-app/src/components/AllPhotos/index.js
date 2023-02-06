@@ -31,9 +31,7 @@ function AllPhotos() {
 
 
 
-  // function createAPhoto() {
-  //   dispatch(createPhoto())
-  // }
+
 
   photoState.sort((a, b) => new Date(b.date_uploaded) - new Date(a.date_uploaded))
 
@@ -86,9 +84,7 @@ function AllPhotos() {
         <div className='photo-gallery'>
           {photoState.map(photo => (
             <div key={photo.id} className='photos-div' >
-              {/* {console.log("photo key ===== ", photo)} */}
               <NavLink to={`/photos/${photo.id}`} style={{ textDecoration: "none" }}>
-                {/* <h2>{photo.title}</h2> */}
                 <div className='user-date'>
                   <div className='username-all-photo'>
                     {photo.User?.username} <img src={pro} alt="pro" className='pro-img'></img>
@@ -97,13 +93,10 @@ function AllPhotos() {
                     {timeSince(photo.date_uploaded)}
                   </div>
                 </div>
-                {/* <img src={photo.file_path} alt={photo.title} /> */}
                 <img className="all-photos-photo"
                   src={photo.file_path}
                   alt={photo.title}
                   onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }} />
-                {/* <p>{photo.description}</p>
-              <p>Uploaded by  on {photo.date_uploaded}</p> */}
               </NavLink>
               <LikeButton photo={photo} />
             </div>
