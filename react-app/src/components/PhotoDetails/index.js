@@ -42,32 +42,38 @@ function PhotoDetail() {
     }, [photoId, commentState, singlePhotoState.user_id, singlePhotoState.followers?.id, dispatch])
 
     useEffect(() => {
-
-        const likeUserCheck = singlePhotoState.userLikes?.find(user =>
-            currentUser.id === user.user_id)
-        if (likeUserCheck) setLiked(true)
-        else setLiked(false)
-
-
-    }, [singlePhotoState?.id, currentUser.id, singlePhotoState.userLikes, dispatch])
-
-    useEffect(() => {
-
-        if (singlePhotoState.followers?.length === 0) return setFollowing(false)
-
-        let follower = singlePhotoState.followers?.find(follower => follower.id === currentUser.id)
-
-        console.log("FOLLOWER FIND", follower)
-
-        if (follower?.id === currentUser.id){
-            setFollowing(true)
+        if (currentUser) {
+            const likeUserCheck = singlePhotoState.userLikes?.find(user =>
+                currentUser.id === user.user_id)
+            if (likeUserCheck) setLiked(true)
+            else setLiked(false)
         } else {
-            setFollowing(false)
+            setLiked(false)
         }
 
+
+    }, [singlePhotoState?.id, currentUser?.id, singlePhotoState?.userLikes, dispatch])
+
+    useEffect(() => {
+        if (currentUser) {
+
+            if (singlePhotoState.followers?.length === 0) return setFollowing(false)
+
+            let follower = singlePhotoState.followers?.find(follower => follower.id === currentUser.id)
+
+            console.log("FOLLOWER FIND", follower)
+
+            if (follower?.id === currentUser?.id) {
+                setFollowing(true)
+            } else {
+                setFollowing(false)
+            }
+
+        }
     }, [singlePhotoState.followers])
 
     const likePhoto = (e) => {
+
         e.preventDefault()
         // console.log("e.value ===== ", e.target.value)
         dispatch(addLike(e.target.value, currentUser?.id)).then(() => {
@@ -128,16 +134,18 @@ function PhotoDetail() {
                         onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }}
                     />
                 </div>
-                <div className='likes-button-container'>
-                    {liked ?
-                        <button value={photoId} onClick={unlikePhoto} className='button'>
-                            ★
-                        </button>
-                        :
-                        <button value={photoId} onClick={likePhoto} className='button'>
-                            ☆
-                        </button>}
-                </div>
+                {currentUser &&
+                    <div className='likes-button-container'>
+                        {liked ?
+                            <button value={photoId} onClick={unlikePhoto} className='button'>
+                                ★
+                            </button>
+                            :
+                            <button value={photoId} onClick={likePhoto} className='button'>
+                                ☆
+                            </button>}
+                    </div>
+                }
                 <div className='single-photo-main-box'>
                     <div className='left-side'>
                         <div className='photo-info-box'>
