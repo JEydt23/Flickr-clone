@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { createPhoto } from '../../store/photo';
@@ -17,6 +17,7 @@ function CreatePhoto() {
     const [photo, setPhoto] = useState(null);
     const [photoLoading, setPhotoLoading] = useState(false)
     const [photoPreview, setPhotoPreview] = useState(null)
+    const currentUser = useSelector(state => state.session.user)
 
     useEffect(() => {
         console.log(errors.length, "ERRORS ON LOAD")
@@ -52,7 +53,7 @@ function CreatePhoto() {
         if (!errors.length) {
             dispatch(createPhoto(formData))
             setPhotoLoading(false)
-            history.push("/explore")
+            history.push(`/photos/user/${currentUser.id}/current`)
         } else {
             setPhotoLoading(false)
             console.log("ERROR")
