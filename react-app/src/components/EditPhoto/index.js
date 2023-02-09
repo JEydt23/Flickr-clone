@@ -113,7 +113,7 @@ function EditPhoto() {
                             <button className='delete-photo-button' onClick={async (e) => {
                                 e.preventDefault()
                                 await dispatch(deletingPhoto(updatedThisPhoto.id))
-                                await history.push('/photos')
+                                await history.push(`/photos/user/${currentUser.id}/current`)
                             }}>Delete Photo</button>}
                     </div>
                 </div>

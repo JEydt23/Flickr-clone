@@ -53,7 +53,7 @@ function MyPhotos() {
         if (minutes > 0) return `${minutes} minutes ago`
 
         if (seconds > 0 && seconds < 2) return `${seconds} second ago`
-        if (seconds > 0) return `${seconds} seconds ago`
+        return seconds > 0 ? `${seconds} seconds ago` : `0 seconds ago`
     }
 
     return (
