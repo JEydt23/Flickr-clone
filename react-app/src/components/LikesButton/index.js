@@ -19,7 +19,7 @@ function LikeButton({ photo }) {
         if (likeUserCheck) setLiked(true)
         else setLiked(false)
 
-    }, [])
+    }, [photoState.likesComments])
 
 
 

@@ -27,7 +27,7 @@ function AllPhotos() {
     dispatch(gettingFollowingsThunk(currentUser?.id))
     // dispatch()
 
-  }, [dispatch, singlePhotoState.likes]);
+  }, [dispatch, singlePhotoState.likes, photoState.likesComments]);
 
 
 
@@ -52,58 +52,79 @@ function AllPhotos() {
     let minutes = Math.floor(timeDifference / (1000 * 60));
     let seconds = Math.floor(timeDifference / 1000)
 
-    if (years > 0) {
-      return years + " years ago";
-    } else if (months > 1) {
-      return months + " months ago";
-    } else if (days > 1) {
-      return days + " days ago";
-    } else if (hours > 1) {
-      return hours + " hours ago";
-    } else if (minutes > 1) {
-      return minutes + " minutes ago"
-    } else {
-      return seconds + " seconds ago"
-    }
+    // if (years > 0) {
+    //   return years + " years ago";
+    // } else if (months > 1) {
+    //   return months + " months ago";
+    // } else if (days > 1) {
+    //   return days + " days ago";
+    // } else if (hours > 1) {
+    //   return hours + " hours ago";
+    // } else if (minutes > 1) {
+    //   return minutes + " minutes ago"
+    // } else {
+    //   return seconds + " seconds ago"
+    // }
+
+    if (years > 0 && years < 2) return `${years} year ago`
+    if (years > 0) return `${years} years ago`
+
+    if (months > 0 && months < 2) return `${months} month ago`
+    if (months > 0) return `${months} months ago`
+
+    if (days > 0 && days < 2) return `${days} day ago`
+    if (days > 0) return `${days} days ago`
+
+    if (hours > 0 && hours < 2) return `${hours} hour ago`
+    if (hours > 0) return `${hours} hours ago`
+
+    if (minutes > 0 && minutes < 2) return `${minutes} minute ago`
+    if (minutes > 0) return `${minutes} minutes ago`
+
+    if (seconds > 0 && seconds < 2) return `${seconds} second ago`
+    if (seconds > 0) return `${seconds} seconds ago`
+
   }
 
-  return (
-    <div className='main-all-photo'>
-      {followersList?.length === 0 ?
-        <div className='main-404-div'>
-          <div className='main-404'>
-            You are not following any users
-          </div>
-          <div>
-            <NavLink to='/explore' className="navlink-photos">
-              Click here to explore users to follow.
-            </NavLink>
-          </div>
+
+
+return (
+  <div className='main-all-photo'>
+    {followersList?.length === 0 ?
+      <div className='main-404-div'>
+        <div className='main-404'>
+          You are not following any users
         </div>
-        :
-        <div className='photo-gallery'>
-          {photoState.map(photo => (
-            <div key={photo.id} className='photos-div' >
-              <NavLink to={`/photos/${photo.id}`} style={{ textDecoration: "none" }}>
-                <div className='user-date'>
-                  <div className='username-all-photo'>
-                    {photo.User?.username} <img src={pro} alt="pro" className='pro-img'></img>
-                  </div>
-                  <div className='date-added-all-photo'>
-                    {timeSince(photo.date_uploaded)}
-                  </div>
+        <div>
+          <NavLink to='/explore' className="navlink-photos">
+            Click here to explore users to follow.
+          </NavLink>
+        </div>
+      </div>
+      :
+      <div className='photo-gallery'>
+        {photoState.map(photo => (
+          <div key={photo.id} className='photos-div' >
+            <NavLink to={`/photos/${photo.id}`} style={{ textDecoration: "none" }}>
+              <div className='user-date'>
+                <div className='username-all-photo'>
+                  {photo.User?.username} <img src={pro} alt="pro" className='pro-img'></img>
                 </div>
-                <img className="all-photos-photo"
-                  src={photo.file_path}
-                  alt={photo.title}
-                  onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }} />
-              </NavLink>
-              <LikeButton photo={photo} />
-            </div>
-          ))}
-        </div>}
-    </div>
-  );
+                <div className='date-added-all-photo'>
+                  {timeSince(photo.date_uploaded)}
+                </div>
+              </div>
+              <img className="all-photos-photo"
+                src={photo.file_path}
+                alt={photo.title}
+                onError={e => { e.currentTarget.src = "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" }} />
+            </NavLink>
+            <LikeButton photo={photo} />
+          </div>
+        ))}
+      </div>}
+  </div>
+);
 }
 
 export default AllPhotos;
