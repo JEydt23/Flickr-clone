@@ -13,7 +13,7 @@ import './NavBar.css'
 
 const NavBar = () => {
   const user = useSelector(state => state.session.user)
-  console.log("user ==", user)
+  // console.log("user ==", user)
   return (
     <nav>
       <div className='nav'>

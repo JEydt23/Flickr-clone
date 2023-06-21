@@ -56,7 +56,7 @@ export const getComments = photo_id => async dispatch => {
 }
 
 export const createComment = (commentObj) => async dispatch => {
-    console.log('THIS IS THE COMMENT IN THE CREATE COMMENT THUNK ====== ', commentObj)
+    // console.log('THIS IS THE COMMENT IN THE CREATE COMMENT THUNK ====== ', commentObj)
     const { comment, photoId } = commentObj
     const res = await fetch(`/api/comments/${photoId}/comments`, {
         method: 'POST',

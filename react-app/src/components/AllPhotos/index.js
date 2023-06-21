@@ -17,9 +17,9 @@ function AllPhotos() {
   const singlePhotoState = useSelector(state => state.photo.viewOnePhoto)
   const currentUser = useSelector(state => state.session.user)
   const followers = useSelector(state => state.follow?.Followers)
-  console.log("FOLLOWERS: ", followers)
+  // console.log("FOLLOWERS: ", followers)
   const followersList = Object.values(followers)
-  console.log("FOLLOWERS LIST ===== ", followersList)
+  // console.log("FOLLOWERS LIST ===== ", followersList)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -38,7 +38,7 @@ function AllPhotos() {
 
 
   // if (!photoState.length) return null;
-  console.log("photoState ==== ", photoState)
+  // console.log("photoState ==== ", photoState)
 
   function timeSince(dateString) {
     let currentTime = new Date();

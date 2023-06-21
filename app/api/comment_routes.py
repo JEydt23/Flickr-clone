@@ -15,24 +15,44 @@ comment_route = Blueprint("comments", __name__)
 def create_comment(photo_id):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    users = User.query.filter_by(id = current_user.id).first()
 
     if form.validate_on_submit():
         new_comment = Comment(
-          body = form.data['body'],
-          user_id = current_user.id,
-          photo_id = photo_id
+            body=form.data['body'],
+            user_id=current_user.id,
+            photo_id=photo_id
         )
-    if form.errors:
-        print(form.errors)
-        return "Invalid data"
+        db.session.add(new_comment)
+        db.session.commit()
+        res = new_comment.to_dict()
+        res['user'] = current_user.to_dict()
+        return res
+    else:
+        errors = {}
+        for field, field_errors in form.errors.items():
+            errors[field] = field_errors[0]
+        return jsonify(errors), 400
+    
+    # form = CommentForm()
+    # form['csrf_token'].data = request.cookies['csrf_token']
+    # users = User.query.filter_by(id = current_user.id).first()
 
-    db.session.add(new_comment)
-    db.session.commit()
-    res = new_comment.to_dict()
-    res['user'] = users.to_dict()
+    # if form.validate_on_submit():
+    #     new_comment = Comment(
+    #       body = form.data['body'],
+    #       user_id = current_user.id,
+    #       photo_id = photo_id
+    #     )
+    # if form.errors:
+    #     print(form.errors)
+    #     return "Invalid data"
 
-    return res
+    # db.session.add(new_comment)
+    # db.session.commit()
+    # res = new_comment.to_dict()
+    # res['user'] = users.to_dict()
+
+    # return res
 
 # UPDATE COMMENT ROUTE
 

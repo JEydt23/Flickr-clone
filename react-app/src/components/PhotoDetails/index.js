@@ -24,9 +24,9 @@ function PhotoDetail() {
     const followerCount = useSelector(state => state.follow?.totalFollowers)
     const [following, setFollowing] = useState();
 
-    console.log('single photo state =========== ', singlePhotoState)
-    console.log("SINGLE PHOTO FOLLOWERS ==== ", singlePhotoState.followers)
-    console.log("CURRENT USER ID === ", currentUser)
+    // console.log('single photo state =========== ', singlePhotoState)
+    // console.log("SINGLE PHOTO FOLLOWERS ==== ", singlePhotoState.followers)
+    // console.log("CURRENT USER ID === ", currentUser)
     // console.log("OBJECT VALUES FOLLOWERS =====XX===", Object.values(singlePhotoState.followers))
 
 
@@ -61,7 +61,7 @@ function PhotoDetail() {
 
             let follower = singlePhotoState.followers?.find(follower => follower.id === currentUser.id)
 
-            console.log("FOLLOWER FIND", follower)
+            // console.log("FOLLOWER FIND", follower)
 
             if (follower?.id === currentUser?.id) {
                 setFollowing(true)
@@ -101,7 +101,7 @@ function PhotoDetail() {
         setFollowing(true)
         // dispatch(getOnePhoto(singlePhotoState.id))
 
-        console.log("FOLLOWED")
+        // console.log("FOLLOWED")
     }
 
     const handleRemoveFollowClick = (e) => {
@@ -112,7 +112,7 @@ function PhotoDetail() {
         setFollowing(false)
         // dispatch(getOnePhoto(singlePhotoState.id))
 
-        console.log("UNFOLLOWED")
+        // console.log("UNFOLLOWED")
     }
 
 
